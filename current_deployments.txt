@@ -1,0 +1,22 @@
+﻿node.exe : Vercel CLI 48.10.2
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\Tiago\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Vercel CLI 48.10.2:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading scopesÔÇª
+Searching for existing projectsÔÇª
+Linked to 000tiago-projects/creator-hangar (created .vercel)
+Fetching deployments in 000tiago-projects
+> Production deployments for 000tiago-projects/creator-hangar [345ms]
+
+  Age     Deployment                                                        Status      Environment     Duration     
+Username     
+  2h      https://creator-hangar-jnjqd2i5w-000tiago-projects.vercel.app     ÔùÅ Ready     Production      45s          
+000tiago     
+  3h      https://creator-hangar-crprr0u5m-000tiago-projects.vercel.app     ÔùÅ Ready     Production      42s          
+000tiago     
+
+https://creator-hangar-jnjqd2i5w-000tiago-projects.vercel.app
+https://creator-hangar-crprr0u5m-000tiago-projects.vercel.app
