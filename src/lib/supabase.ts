@@ -3,9 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 
 // TEMPORARY HARDCODED VALUES - Next.js 16 Turbopack bug workaround
 // TODO: Fix environment variables loading issue
-const SUPABASE_URL = 'https://oqtmmzlfornqkqwwdqnz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb3JucWtxd3dkcW56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0MjkxMDksImV4cCI6MjA0ODAwNTEwOX0.yDEwKCx5ygGMpUHxTCLYJPQZvjnI7Ot8vBKZqxPmLJo';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb3JucWtxd3dkcW56Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMjQyOTEwOSwiZXhwIjoyMDQ4MDA1MTA5fQ.xZJlQGPnbRqVqQqxPmLJoKCx5ygGMpUHxTCLYJPQZvjnI7Ot8vBKZqxPmLJo';
+const SUPABASE_URL = 'https://oqtmmzlfonhktxjnuilz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NTYyODQsImV4cCI6MjA3OTUzMjI4NH0.ZHa-kAiuz1fzZwkxEK2mPU_ckZX81HafOaeneMGA1lA';
+const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2Mzk1NjI4NCwiZXhwIjoyMDc5NTMyMjg0fQ.baASUh-IRCntLZnz6BkDcJA8kdfy8_M1aF_Tzvg-bvE';
 
 // Client-side (para componentes)
 export const supabase = createBrowserClient(
