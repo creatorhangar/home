@@ -1,0 +1,35 @@
+# ==============================================
+# TEMPLATE .ENV - COPIE PARA .env.local
+# ==============================================
+
+# INSTRUÇÕES:
+# 1. Copie todo o conteúdo abaixo
+# 2. Cole no arquivo .env.local na raiz do projeto
+# 3. As chaves do Supabase já estão preenchidas
+# 4. OAuth (Google/GitHub) é configurado no Supabase Dashboard, não aqui
+
+# ==============================================
+# SUPABASE
+# ==============================================
+NEXT_PUBLIC_SUPABASE_URL=https://oqtmmzlfonhktxjnuilz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NTYyODQsImV4cCI6MjA3OTUzMjI4NH0.ZHa-kAiuz1fzZwkxEK2mPU_ckZX81HafOaeneMGA1lA
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2Mzk1NjI4NCwiZXhwIjoyMDc5NTMyMjg0fQ.baASUh-IRCntLZnz6BkDcJA8kdfy8_M1aF_Tzvg-bvE
+
+# ==============================================
+# APP URL
+# ==============================================
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# ==============================================
+# NOTAS IMPORTANTES
+# ==============================================
+# 
+# OAuth (Google + GitHub):
+# - NÃO precisa adicionar aqui no .env
+# - Configure direto no Supabase Dashboard:
+#   https://supabase.com/dashboard/project/oqtmmzlfonhktxjnuilz/auth/providers
+#
+# Stripe (para depois):
+# - Adicione quando for integrar pagamentos
+# - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+# - STRIPE_SECRET_KEY=sk_test_...
