@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorks } from "@/components/landing/HowItWorks";
@@ -48,7 +49,9 @@ export default function Home() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <Pricing />
+        <Suspense fallback={<div className="h-96 animate-pulse bg-gray-100 rounded-3xl" />}>
+          <Pricing />
+        </Suspense>
       </div>
 
       {/* Revenue Calculator - MOVED AFTER PRICING */}

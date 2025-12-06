@@ -6,12 +6,14 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
     try {
-        const { userId, period } = await request.json() as {
+        const { userId, email, period, planType } = await request.json() as {
             userId: string;
+            email: string;
             period: BillingPeriod;
+            planType: 'pro' | 'enterprise';
         };
 
-        if (!userId || !period) {
+        if (!userId || !email || !period) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }
@@ -24,19 +26,9 @@ export async function POST(request: NextRequest) {
         // Get the appropriate price ID
         const priceId = getPriceId(currency, period);
 
-        // Get user's email from Supabase
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
-
-        if (userError || !user) {
-            return NextResponse.json(
-                { error: 'User not authenticated' },
-                { status: 401 }
-            );
-        }
-
         // Create Stripe checkout session
         const session = await stripe.checkout.sessions.create({
-            customer_email: user.email,
+            customer_email: email,
             client_reference_id: userId,
             payment_method_types: ['card'],
             mode: 'subscription',
