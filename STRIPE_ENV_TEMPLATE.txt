@@ -1,0 +1,43 @@
+# ==============================================
+# STRIPE INTEGRATION - ENVIRONMENT VARIABLES
+# ==============================================
+# Copy this content to your .env.local file
+
+# === STRIPE KEYS ===
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51SKHybLXTAG6PTSpLf7LHWHuiAg6CMyF3aQsYV20QmpG1GNZauKWn4nIacVebi9YrxK2zjsbuccOm2WPk7o2TYpm00EqaBr3Ao
+STRIPE_SECRET_KEY=sk_live_...GqTH
+STRIPE_WEBHOOK_SECRET=(get this after creating webhook in Stripe Dashboard)
+
+# === SUPABASE (already configured) ===
+NEXT_PUBLIC_SUPABASE_URL=https://oqtmmzlfonhktxjnuilz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NTYyODQsImV4cCI6MjA3OTUzMjI4NH0.ZHa-kAiuz1fzZwkxEK2mPU_ckZX81HafOaeneMGA1lA
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdG1temxmb25oa3R4am51aWx6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2Mzk1NjI4NCwiZXhwIjoyMDc5NTMyMjg0fQ.baASUh-IRCntLZnz6BkDcJA8kdfy8_M1aF_Tzvg-bvE
+
+# === APP URL ===
+NEXT_PUBLIC_APP_URL=https://creatorhangar.com
+
+# ==============================================
+# IMPORTANT NOTES
+# ==============================================
+#
+# 1. STRIPE_SECRET_KEY:
+#    - Get the full key from: https://dashboard.stripe.com/apikeys
+#    - It starts with sk_live_... or sk_test_...
+#    - Keep this SECRET - never commit to git
+#
+# 2. STRIPE_WEBHOOK_SECRET:
+#    - Create webhook at: https://dashboard.stripe.com/webhooks
+#    - Endpoint URL: https://creatorhangar.com/api/webhooks/stripe
+#    - Events to listen: checkout.session.completed, customer.subscription.*
+#    - Copy the signing secret (starts with whsec_...)
+#
+# 3. Price IDs are already configured in src/lib/stripe-prices.ts
+#    - No need to add them here
+#    - 14 currencies supported (BRL, USD, EUR, GBP, etc.)
+#    - Monthly and annual billing
+#
+# 4. After adding these variables:
+#    - Restart your dev server (npm run dev)
+#    - Test checkout flow
+#    - Configure webhook in Stripe Dashboard
+#    - Test webhook with Stripe CLI: stripe listen --forward-to localhost:3000/api/webhooks/stripe

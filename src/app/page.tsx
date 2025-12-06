@@ -17,11 +17,11 @@ import { TrustBadges } from "@/components/ui/TrustBadges";
 export default function Home() {
   return (
     <div className="bg-background-light">
-      <Navbar />
+      {/* Hero is fullscreen - no navbar, no container */}
+      <Hero />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <Hero />
-      </div>
+      {/* Navbar appears after hero */}
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <TrustBadges />

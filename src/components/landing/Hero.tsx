@@ -1,60 +1,92 @@
-import { Button } from "@/components/ui/button";
-import { ShieldCheck, CheckCircle } from "lucide-react";
+"use client";
+
+import React, { useState, Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
+import * as THREE from "three";
+import { Tesseract } from "./Tesseract";
+import { StarField } from "./StarField";
+import { UILayer } from "./UILayer";
+import { clsx } from "clsx";
+
+// --- ASSETS & CONFIG ---
+const THEME = {
+    void: "#050505",
+};
+
+// --- LOADING SCREEN ---
+function Loader() {
+    return (
+        <div className="absolute inset-0 flex items-center justify-center bg-black z-50 transition-opacity duration-1000">
+            <div className="flex flex-col items-center gap-4">
+                <div className="w-12 h-12 border-t-2 border-indigo-500 rounded-full animate-spin" />
+                <span className="text-indigo-500 text-xs tracking-[0.5em] uppercase animate-pulse">Carregando Hangar</span>
+            </div>
+        </div>
+    );
+}
 
 export function Hero() {
+    const [ready, setReady] = useState(false);
+    const [warpSpeed, setWarpSpeed] = useState(false);
+    const [auroraActive, setAuroraActive] = useState(false);
+
+    // Easter Egg 1: Warp Speed (Double Click)
+    const handleDoubleClick = () => {
+        setWarpSpeed(true);
+        // Reset after 0.5s + transition time
+        setTimeout(() => setWarpSpeed(false), 800);
+    };
+
     return (
-        <section className="py-20 sm:py-28 lg:py-36">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                {/* Content */}
-                <div className="text-center lg:text-left">
-                    <span className="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-4 py-2 rounded-full mb-6">
-                        <ShieldCheck className="w-4 h-4 mr-2" />
-                        Seus dados pertencem a você. Processamento 100% Local.
-                    </span>
+        <div
+            className="relative w-full h-screen bg-[#050505] overflow-hidden font-sans selection:bg-indigo-500 selection:text-white"
+            onDoubleClick={handleDoubleClick}
+        >
 
-                    <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-                        O hub de ferramentas completo para suas criações.
-                    </h1>
+            {/* 3D SCENE */}
+            <div className="absolute inset-0 z-0">
+                <Suspense fallback={null}>
+                    <Canvas
+                        dpr={[1, 2]}
+                        gl={{ antialias: true, toneMapping: THREE.ReinhardToneMapping, toneMappingExposure: 1.5 }}
+                        camera={{ position: [0, 0, 6], fov: warpSpeed ? 100 : 40 }}
+                        onCreated={() => setReady(true)}
+                    >
+                        <color attach="background" args={[THEME.void]} />
 
-                    <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Edite imagens em lote, remova fundos, vetorize logos e redimensione milhares de fotos com total privacidade. Sem uploads. Sem limites.
-                    </p>
+                        {/* Iluminação Aprimorada */}
+                        <ambientLight intensity={0.5} />
+                        <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={2} color="#a5b4fc" />
+                        <pointLight position={[-10, -10, -10]} intensity={1.5} color="#6366f1" />
+                        <pointLight position={[0, 10, 0]} intensity={1} color="#ffffff" />
 
-                    <div className="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
-                        <Button size="lg" className="w-full sm:w-auto bg-primary text-white px-10 py-5 text-lg rounded-xl font-bold hover:bg-primary/90 hover:scale-105 transition-all duration-300 shadow-2xl shadow-primary/30 hover:shadow-primary/40">
-                            Começar de graça
-                        </Button>
-                        <a href="#how-it-works" className="group inline-flex items-center text-primary font-semibold text-lg hover:text-primary/80 transition-colors">
-                            Como funciona
-                            <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                    </div>
+                        {/* Elementos 3D */}
+                        <StarField warpSpeed={warpSpeed} />
+                        <Tesseract onAurora={setAuroraActive} />
 
-                    {/* Trust Line */}
-                    <p className="mt-8 text-sm text-gray-500 flex items-center justify-center lg:justify-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                        <span>Sem cartão de crédito • Cancele quando quiser</span>
-                    </p>
-                </div>
-
-                {/* Images */}
-                <div className="relative h-[400px] lg:h-[500px]">
-                    <img
-                        alt="Abstract design showing a creative process"
-                        className="absolute top-0 left-0 w-2/3 h-2/3 rounded-3xl object-cover shadow-2xl transform -rotate-12 hover:scale-105 hover:-rotate-6 transition-all duration-500"
-                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop"
-                        loading="lazy"
-                    />
-                    <img
-                        alt="A different abstract design element"
-                        className="absolute bottom-0 right-0 w-3/4 h-3/4 rounded-3xl object-cover shadow-2xl transform rotate-6 border-4 border-white hover:scale-105 hover:rotate-3 transition-all duration-500"
-                        src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&h=800&fit=crop"
-                        loading="lazy"
-                    />
-                </div>
+                        {/* Reflexos no Vidro */}
+                        <Environment preset="city" />
+                    </Canvas>
+                </Suspense>
             </div>
-        </section>
+
+            {/* Aurora Burst Overlay (Easter Egg 2) */}
+            <div
+                className={clsx(
+                    "absolute inset-0 pointer-events-none transition-opacity duration-1000 z-10",
+                    auroraActive ? "opacity-30" : "opacity-0"
+                )}
+                style={{
+                    background: "linear-gradient(45deg, #4c1d95, #2e1065, #000000)" // Deep Purple Gradient
+                }}
+            />
+
+            {/* HTML UI OVERLAY */}
+            {ready && <UILayer />}
+
+            {/* LOADING STATE */}
+            {!ready && <Loader />}
+        </div>
     );
 }

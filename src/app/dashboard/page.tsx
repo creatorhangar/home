@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
 import { useAuth } from '@/lib/hooks/useAuth';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Loader2, Crown, Zap, LogOut, Settings, Grid3x3 } from 'lucide-react';
+import UpgradeButton from '@/components/pricing/UpgradeButton';
 
 export default function DashboardPage() {
     const { user, loading: authLoading, signOut } = useAuth();
@@ -81,12 +82,9 @@ export default function DashboardPage() {
                         </div>
 
                         {isFree && (
-                            <Link
-                                href="/#pricing"
-                                className="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all mt-4"
-                            >
-                                Fazer Upgrade para Pro
-                            </Link>
+                            <div className="mt-4">
+                                <UpgradeButton period="monthly" />
+                            </div>
                         )}
 
                         {isPro && (
