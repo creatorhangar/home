@@ -2,7 +2,7 @@
 // Prefer importing directly from '@/lib/supabase-client' or '@/lib/supabase-admin'
 
 export { supabase } from './supabase-client';
-export { supabaseAdmin } from './supabase-admin';
+// export { supabaseAdmin } from './supabase-admin'; // REMOVED: Import directly from '@/lib/supabase-admin' to avoid client-side bundling errors
 
 // Types
 export type Database = {

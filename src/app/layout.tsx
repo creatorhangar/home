@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import { EnvDebug } from "@/components/debug/EnvDebug";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className={`${instrumentSerif.variable} antialiased`}>
         {children}
+        <EnvDebug />
       </body>
     </html>
   );
