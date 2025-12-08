@@ -47,8 +47,8 @@ export function Pricing() {
         }
     };
 
-    const monthlyPrice = 49;
-    const annualPrice = 39; // desconto de ~20%
+    const monthlyPrice = "29,90";
+    const annualPrice = "239,00"; // Calculado: ~19,90/mês se diluído
     const currentPrice = isAnnual ? annualPrice : monthlyPrice;
 
     const plans = [
@@ -72,7 +72,7 @@ export function Pricing() {
             desc: "Para profissionais e equipes",
             price: `R$${currentPrice}`,
             period: "/mês",
-            annualNote: isAnnual ? "Cobrado R$468/ano" : null,
+            annualNote: isAnnual ? "Cobrado R$ 239,00/ano" : null,
             features: [
                 "Acesso a todas as 15+ ferramentas",
                 "Edições em lote ilimitadas",
