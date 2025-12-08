@@ -154,11 +154,28 @@ export default function DashboardPage() {
                         <p className="text-sm text-gray-600 mb-3">
                             Remova fundos de imagens em lote
                         </p>
-                        {!isPro && (
-                            <span className="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded">
-                                Requer Pro
-                            </span>
-                        )}
+                        <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                            {isPro ? 'Ilimitado' : '5 Grátis/dia'}
+                        </span>
+                    </Link>
+
+                    {/* Tool Card - Criador de Capas */}
+                    <Link
+                        href="/tools/criador-capas"
+                        className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
+                    >
+                        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
+                            <span className="text-2xl">🎨</span>
+                        </div>
+                        <h3 className="font-bold text-gray-900 mb-2">
+                            Criador de Capas
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-3">
+                            Crie capas profissionais para seus produtos
+                        </p>
+                        <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                            {isPro ? 'Ilimitado' : '5 Grátis/dia'}
+                        </span>
                     </Link>
 
                     {/* More tools coming soon */}
