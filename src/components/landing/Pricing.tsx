@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CheckCircle } from "lucide-react";
 import { useAuth } from '@/lib/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { getPriceInfo } from '@/lib/stripe-prices';
 
 export function Pricing() {
     const [isAnnual, setIsAnnual] = useState(false);
@@ -47,8 +48,8 @@ export function Pricing() {
         }
     };
 
-    const monthlyPrice = "29,90";
-    const annualPrice = "239,00"; // Calculado: ~19,90/mês se diluído
+    const { displayPrice: monthlyPrice } = getPriceInfo('BRL', 'monthly');
+    const { displayPrice: annualPrice } = getPriceInfo('BRL', 'yearly');
     const currentPrice = isAnnual ? annualPrice : monthlyPrice;
 
     const plans = [
@@ -72,7 +73,7 @@ export function Pricing() {
             desc: "Para profissionais e equipes",
             price: `R$${currentPrice}`,
             period: "/mês",
-            annualNote: isAnnual ? "Cobrado R$ 239,00/ano" : null,
+            annualNote: isAnnual ? `Cobrado ${annualPrice}/ano` : null,
             features: [
                 "Acesso a todas as 15+ ferramentas",
                 "Edições em lote ilimitadas",
