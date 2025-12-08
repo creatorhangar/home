@@ -10,7 +10,8 @@ import {
     LogOut,
     Menu,
     X,
-    CreditCard
+    CreditCard,
+    Grid3x3
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks/useAuth';
 
@@ -25,7 +26,8 @@ export default function AppLayout({
 
     const navigation = [
         { name: 'Visão Geral', href: '/dashboard', icon: LayoutDashboard },
-        { name: 'Ferramentas', href: '/tools', icon: ImageIcon },
+        { name: 'Criar Capa', href: '/tools/criador-capas', icon: ImageIcon }, // New tool
+        { name: 'Ferramentas', href: '/tools', icon: Grid3x3 },
         { name: 'Assinatura', href: '/settings/billing', icon: CreditCard },
         { name: 'Configurações', href: '/settings', icon: Settings },
     ];
@@ -67,8 +69,8 @@ export default function AppLayout({
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-                                            ? 'bg-primary/5 text-primary'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                        ? 'bg-primary/5 text-primary'
+                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                         }`}
                                 >
                                     <item.icon className={`w-5 h-5 ${isActive ? 'text-primary' : 'text-gray-400'}`} />

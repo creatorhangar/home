@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+.card-hover {
+  @apply transition transform hover:shadow-md hover:scale-105;
+}
+
+.widget-card {
+  @apply bg-white border border-ui-border rounded-lg shadow-sm;
+}
+
+.widget-title {
+  @apply font-heading text-lg text-ui-text;
+}
+
+.widget-subtitle {
+  @apply text-sm text-ui-textSecondary;
+}
