@@ -29,20 +29,28 @@ export function useAuth() {
     }, []);
 
     const signInWithGoogle = async () => {
+        const redirectTo = process.env.NEXT_PUBLIC_BASE_URL
+            ? `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`
+            : `${window.location.origin}/auth/callback`;
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo,
             },
         });
         if (error) throw error;
     };
 
     const signInWithGitHub = async () => {
+        const redirectTo = process.env.NEXT_PUBLIC_BASE_URL
+            ? `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`
+            : `${window.location.origin}/auth/callback`;
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'github',
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo,
             },
         });
         if (error) throw error;
