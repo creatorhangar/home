@@ -1,21 +1,55 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getPriceId, BillingPeriod, Currency } from '@/lib/stripe-prices';
+import { getPriceId, BillingPeriod } from '@/lib/stripe-prices';
 import { getCurrencyFromRequest } from '@/lib/currency-detection';
-import { supabase } from '@/lib/supabase';
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
     try {
-        const { userId, email, period, planType } = await request.json() as {
-            userId: string;
-            email: string;
+        const cookieStore = cookies();
+
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    get(name: string) {
+                        return cookieStore.get(name)?.value
+                    },
+                },
+            }
+        )
+
+        // 1. Verify Authentication
+        const { data: { session }, error: authError } = await supabase.auth.getSession();
+
+        if (authError || !session) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+
+        const user = session.user;
+        const userId = user.id;
+        const email = user.email;
+
+        if (!email) {
+            return NextResponse.json(
+                { error: 'User email not found' },
+                { status: 400 }
+            );
+        }
+
+        const { period, planType } = await request.json() as {
             period: BillingPeriod;
             planType: 'pro' | 'enterprise';
         };
 
-        if (!userId || !email || !period) {
+        if (!period) {
             return NextResponse.json(
-                { error: 'Missing required fields' },
+                { error: 'Missing billing period' },
                 { status: 400 }
             );
         }
@@ -27,7 +61,7 @@ export async function POST(request: NextRequest) {
         const priceId = getPriceId(currency, period);
 
         // Create Stripe checkout session
-        const session = await stripe.checkout.sessions.create({
+        const checkoutSession = await stripe.checkout.sessions.create({
             customer_email: email,
             client_reference_id: userId,
             payment_method_types: ['card'],
@@ -38,8 +72,8 @@ export async function POST(request: NextRequest) {
                     quantity: 1,
                 },
             ],
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel`,
+            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
             metadata: {
                 userId,
                 currency,
@@ -47,7 +81,7 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        return NextResponse.json({ sessionId: session.id, url: session.url });
+        return NextResponse.json({ sessionId: checkoutSession.id, url: checkoutSession.url });
     } catch (error: any) {
         console.error('Checkout error:', error);
         return NextResponse.json(
