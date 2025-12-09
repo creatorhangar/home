@@ -164,6 +164,24 @@ export default function DashboardPage() {
                         <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Criador de Capas</h3>
                         <p className="text-sm text-gray-500 mb-4 line-clamp-2">Crie capas para Etsy atraentes em segundos.</p>
                     </Link>
+
+                    {/* Tool Card 4 */}
+                    <Link href="/tools/compressor-imagem" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
+                            📉
+                        </div>
+                        <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Compressor de Imagem</h3>
+                        <p className="text-sm text-gray-500 mb-4 line-clamp-2">Reduza o tamanho de imagens com qualidade.</p>
+                    </Link>
+
+                    {/* Tool Card 5 */}
+                    <Link href="/tools/gerador-templates" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-pink-500/20 group-hover:scale-110 transition-transform">
+                            📑
+                        </div>
+                        <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-pink-600 transition-colors">Gerador de Templates</h3>
+                        <p className="text-sm text-gray-500 mb-4 line-clamp-2">Crie templates organizados para produtividade.</p>
+                    </Link>
                 </div>
             </div>
 
