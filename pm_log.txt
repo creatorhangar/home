@@ -1,0 +1,6 @@
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1327,86): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1332,31): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/utils/imageProcessor.ts(1159,72): error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', 'node18', 'node20', or 'nodenext'.
+src/components/tools/removedor-fundo/utils/imageProcessor.ts(1206,72): error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', 'node18', 'node20', or 'nodenext'.
+src/components/tools/removedor-fundo/utils/imageProcessor.ts(1237,72): error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', 'node18', 'node20', or 'nodenext'.
+src/components/tools/removedor-fundo/utils/imageProcessor.ts(1268,72): error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', 'node18', 'node20', or 'nodenext'.

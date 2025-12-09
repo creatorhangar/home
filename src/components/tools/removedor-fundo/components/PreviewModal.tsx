@@ -894,9 +894,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({ images, currentIndex, optio
     setLocalOptions(prev => ({
       ...prev,
       [key]: {
-        ...prev[key],
+        ...(prev[key] as any),
         [nestedKey]: value
-      }
+      } as any
     }));
   };
 
@@ -1320,7 +1320,12 @@ const PreviewModal: React.FC<PreviewModalProps> = ({ images, currentIndex, optio
                       <div className="flex items-center justify-between mb-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 w-full">
                           {['Definir área', 'Ajustar parâmetros', 'Refino manual', 'Aplicar'].map((label, idx) => (
-                            <button key={idx} onClick={() => setActiveTool(idx === 0 ? 'crop' : idx === 2 ? 'refine' : null)} className={`text-xs px-2 py-1 rounded ${(idx === 0 && activeTool === 'crop') || (idx === 2 && activeTool === 'refine') ? 'bg-accent-primary text-white' : 'bg-white text-text-secondary border border-gray-200'}`}>{label}</button>
+                            <button key={idx} onClick={() => {
+                              if (idx === 0) setActiveTool('crop');
+                              else if (idx === 2) setActiveTool('refine');
+                              else setActiveTool(null);
+                            }} className={`text-xs px-2 py-1 rounded ${(idx === 0 && activeTool === 'crop') || (idx === 2 && activeTool === 'refine') ? 'bg-accent-primary text-white' : 'bg-white text-text-secondary border border-gray-200'}`}>{label}</button>
+
                           ))}
                         </div>
                         <Button variant="secondary" onClick={() => {

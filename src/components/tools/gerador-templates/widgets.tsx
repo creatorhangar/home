@@ -798,12 +798,12 @@ export function IconPickerBasic({ value, onChange }: { value?: string; onChange:
   const filtered = icons.filter(i => i.name.toLowerCase().includes(query.toLowerCase()))
   return (
     <div>
-      <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar ícone" className="w-full border border-ui.border rounded-md px-2 py-1 text-sm" />
+      <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar ícone" className="w-full border border-ui-border rounded-md px-2 py-1 text-sm" />
       <div className="mt-2 grid grid-cols-4 gap-2">
         {filtered.map(({ name, Comp }) => (
-          <button key={name} onClick={() => onChange(name)} className={`p-2 border rounded-md ${value === name ? 'border-ui.primary' : 'border-ui.border'}`}>
-            <Comp className="w-5 h-5 text-ui.text" />
-            <div className="text-[10px] text-ui.textSecondary mt-1">{name}</div>
+          <button key={name} onClick={() => onChange(name)} className={`p-2 border rounded-md ${value === name ? 'border-ui-primary' : 'border-ui-border'}`}>
+            <Comp className="w-5 h-5 text-ui-text" />
+            <div className="text-[10px] text-ui-textSecondary mt-1">{name}</div>
           </button>
         ))}
       </div>
