@@ -54,23 +54,17 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { session } } = await supabase.auth.getSession()
+}
 
-  // Protect sensitive routes (Settings, Billing)
-  if ((request.nextUrl.pathname.startsWith('/settings') ||
-    request.nextUrl.pathname.startsWith('/api/stripe')) && !session) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+// Dashboard is now public-friendly (Welcome Guest), but we can optionally protect sub-routes if needed later.
+// For now, we allow /dashboard access to everyone.
 
-  // Dashboard is now public-friendly (Welcome Guest), but we can optionally protect sub-routes if needed later.
-  // For now, we allow /dashboard access to everyone.
+return response
 
-  return response
+// Protect API routes (optional, but good practice if not public)
+// Logic for APIs is often better handled inside the route handler for 401 JSON responses
 
-  // Protect API routes (optional, but good practice if not public)
-  // Logic for APIs is often better handled inside the route handler for 401 JSON responses
-
-  return response
+return response
 }
 
 export const config = {

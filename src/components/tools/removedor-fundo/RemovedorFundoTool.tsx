@@ -47,12 +47,12 @@ const SETTINGS_STORAGE_KEY = 'ips_removal_settings';
 type PreviewBg = 'dark' | 'light' | 'checkerboard';
 const PREVIEW_BG_STORAGE_key = 'ips_preview_bg';
 
-// Carrega as opções iniciais do localStorage ou usa padrões.
+// Carrega as opções iniciais (padrões). A leitura do localStorage acontece no useEffect.
 const getInitialOptions = (): ProcessingOptions => {
-  const defaults: ProcessingOptions = {
+  return {
     tolerance: 30,
     edgeSoftness: 0,
-    edgeRefinement: -1, // Sutilmente "come" a borda para remover halos brancos.
+    edgeRefinement: -1,
     contourSmoothing: 0,
     colorDecontamination: 50,
     sticker: false,
@@ -71,33 +71,9 @@ const getInitialOptions = (): ProcessingOptions => {
     bilateralSigmaColor: 25,
     bilateralEdgesOnly: true,
   };
-  try {
-    const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
-    if (savedSettings) {
-      const parsed = JSON.parse(savedSettings);
-      // Mescla os padrões com os salvos para garantir que todas as chaves existam
-      return {
-        ...defaults,
-        ...parsed,
-        outline: { ...defaults.outline, ...parsed.outline },
-        dropShadow: { ...defaults.dropShadow, ...parsed.dropShadow },
-        background: { ...defaults.background, ...parsed.background },
-      };
-    }
-  } catch (error) {
-    console.error("Failed to load settings from localStorage", error);
-  }
-  return defaults;
 };
 
-// Carrega a preferência de fundo de pré-visualização do localStorage.
-const getInitialPreviewBg = (): PreviewBg => {
-  const saved = localStorage.getItem(PREVIEW_BG_STORAGE_key);
-  if (saved === 'dark' || saved === 'light' || saved === 'checkerboard') {
-    return saved;
-  }
-  return 'dark';
-};
+const getInitialPreviewBg = (): PreviewBg => 'dark';
 
 
 // --- Componente de Toggle Switch ---
@@ -174,6 +150,54 @@ export default function RemovedorFundoTool() {
   const [isSilhouetteMode, setIsSilhouetteMode] = useState(options.mode === 'silhouette');
   const [globalPreviewBg, setGlobalPreviewBg] = useState<PreviewBg>(getInitialPreviewBg());
   const [showExportModal, setShowExportModal] = useState(false);
+
+  // Carrega as configurações do localStorage após a montagem do componente
+  useEffect(() => {
+    try {
+      const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+      if (savedSettings) {
+        const parsed = JSON.parse(savedSettings);
+        setOptions(prev => ({
+          ...prev,
+          ...parsed,
+          outline: { ...prev.outline, ...(parsed.outline || {}) },
+          dropShadow: { ...prev.dropShadow, ...(parsed.dropShadow || {}) },
+          background: { ...prev.background, ...(parsed.background || {}) },
+        }));
+      }
+
+      const savedBg = localStorage.getItem(PREVIEW_BG_STORAGE_key);
+      if (savedBg === 'dark' || savedBg === 'light' || savedBg === 'checkerboard') {
+        setGlobalPreviewBg(savedBg as PreviewBg);
+      }
+    } catch (error) {
+      console.error("Failed to load settings from localStorage", error);
+    }
+  }, []);
+
+  // Carrega as configurações do localStorage após a montagem do componente
+  useEffect(() => {
+    try {
+      const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+      if (savedSettings) {
+        const parsed = JSON.parse(savedSettings);
+        setOptions(prev => ({
+          ...prev,
+          ...parsed,
+          outline: { ...prev.outline, ...(parsed.outline || {}) },
+          dropShadow: { ...prev.dropShadow, ...(parsed.dropShadow || {}) },
+          background: { ...prev.background, ...(parsed.background || {}) },
+        }));
+      }
+
+      const savedBg = localStorage.getItem(PREVIEW_BG_STORAGE_key);
+      if (savedBg === 'dark' || savedBg === 'light' || savedBg === 'checkerboard') {
+        setGlobalPreviewBg(savedBg as PreviewBg);
+      }
+    } catch (error) {
+      console.error("Failed to load settings from localStorage", error);
+    }
+  }, []);
 
   // Salva a preferência de fundo de pré-visualização no localStorage sempre que ela muda.
   useEffect(() => {

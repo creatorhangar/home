@@ -98,6 +98,25 @@ export default function ToolsPage() {
                     </span>
                 </Link>
 
+                {/* Tool Card - Criador de Capas */}
+                <Link
+                    href="/tools/criador-capas"
+                    className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
+                >
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span className="text-2xl">🎨</span>
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-2">
+                        Criador de Capas
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                        Crie capas para Etsy atraentes em segundos
+                    </p>
+                    <span className="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">
+                        Em Atualização
+                    </span>
+                </Link>
+
                 {/* More tools coming soon */}
                 <div className="bg-gray-50 rounded-xl p-6 border-2 border-dashed border-gray-300">
                     <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
