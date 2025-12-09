@@ -4,9 +4,12 @@ import { useStore } from '../../store';
 import { useUsage } from '@/lib/hooks/useUsage';
 import { useRouter } from 'next/navigation';
 
+import { FreeLimitModal } from '@/components/ui/FreeLimitModal';
+
 export const HUD = () => {
     const [isOpen, setIsOpen] = useState(true);
-    const { incrementUsage } = useUsage();
+    const { incrementUsage, remaining, checkLimit } = useUsage('loop-video', 1);
+    const [showLimitModal, setShowLimitModal] = useState(false);
     const router = useRouter();
 
     const {
@@ -36,9 +39,7 @@ export const HUD = () => {
             setIsExporting(true);
         } catch (error: any) {
             if (error.message === 'LIMIT_REACHED') {
-                if (confirm('Limite de exportação atingido (1 vídeo/dia no Grátis). Atualize para o Pro!')) {
-                    router.push('/dashboard?upgrade=true');
-                }
+                setShowLimitModal(true);
             }
         }
     };
@@ -307,6 +308,11 @@ export const HUD = () => {
                     color: #aaa;
                 }
             `}</style>
+            <FreeLimitModal
+                isOpen={showLimitModal}
+                toolName="Loop Video"
+                limit={1}
+            />
         </div>
     );
 };

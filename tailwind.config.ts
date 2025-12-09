@@ -9,13 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#231641",
-        "background-light": "#F9F8F6",
-        "background-dark": "#121212",
+        primary: {
+          DEFAULT: "#231641",
+          light: "#3A2665",
+          dark: "#140C26",
+        },
+        secondary: {
+          DEFAULT: "#FF006E", // Vibrant accent
+          light: "#FF3389",
+          dark: "#CC0058",
+        },
+        "background-light": "#FAFAFA",
+        "background-dark": "#0A0A0A",
+        surface: "#FFFFFF",
+        "surface-dark": "#1E1E1E",
       },
       fontFamily: {
-        display: ["var(--font-instrument-serif)", "serif"],
-        sans: ["Roboto", "sans-serif"],
+        display: ['"Instrument Serif"', 'serif'],
+        sans: ['"Inter"', '"Roboto"', 'sans-serif'],
+        luxury: ['"Cinzel"', 'serif'],
       },
       borderRadius: {
         DEFAULT: "1rem",

@@ -19,6 +19,7 @@ import { Toast, ToastContainer } from './components/Toast';
 import { useTranslation } from './utils/localization';
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
+import { FreeLimitModal } from '@/components/ui/FreeLimitModal';
 
 
 
@@ -145,7 +146,8 @@ export default function RemovedorFundoTool() {
     return unsubscribe; // Limpa a inscrição ao desmontar o componente.
   }, [addToast]);
 
-  const { incrementUsage } = useUsage();
+  const { incrementUsage } = useUsage('removedor-fundo', 5);
+  const [showLimitModal, setShowLimitModal] = useState(false);
   const router = useRouter();
 
   // Hook customizado que encapsula toda a lógica de processamento de imagens.
@@ -339,8 +341,7 @@ export default function RemovedorFundoTool() {
       downloadAllAsZip();
     } catch (error: any) {
       if (error.message === 'LIMIT_REACHED') {
-        alert('Você atingiu o limite de 5 downloads diários do plano Grátis. Atualize para o Pro para downloads ilimitados!');
-        router.push('/dashboard?upgrade=true');
+        setShowLimitModal(true);
       } else {
         console.error(error);
         toastEventManager.emit('toasts.error', 'system.error' as any);
@@ -549,8 +550,7 @@ export default function RemovedorFundoTool() {
                 } catch (error: any) {
                   if (error.message === 'LIMIT_REACHED') {
                     setShowExportModal(false);
-                    alert('Limite atingido! Atualize para Pro.');
-                    router.push('/dashboard?upgrade=true');
+                    setShowLimitModal(true);
                   }
                 }
               }}
@@ -558,6 +558,12 @@ export default function RemovedorFundoTool() {
             />
           </React.Suspense>
         )}
+
+        <FreeLimitModal
+          isOpen={showLimitModal}
+          toolName="Removedor de Fundo"
+          limit={5}
+        />
 
       </div>
     </ErrorBoundary>
