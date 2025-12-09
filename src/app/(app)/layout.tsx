@@ -225,8 +225,8 @@ export default function AppLayout({
                 </header>
 
                 {/* Content Scroll Area */}
-                <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 scroll-smooth">
-                    <div className="max-w-7xl mx-auto w-full">
+                <div className={`flex-1 overflow-auto scroll-smooth ${pathname?.startsWith('/tools') ? 'p-0' : 'p-4 sm:p-6 lg:p-8'}`}>
+                    <div className={`w-full ${pathname?.startsWith('/tools') ? '' : 'max-w-7xl mx-auto'}`}>
                         {children}
                     </div>
                 </div>
