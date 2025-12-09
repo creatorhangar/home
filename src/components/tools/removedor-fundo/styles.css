@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utilities previously in index.html */
+.checkerboard-bg {
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+.bg-blurry-blob {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.3;
+  z-index: -1;
+  animation: move 25s infinite alternate;
+}
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  top: -150px;
+  left: -150px;
+  background-color: #E5734D;
+}
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -200px;
+  right: -200px;
+  background-color: #fbc2eb;
+  animation-delay: -10s;
+}
+@keyframes move {
+  from { transform: translate(0, 0) scale(1) rotate(0deg); }
+  to { transform: translate(100px, 100px) scale(1.2) rotate(90deg); }
+}
+.letter-mask { display: inline-block; }
+.letter-content {
+  display: inline-block;
+  opacity: 0;
+  animation: fade-in-up 0.4s ease-out forwards;
+  animation-delay: var(--delay);
+  will-change: opacity, transform;
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border-width: 0;
+}
+.progress-bar-transition { transition: width 0.3s ease-in-out; }
+.cursor-eyedropper-zoom {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='12' cy='12' r='10' stroke='black' stroke-width='2' fill='white' fill-opacity='0.5' /%3E%3Cline x1='12' y1='6' x2='12' y2='18' stroke='black' stroke-width='1' /%3E%3Cline x1='6' y1='12' x2='18' y2='12' stroke='black' stroke-width='1' /%3E%3Cline x1='20' y1='20' x2='26' y2='26' stroke='black' stroke-width='2' /%3C/svg%3E") 12 12, crosshair;
+}
+.zoom-loupe {
+  position: absolute; width: 120px; height: 120px; border-radius: 50%;
+  border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  pointer-events: none; overflow: hidden; background-repeat: no-repeat; z-index: 100; image-rendering: pixelated;
+}
+.zoom-loupe-crosshair { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.zoom-loupe-crosshair::before, .zoom-loupe-crosshair::after { content: ''; position: absolute; background-color: rgba(0, 0, 0, 0.4); }
+.zoom-loupe-crosshair::before { left: 50%; width: 1px; height: 100%; transform: translateX(-50%); }
+.zoom-loupe-crosshair::after { top: 50%; height: 1px; width: 100%; transform: translateY(-50%); }
+.zoom-loupe-color-swatch {
+  position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%);
+  padding: 4px 10px; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+  color: white; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.pin-marker { position: absolute; width: 18px; height: 18px; border-radius: 50%; transform: translate(-50%, -50%); border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.5); z-index: 5; pointer-events: none; }
+.pin-marker-inner { width: 100%; height: 100%; border-radius: 50%; animation: pulse 1.5s infinite ease-in-out; }
+@keyframes pulse { 0% { transform: scale(0.8); opacity: 0.7; } 50% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.7; } }
+.brush-cursor { position: absolute; border: 1px solid white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 1000; }

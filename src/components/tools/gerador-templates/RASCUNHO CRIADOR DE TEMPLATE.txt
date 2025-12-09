@@ -1,0 +1,2098 @@
+ATENCAO: NO DOCUMENTO VAICITAR VARIAS VEZES SOBRE TRABALHO EM EQUIPE, E ETC, MAS NAO, O APP É PRA SER CLIENT SIDDE PRA SEMPRE, SEMPRECISAR USAR INTERET, NAO É UMA OPCAO TER ESSA INTEGRACAO ONLINE, O CLIENTE TEM O APP USA ALI NO PC\CEL DELE E OK, SEM CONTATO COM OUTROS USUARIOS, OU EQUIPE. ISSO É REGRA, MANTRA.
+Diretriz Técnica COMPLETA: App Criador de Templates
+Documento de Especificação para Desenvolvimento
+
+1. STACK TECNOLÓGICA ATUALIZADA
+Bibliotecas Adicionais Obrigatórias
+Ícones e Elementos Visuais:
+
+lucide-react: Biblioteca de ícones consistentes e modernos (1000+ ícones prontos)
+Usar para: copos d'água, checkboxes, setas, estrelas, corações, etc.
+
+Animações:
+
+framer-motion: Micro-animações suaves e profissionais
+Usar para: hover nos blocos, transições, feedback visual
+
+Gráficos e Visualizações:
+
+recharts: Para progress bars, gráficos de progresso, visualizações de dados
+Usar para: trackers visuais, barras de progresso circulares
+
+Interface:
+
+react-colorful: Color picker profissional
+@radix-ui/react-popover: Popovers para configurações
+@radix-ui/react-tabs: Navegação por abas no painel lateral
+
+
+2. ARQUITETURA DE BANCO DE DADOS EXPANDIDA
+Tabela 3: temas_visuais (NOVA)
+Armazena os temas de design pré-configurados.
+ColunaTipoDescriçãoiduuidChave primárianome_tematext"Minimalist Sage", "Warm Boho", "Corporate Blue"cores_primariasjsonbArray de cores principaiscores_acentojsonbArray de cores de destaquetipografiajsonbFont-family, tamanhos, pesosestilo_bordastext"rounded-lg", "rounded-none", "rounded-2xl"estilo_sombrastextClasses Tailwind de sombra
+Tabela 4: biblioteca_assets (NOVA)
+Biblioteca de elementos visuais prontos.
+ColunaTipoDescriçãoiduuidChave primáriacategoriatext"ilustracoes", "patterns", "divisores"nome_assettext"Floral Border", "Geometric Pattern"tipo_arquivotext"svg", "png"url_arquivotextURL do asset no storagetagstext[]["floral", "primavera", "delicado"]
+Atualização na Tabela templates_usuario
+Adicionar colunas:
+ColunaTipoDescriçãotema_iduuidFK para temas_visuais (qual tema está usando)metadatajsonbTags, categoria, descriçãocriado_emtimestampData de criaçãoatualizado_emtimestampÚltima modificação
+
+3. SISTEMA DE TEMAS VISUAIS
+Estrutura de um Tema (JSON)
+json{
+  "id": "tema-minimalist-sage",
+  "nome_tema": "Minimalist Sage",
+  "cores_primarias": [
+    "#F8F9F8",  // Fundo principal
+    "#FFFFFF",  // Fundo secundário
+    "#3D3D3D"   // Texto principal
+  ],
+  "cores_acento": [
+    "#A8B5A0",  // Sage principal
+    "#E8EDE7",  // Sage claro
+    "#7A8A73",  // Sage escuro
+    "#D4DBD0"   // Sage médio
+  ],
+  "tipografia": {
+    "heading": "font-serif",
+    "body": "font-sans",
+    "tamanhos": {
+      "titulo": "text-3xl",
+      "subtitulo": "text-lg",
+      "corpo": "text-sm"
+    }
+  },
+  "estilo_bordas": "rounded-lg",
+  "estilo_sombras": "shadow-sm"
+}
+Temas Pré-Configurados Obrigatórios
+Tema 1: Minimalist Sage
+
+Cores: Verde sálvia suave + brancos + cinza grafite
+Bordas: Médias (rounded-lg)
+Sombras: Sutis
+Estilo: Clean, espaços respiratórios, linhas finas
+
+Tema 2: Warm Boho
+
+Cores: Terracota + bege + marfim + mostarda suave
+Bordas: Arredondadas (rounded-2xl)
+Sombras: Médias com tom quente
+Estilo: Aconchegante, orgânico
+
+Tema 3: Corporate Blue
+
+Cores: Azul navy + cinza ardósia + branco + azul claro
+Bordas: Retas (rounded-sm)
+Sombras: Estruturadas
+Estilo: Profissional, estruturado
+
+Tema 4: Soft Lavender
+
+Cores: Lavanda + rosa pálido + branco + cinza suave
+Bordas: Muito arredondadas (rounded-xl)
+Sombras: Difusas e suaves
+Estilo: Delicado, feminino
+
+Tema 5: Monochrome Elegant
+
+Cores: Preto + branco + cinzas graduados
+Bordas: Minimalistas (rounded-md)
+Sombras: Fortes e definidas
+Estilo: Alto contraste, editorial
+
+
+4. BIBLIOTECA DE WIDGETS EXPANDIDA E MELHORADA
+CATEGORIA: Texto e Mídia
+1. WidgetTexto
+
+Tipos: Título Grande, Subtítulo, Parágrafo, Citação com Aspas
+Propriedades editáveis: Conteúdo, alinhamento, cor do texto
+Estilo adaptativo ao tema escolhido
+
+2. WidgetImagem
+
+Upload de arquivo (PNG, JPG)
+Crop e redimensionamento interno
+Bordas arredondadas opcionais
+Opção de filtro (grayscale, sepia, nenhum)
+
+3. WidgetDivisor
+
+Tipos: Linha simples, Linha com ícone central, Linha pontilhada, Linha ondulada
+Usa ícones do lucide-react para divisores com ícone
+Espessura e cor configuráveis
+
+CATEGORIA: Listas (Produtividade)
+4. WidgetListaDeTarefas
+
+Checkboxes visuais usando lucide-react (Square, CheckSquare)
+Animação com framer-motion ao "marcar" (mesmo que seja visual)
+Linhas editáveis (adicionar/remover itens)
+Variantes: Checkbox simples, Checkbox com círculo, Checkbox com estrela
+
+5. WidgetListaNumerada
+
+Numeração customizável (1-2-3, I-II-III, a-b-c)
+Ícones numéricos circulares ou quadrados
+Indentação configurável
+
+6. WidgetListaComPontos
+
+Bullet points customizáveis usando lucide-react
+Opções: Ponto padrão, Seta, Estrela, Coração, Folha
+Cor e tamanho dos ícones ajustáveis
+
+CATEGORIA: Planejamento (Planners)
+7. WidgetPlannerSemanal
+
+Grade de 7 colunas (Dom-Sáb)
+Cada dia com espaço para 4-6 itens
+Headers dos dias com ícones (sol para domingo, lua para segunda, etc.)
+Linhas horizontais para separar horários
+
+8. WidgetPlannerMensal
+
+Grade de calendário tradicional (7x5 ou 7x6)
+Dias do mês numerados
+Espaço para anotações em cada dia
+Headers dos dias da semana
+
+9. WidgetPrioridadesDoDia
+
+3 seções: Alta Prioridade, Média Prioridade, Baixa Prioridade
+Ícones de flag usando lucide-react (Flag icon)
+Cores diferentes por prioridade seguindo o tema
+
+10. WidgetHorarioDoMeuDia
+
+Timeline vertical com slots de hora (6h, 7h, 8h... 22h)
+Blocos de tempo editáveis
+Ícones de relógio usando lucide-react (Clock icon)
+
+CATEGORIA: Rastreadores (Trackers)
+11. WidgetTrackerDeHabitos
+
+Grade: Hábitos (linhas) x Dias do Mês (colunas)
+Cada célula é um checkbox visual
+Até 10 hábitos x 31 dias
+Ícones customizáveis por hábito (exercício = Dumbbell, água = Droplet, etc.)
+Contador de streak visual
+
+12. WidgetControleDeAgua
+
+SOLUÇÃO PARA ÍCONES: Usar lucide-react com o ícone GlassWater ou Droplets
+Layout: 8 copos em linha ou grid 2x4
+Estados: Vazio (outline), Cheio (filled)
+Animação de "preenchimento" com framer-motion
+Contador visual: "5/8 copos"
+
+13. WidgetMoodTracker
+
+Grade de 30-31 dias
+Cada dia tem um emoji/ícone de humor
+5 estados: Muito Feliz (Smile), Feliz (SmilePlus), Neutro (Meh), Triste (Frown), Muito Triste (CloudRain)
+Usa lucide-react para os ícones de humor
+
+14. WidgetTrackerDeExercicios
+
+Lista de tipos de exercício (Cardio, Força, Yoga, etc.)
+Checkboxes por dia da semana
+Ícones usando lucide-react (Heart para cardio, Dumbbell para força, etc.)
+
+15. WidgetGratitude
+
+3 linhas para "Hoje sou grato por..."
+Ícone de coração ou estrela no início de cada linha
+Texto editável com placeholder sugestivo
+
+CATEGORIA: Metas e Progresso
+16. WidgetProgressBar
+
+Barra de progresso horizontal
+USA RECHARTS: Componente visual de barra preenchida
+Configurável: Meta (ex: "Ler 12 livros"), Progresso Atual, Meta Total
+Porcentagem calculada automaticamente
+Estilos: Linear, Circular (usando recharts Radial Bar)
+
+17. WidgetContadorRegressivo
+
+Para metas com prazo (ex: "30 dias até a viagem")
+Display grande do número de dias restantes
+Ícone de calendário usando lucide-react (Calendar icon)
+
+18. WidgetMetas3Meses
+
+3 caixas grandes: Mês 1, Mês 2, Mês 3
+Cada mês com espaço para 3-5 metas
+Checkboxes para marcar conclusão
+
+CATEGORIA: Financeiro
+19. WidgetControleDeGastos
+
+Categorias de gastos (Alimentação, Transporte, Lazer, etc.)
+Cada categoria com ícone (lucide-react: ShoppingCart, Car, Film, etc.)
+Campo para valor gasto
+Total calculado automaticamente
+
+20. WidgetPoupanca
+
+Visual de "cofrinho enchendo"
+Usa recharts para gráfico de progresso
+Meta de economia vs. Valor atual
+Porcentagem visual
+
+CATEGORIA: Saúde e Bem-Estar
+21. WidgetTrackerDeSono
+
+Grade de 30 dias
+Cada dia mostra horas de sono (campo editável)
+Cor da célula muda conforme as horas (verde = 8h+, amarelo = 6-7h, vermelho = <6h)
+Ícone de lua usando lucide-react (Moon icon)
+
+22. WidgetRefeicoes
+
+3-5 refeições do dia (Café, Almoço, Lanche, Jantar, Ceia)
+Cada refeição com ícone (lucide-react: Coffee, UtensilsCrossed, Cookie)
+Checkboxes para marcar "refeição saudável"
+
+23. WidgetTrackerDeCiclo (para mulheres)
+
+Calendário mensal
+Marcação de dias do ciclo
+Ícones discretos e cores suaves
+Notas para sintomas
+
+CATEGORIA: Criatividade e Estudos
+24. WidgetBookTracker
+
+Lista de livros para ler
+Campos: Título, Autor, Páginas
+Progress bar individual por livro (recharts)
+Ícone de livro (lucide-react: Book icon)
+
+25. WidgetPomodoroPlanner
+
+Grid para sessões de estudo
+Cada sessão = 1 tomate visual
+Contador de tomates completados
+Ícone de timer (lucide-react: Timer icon)
+
+26. WidgetIdeias
+
+Espaço livre para brainstorming
+Ícone de lâmpada (lucide-react: Lightbulb)
+Linhas ou grid de post-its visuais
+
+CATEGORIA: Social e Relacionamentos
+27. WidgetMemoriasDoMes
+
+Grid 3x3 ou 2x3
+Cada célula para uma "memória/foto"
+Texto editável embaixo
+Ícone de câmera (lucide-react: Camera)
+
+28. WidgetAniversarios
+
+Lista de aniversários do mês
+Cada entrada com nome, data, ícone de bolo
+Usa lucide-react: Cake icon
+
+
+5. SISTEMA DE BLOCOS INTELIGENTES
+Comportamento de Redimensionamento
+Regras Gerais:
+
+Todos os widgets têm minW (largura mínima) e minH (altura mínima) no grid
+Ao aumentar altura: adicionar mais linhas/espaço interno proporcionalmente
+Ao aumentar largura: ajustar layout interno (ex: de 1 coluna para 2 colunas)
+
+Exemplos Específicos:
+WidgetListaDeTarefas:
+
+minH: 3 (3 tarefas mínimas)
+Se h: 6 → mostrar 6-8 linhas de tarefas
+Se h: 10 → mostrar 12-15 linhas de tarefas
+
+WidgetControleDeAgua:
+
+minW: 4, minH: 2
+Se w: 4 → layout 2x4 (2 colunas, 4 linhas)
+Se w: 8 → layout 4x2 (4 colunas, 2 linhas)
+
+WidgetTrackerDeHabitos:
+
+minW: 8, minH: 4
+Se redimensionado, ajustar tamanho das células mantendo proporção
+Nunca deixar células menores que 24px
+
+
+6. PAINEL DE PROPRIEDADES (Sidebar Direita)
+Quando um bloco está selecionado, mostrar:
+Aba 1: Conteúdo
+
+Campos editáveis específicos do widget
+Exemplo (Lista de Tarefas): Input para adicionar nova tarefa, botão para remover
+
+Aba 2: Estilo
+
+Cor de fundo (color picker usando react-colorful)
+Cor da borda
+Estilo da borda (sólida, pontilhada, nenhuma)
+Sombra (nenhuma, pequena, média, grande)
+Padding interno (slider de 0-40px)
+
+Aba 3: Ícones (se aplicável)
+
+Seletor de ícone do lucide-react
+Busca por nome do ícone
+Preview visual dos ícones
+Tamanho do ícone (pequeno, médio, grande)
+Cor do ícone
+
+Aba 4: Animação (se aplicável)
+
+Toggle para ativar/desativar animações
+Tipo de animação (fade, slide, scale)
+Velocidade (lenta, média, rápida)
+
+
+7. BIBLIOTECA DE ASSETS VISUAIS
+Sistema de Assets Prontos
+Categorias na Sidebar Esquerda:
+1. Ilustrações
+
+Elementos decorativos (flores, folhas, formas geométricas)
+Não são SVGs do zero: usar bibliotecas como react-pattern ou assets pré-feitos do Figma/Freepik convertidos
+Armazenar no Supabase Storage
+
+2. Patterns de Fundo
+
+Texturas sutis (dots, lines, grid)
+Aplicáveis ao fundo do canvas ou de blocos individuais
+Opacidade ajustável (10%-30%)
+
+3. Divisores Decorativos
+
+Linhas ornamentadas
+Disponíveis como componentes React prontos
+Usar elementos simples do lucide-react combinados (ex: 3 estrelas em linha)
+
+4. Badges e Labels
+
+"Importante", "Urgente", "Feito", "Em Progresso"
+Estilos: Outline, Filled, Soft
+Cores adaptáveis ao tema
+
+5. Frames e Molduras
+
+Bordas decorativas para envolver textos/imagens
+Estilos: Simples, Floral, Geométrico, Vintage
+
+
+8. FUNCIONALIDADES AVANÇADAS DO EDITOR
+8.1 Sistema de Layers (Camadas)
+Painel de Layers na Sidebar Esquerda:
+
+Lista de todos os widgets na ordem Z-index
+Drag-and-drop para reordenar camadas
+Botões: "Trazer para Frente", "Enviar para Trás"
+Ícone de olho para mostrar/ocultar layer temporariamente
+Ícone de cadeado para travar layer (não pode mover/editar)
+
+8.2 Guias e Alinhamento
+Guias Visuais:
+
+Linhas vermelhas/azuis aparecem ao arrastar para mostrar alinhamento com outros blocos
+Snap para centro do canvas
+Snap para bordas de outros blocos
+Réguas nas bordas do canvas (opcional, toggle)
+
+8.3 Duplicar e Agrupar
+Duplicar:
+
+Botão ou atalho Ctrl+D para duplicar bloco selecionado
+Duplicata aparece levemente deslocada da original
+
+Agrupar:
+
+Selecionar múltiplos blocos (Ctrl+Click)
+Botão "Agrupar" trata múltiplos blocos como um só
+Útil para templates complexos que não devem se separar
+
+8.4 Histórico (Undo/Redo)
+Implementação:
+
+Armazenar array de estados do layout_json
+Ctrl+Z para desfazer (volta 1 estado)
+Ctrl+Shift+Z para refazer
+Máximo de 20 estados no histórico
+
+
+9. GALERIA DE TEMPLATES PÚBLICOS MELHORADA
+Layout Masonry Aprimorado
+Cada Card de Template mostra:
+
+Imagem preview (thumbnail 400x600px)
+Nome do template
+Categoria (badge colorido: "Planner", "Tracker", "Lista")
+Número de blocos incluídos (ex: "12 widgets")
+Tema visual usado (badge: "Minimalist Sage")
+Botão "Usar Template" com hover elegante
+
+Filtros na Galeria:
+
+Por Categoria: Todos, Planners, Trackers, Listas, Financeiro, Saúde
+Por Tema Visual: Todos os temas pré-configurados
+Por Tamanho: Stories (1080x1920), Post Quadrado (1080x1080), A4 Digital
+Barra de busca por palavra-chave
+
+Ordenação:
+
+Mais Recentes
+Mais Usados (contador de uso)
+Alfabética A-Z
+
+
+10. TEMPLATES PÚBLICOS PRÉ-CONFIGURADOS
+15 Templates Essenciais para o Lançamento
+Categoria: Planners
+
+Planner Semanal Minimalista
+
+Tema: Minimalist Sage
+Widgets: PlannerSemanal, ListaDeTarefas, PrioridadesDoDia
+Canvas: 1080x1920 (Stories)
+
+
+Planner Mensal Boho
+
+Tema: Warm Boho
+Widgets: PlannerMensal, Metas3Meses, MemoriasDoMes
+Canvas: 1080x1350 (Post Instagram)
+
+
+Dashboard de Produtividade
+
+Tema: Corporate Blue
+Widgets: HorarioDoMeuDia, ListaDeTarefas, ProgressBar
+Canvas: 1920x1080 (Desktop wallpaper)
+
+
+
+Categoria: Trackers
+4. Tracker de Hábitos 30 Dias
+
+Tema: Soft Lavender
+Widgets: TrackerDeHabitos, MoodTracker
+Canvas: 1080x1920
+
+
+Wellness Tracker Completo
+
+Tema: Minimalist Sage
+Widgets: ControleDeAgua, TrackerDeSono, Refeicoes, TrackerDeExercicios
+Canvas: 1080x1920
+
+
+Fitness Tracker Mensal
+
+Tema: Monochrome Elegant
+Widgets: TrackerDeExercicios, ProgressBar (peso), ControleDeAgua
+Canvas: 1080x1350
+
+
+
+Categoria: Financeiro
+7. Controle Financeiro Mensal
+
+Tema: Corporate Blue
+Widgets: ControleDeGastos, Poupanca, Metas3Meses
+Canvas: 1080x1920
+
+
+Planejamento de Orçamento
+
+Tema: Minimalist Sage
+Widgets: ControleDeGastos (com categorias detalhadas), ProgressBar de economia
+Canvas: 1080x1350
+
+
+
+Categoria: Estudos
+9. Planner de Estudos Semanal
+
+Tema: Soft Lavender
+Widgets: PlannerSemanal (com horários), PomodoroPlanner, ListaDeTarefas (matérias)
+Canvas: 1080x1920
+
+
+Book Tracker Anual
+
+Tema: Warm Boho
+Widgets: BookTracker (12 livros), ProgressBar (meta de leitura)
+Canvas: 1080x1350
+
+
+
+Categoria: Bem-Estar
+11. Self-Care Tracker
+- Tema: Soft Lavender
+- Widgets: TrackerDeHabitos (autocuidado), MoodTracker, Gratitude
+- Canvas: 1080x1920
+
+Ciclo Menstrual + Bem-Estar
+
+Tema: Soft Lavender (cores ainda mais suaves)
+Widgets: TrackerDeCiclo, MoodTracker, TrackerDeSono
+Canvas: 1080x1920
+
+
+
+Categoria: Criatividade
+13. Brainstorm Board
+- Tema: Monochrome Elegant
+- Widgets: Ideias (3 blocos grandes), ListaDeTarefas (próximos passos)
+- Canvas: 1920x1080
+
+Gratitude Journal
+
+Tema: Warm Boho
+Widgets: Gratitude (3 por dia), MemoriasDoMes, MoodTracker
+Canvas: 1080x1920
+
+
+
+Categoria: Social
+15. Planejador de Conteúdo (Creators)
+- Tema: Corporate Blue
+- Widgets: PlannerSemanal (posts), ListaDeTarefas (ideias), ProgressBar (meta de seguidores)
+- Canvas: 1080x1920
+
+11. FLUXO DE USUÁRIO COMPLETO
+Jornada 1: Novo Usuário Criando do Zero
+
+Login/Cadastro → Página de boas-vindas
+Tutorial Interativo (opcional, skip)
+
+Passo 1: "Arraste um widget da biblioteca"
+Passo 2: "Redimensione e posicione"
+Passo 3: "Personalize no painel lateral"
+Passo 4: "Salve e exporte"
+
+
+Escolher Tamanho do Canvas
+
+Stories Instagram (1080x1920)
+Post Quadrado (1080x1080)
+A4 Digital (2480x3508)
+Desktop Wallpaper (1920x1080)
+
+
+Escolher Tema Visual → Grid visual dos 5 temas
+Editor → Canvas vazio com tema aplicado
+Arrastar Widgets → Personalizar
+Salvar Template → Modal: "Nome do template", "Descrição" (opcional)
+Exportar como PNG → Download automático
+
+Jornada 2: Usuário Usando Template Público
+
+Galeria de Templates
+Filtrar/Buscar → Encontrar template desejado
+Clicar "Usar Template" → Sistema duplica para o usuário
+Editor com Template Carregado
+Personalizar (mudar textos, cores, mover blocos)
+Salvar Versão Personalizada
+Exportar como PNG
+
+Jornada 3: Usuário Editando Template Salvo
+
+Dashboard "Meus Templates" → Lista de templates salvos
+Clicar em Template → Abre no Editor
+Fazer Alterações
+Auto-save a cada 10 segundos (indicador visual: "Salvo às 14:32")
+Botão Manual "Salvar" disponível
+Exportar Quando Pronto
+
+
+12. FUNCIONALIDADE DE EXPORTAÇÃO AVANÇADA
+Opções de Exportação
+Formato:
+
+PNG (padrão, qualidade alta)
+JPG (menor tamanho de arquivo)
+PDF (para impressão)
+
+Qualidade:
+
+Baixa (para preview rápido)
+Média (para compartilhar em redes sociais)
+Alta (para impressão ou uso profissional)
+
+Resolução:
+
+1x (tamanho original)
+2x (para telas Retina)
+3x (para impressão de alta qualidade)
+
+Modal de Exportação
+Interface:
+
+Preview do resultado final
+Toggles para incluir/excluir elementos:
+
+"Incluir fundo" (sim/não)
+"Incluir margem de segurança" (para impressão)
+
+
+Botão "Baixar" com loading state
+Opção "Copiar para Área de Transferência" (para colar direto no Instagram/etc)
+
+Tecnologia
+
+Usar html-to-image com configurações otimizadas
+toPng() para PNG
+toJpeg() para JPG
+Para PDF: converter PNG para PDF usando jsPDF
+
+
+13. SISTEMA DE PERSISTÊNCIA E AUTO-SAVE
+Auto-Save
+Comportamento:
+
+A cada 10 segundos, se houver mudanças não salvas
+Ao mover um bloco, espera 3 segundos de inatividade antes de salvar
+Indicador visual: "Salvando..." → "Salvo às [hora]" → "Não salvo" (se houver erro)
+
+Dados Salvos:
+
+layout_json completo (posições, tamanhos, conteúdos)
+tema_id (tema visual ativo)
+metadata (tags, descrição)
+atualizado_em (timestamp)
+
+Conflitos de Versão
+
+Se o usuário abrir o mesmo template em duas abas, a última a salvar sobrescreve
+Avisar com modal: "Este template foi editado em outra aba. Recarregar?"
+
+
+14. RESPONSIVIDADE E ACESSIBILIDADE
+Responsividade
+Desktop (>1200px):
+
+Sidebar esquerda: 280px (biblioteca de widgets)
+Canvas: Centralizado, tamanho real com scroll se necessário
+Sidebar direita: 320px (propriedades)
+
+Tablet (768px - 1199px):
+
+Sidebars colapsáveis (ícones para expandir)
+Canvas centralizado com zoom-out automático para caber
+
+Mobile (<768px):
+
+Navegação por abas inferior:
+
+Aba 1: Widgets (abre drawer bottom-to-top)
+Aba 2: Canvas (tela cheia)
+Aba 3: Propriedades (abre drawer)
+
+
+Canvas com zoom-out e pan (arrastar com dedo para mover visualização)
+Widgets arrastáveis com long-press (segurar 0.5s antes de arrastar)
+
+Acessibilidade
+Keyboard Navigation:
+
+Tab para navegar entre blocos
+Setas para mover bloco selecionado (1px por tecla, 10px com Shift)
+Delete para remover bloco selecionado
+Ctrl+Z/Y para undo/redo
+
+Screen Readers:
+
+Aria-labels em todos os botões e inputs
+Anúncio de mudanças: "Bloco movido para posição X, Y"
+
+Contraste:
+
+Todos os textos seguem WCAG AA (contraste mínimo 4.5:1)
+Modo de alto contraste disponível (toggle)
+
+
+15. PALETA DE CORES FINAL E IDENTIDADE VISUAL
+Cores da Interface (UI do App)
+Base:
+
+Fundo principal: #F8F5F2 (Bege Nude)
+Sidebar: #FFFFFF (Branco)
+Bordas: #EAEAEA (Cinza Suave)
+Texto primário: #3D3D3D (Grafite)
+Texto secundário: #A1A1A1 (Cinza Médio)
+
+Ações:
+
+Primário (botões principais): #7A8A73 (Sage escuro do tema Minimalist)
+Primário Hover: #6A7A63
+Secundário: #A8B5A0 (Sage médio)
+Perigo (deletar): #D97A7A (Vermelho suave)
+Sucesso (salvo): `
+Tentar novamenteTContinuarDiretriz Técnica COMPLETA: App Criador de Templates
+Documento de Especificação para Desenvolvimento (CONTINUAÇÃO)
+
+15. PALETA DE CORES FINAL E IDENTIDADE VISUAL (CONTINUAÇÃO)
+Ações (continuação):
+
+Sucesso (salvo): #7AA88A (Verde suave)
+Aviso (não salvo): #E8B863 (Amarelo mostarda)
+Informação: #7A9FB5 (Azul suave)
+
+Estados:
+
+Hover em cards/botões: Adicionar shadow-md e scale-105
+Focus em inputs: Border #7A8A73 com ring-2 em Sage claro
+Disabled: Opacidade 50% + cursor not-allowed
+
+Tipografia
+Fontes Recomendadas:
+
+Headings: font-family: 'DM Serif Display' ou 'Playfair Display' (serif elegante)
+Body: font-family: 'Inter' ou 'DM Sans' (sans-serif clean)
+Monospace (código/números): font-family: 'JetBrains Mono'
+
+Tamanhos (Tailwind):
+
+Título principal (H1): text-4xl font-bold
+Título de seção (H2): text-2xl font-semibold
+Subtítulo (H3): text-xl font-medium
+Corpo normal: text-base
+Texto pequeno (labels): text-sm
+Texto micro (hints): text-xs
+
+
+16. ANIMAÇÕES E MICRO-INTERAÇÕES COM FRAMER MOTION
+Animações Obrigatórias
+1. Entrada de Widgets na Biblioteca (Sidebar):
+Comportamento:
+- Ao abrir categoria: widgets aparecem com stagger (um após o outro)
+- Animação: fadeIn + slideUp
+- Duração: 0.3s
+- Delay entre itens: 0.05s
+2. Drag and Drop de Widgets:
+Comportamento:
+- Ao pegar widget: scale(1.1) + shadow-2xl
+- Durante arrasto: cursor muda, widget semi-transparente
+- Ao soltar no canvas: scale(1) + bounce suave
+- Se soltar fora do canvas: volta para origem com spring animation
+3. Seleção de Bloco:
+Comportamento:
+- Ao clicar em bloco: border azul aparece com animação (scale da border)
+- Handles de resize aparecem com fadeIn
+- Painel de propriedades desliza da direita (slideInRight)
+4. Botão "Salvar Template":
+Comportamento:
+- Hover: scale(1.05) + brightness(1.1)
+- Click: scale(0.95) → volta scale(1)
+- Salvando: ícone de loading rotacionando
+- Sucesso: checkmark verde com bounce + fadeOut
+5. Exportação:
+Comportamento:
+- Modal abre com fadeIn + scaleUp (de 0.9 para 1)
+- Progress bar durante processamento (anima de 0-100%)
+- Sucesso: confete animado + botão "Baixar" pulsa
+6. Hover em Cards de Template (Galeria):
+Comportamento:
+- Imagem: scale(1.05) com duração 0.4s
+- Overlay escuro aparece com fadeIn
+- Botão "Usar Template" desliza de baixo (slideUp)
+- Título movimenta levemente para cima
+
+17. ESTRUTURA DE PASTAS E COMPONENTES
+Organização Recomendada
+/app
+  /dashboard           → Página "Meus Templates"
+  /editor/[id]         → Editor principal
+  /gallery             → Galeria de templates públicos
+  /auth                → Login/Signup
+  
+/components
+  /editor
+    Canvas.tsx         → Container do grid layout
+    ToolBar.tsx        → Barra superior (save, export, undo/redo)
+    WidgetLibrary.tsx  → Sidebar esquerda
+    PropertiesPanel.tsx → Sidebar direita
+    LayersPanel.tsx    → Painel de camadas
+    
+  /widgets             → Todos os 28 widgets como componentes individuais
+    WidgetTexto.tsx
+    WidgetImagem.tsx
+    WidgetListaDeTarefas.tsx
+    ... (26 mais)
+    
+  /theme
+    ThemeSelector.tsx  → Seletor de tema visual
+    ColorPicker.tsx    → Picker de cor customizado
+    
+  /gallery
+    TemplateCard.tsx   → Card individual na galeria
+    FilterBar.tsx      → Barra de filtros
+    
+  /shared              → Componentes reutilizáveis
+    Button.tsx
+    Input.tsx
+    Modal.tsx
+    Dropdown.tsx
+    IconPicker.tsx     → Seletor de ícones do lucide-react
+    
+/lib
+  supabase.ts          → Cliente do Supabase
+  exportImage.ts       → Lógica de exportação com html-to-image
+  widgetRegistry.ts    → Registro de todos os widgets disponíveis
+  themeConfig.ts       → Configuração dos 5 temas
+  
+/hooks
+  useAutoSave.ts       → Hook de auto-save
+  useGridLayout.ts     → Hook para gerenciar react-grid-layout
+  useWidgets.ts        → Hook para adicionar/remover widgets
+  useTheme.ts          → Hook para aplicar tema selecionado
+  
+/types
+  template.types.ts    → Tipos TypeScript para templates
+  widget.types.ts      → Tipos para widgets
+  theme.types.ts       → Tipos para temas
+
+18. WIDGETS: ESPECIFICAÇÕES TÉCNICAS DETALHADAS
+Estrutura Base de Todo Widget
+Interface TypeScript:
+typescriptinterface BaseWidget {
+  id: string;                    // Identificador único
+  tipo: string;                  // Nome do widget
+  posicao: GridPosition;         // x, y, w, h do react-grid-layout
+  conteudo: Record<string, any>; // Dados específicos do widget
+  estilo: WidgetStyle;           // Cores, bordas, sombras
+  tema_id?: string;              // Tema aplicado (opcional)
+}
+
+interface GridPosition {
+  i: string;  // ID do item
+  x: number;  // Posição X no grid (0-11 para 12 colunas)
+  y: number;  // Posição Y no grid
+  w: number;  // Largura em unidades de grid
+  h: number;  // Altura em unidades de grid
+  minW?: number;
+  minH?: number;
+  maxW?: number;
+  maxH?: number;
+}
+
+interface WidgetStyle {
+  backgroundColor: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderStyle?: 'solid' | 'dashed' | 'dotted' | 'none';
+  borderRadius?: string;
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  padding?: number;
+}
+Especificação Individual dos Widgets Principais
+Widget 1: WidgetTexto
+Conteúdo:
+typescript{
+  texto: string;
+  tipo_texto: 'titulo' | 'subtitulo' | 'paragrafo' | 'citacao';
+  alinhamento: 'left' | 'center' | 'right' | 'justify';
+  cor_texto: string;
+  tamanho_customizado?: number; // em px, opcional
+}
+Comportamento de Redimensionamento:
+
+Altura aumenta: texto ocupa espaço vertical proporcionalmente
+Largura aumenta: texto quebra menos linhas
+Mínimo: minW: 3, minH: 1
+
+Painel de Propriedades:
+
+Textarea para editar texto
+Dropdown para tipo de texto
+Botões de alinhamento (4 opções)
+Color picker para cor do texto
+Slider para tamanho (opcional, sobrescreve tema)
+
+
+Widget 12: WidgetControleDeAgua (EXEMPLO COMPLETO)
+Conteúdo:
+typescript{
+  meta_copos: number;           // 8 padrão
+  copos_preenchidos: number;    // 0-8
+  estilo_copo: 'outline' | 'filled';
+  cor_agua: string;             // #4A90E2 padrão
+  mostrar_contador: boolean;    // true = mostra "5/8"
+  layout: 'linha' | 'grid';     // linha = 1x8, grid = 2x4
+}
+```
+
+**Implementação Visual:**
+- Usar `lucide-react` ícone `<GlassWater />` 
+- Estado vazio: `<GlassWater className="stroke-gray-300" />`
+- Estado cheio: `<GlassWater className="fill-blue-400 stroke-blue-500" />`
+- Tamanho do ícone: `size={32}` (ajustável)
+
+**Animação (Framer Motion):**
+```
+Ao clicar em copo vazio:
+- Animação de "preenchimento": scale(1.2) → scale(1)
+- Cor transiciona de gray para azul (duration: 0.4s)
+- Número do contador incrementa com spring animation
+Comportamento de Redimensionamento:
+
+minW: 4, minH: 2 (mínimo para 2x4 copos)
+Se w: 8: layout muda para 4x2 ou 1x8 (dependendo de h)
+Se h: 4: pode comportar até 12 copos em grid 3x4
+
+Painel de Propriedades:
+
+Slider: Meta de copos (1-12)
+Number input: Copos preenchidos (0-meta)
+Toggle: Mostrar contador visual
+Color picker: Cor da água
+Radio buttons: Layout (linha / grid)
+
+
+Widget 11: WidgetTrackerDeHabitos (EXEMPLO COMPLETO)
+Conteúdo:
+typescript{
+  habitos: Array<{
+    id: string;
+    nome: string;
+    icone: string;           // Nome do ícone do lucide-react
+    cor_icone: string;
+  }>;
+  dias_mes: number;          // 28, 30 ou 31
+  progresso: Record<string, boolean[]>; // Ex: {"habito1": [true, false, true, ...]}
+  mostrar_streak: boolean;   // Mostrar contagem de dias consecutivos
+}
+```
+
+**Implementação Visual:**
+- Grid CSS: `grid-template-columns: 150px repeat(31, 1fr)`
+- Primeira coluna: Nome do hábito + ícone
+- Outras colunas: Checkboxes visuais (um por dia)
+- Checkbox marcado: Usa `<CheckSquare />` do lucide-react
+- Checkbox vazio: Usa `<Square />` do lucide-react
+
+**Cálculo de Streak:**
+```
+Lógica:
+- Percorrer array de progresso de trás para frente
+- Contar dias consecutivos com true
+- Parar no primeiro false
+- Mostrar badge: "🔥 7 dias"
+Comportamento de Redimensionamento:
+
+minW: 8, minH: 4
+Altura aumenta: adicionar mais hábitos (até 15 máximo)
+Altura diminui: mostrar apenas os primeiros N hábitos (com scroll interno)
+Largura: ajustar tamanho das células proporcionalmente
+
+Painel de Propriedades:
+
+Lista editável de hábitos (adicionar/remover/reordenar)
+Para cada hábito:
+
+Input: Nome do hábito
+IconPicker: Escolher ícone do lucide-react
+Color picker: Cor do ícone
+
+
+Number input: Dias do mês (28/30/31)
+Toggle: Mostrar streak
+
+
+Widget 16: WidgetProgressBar (EXEMPLO COMPLETO)
+Conteúdo:
+typescript{
+  titulo: string;              // "Ler 12 livros em 2024"
+  valor_atual: number;         // 7
+  valor_meta: number;          // 12
+  tipo_barra: 'linear' | 'circular';
+  mostrar_porcentagem: boolean;
+  cor_preenchimento: string;   // Segue tema ou customizado
+  cor_fundo: string;
+}
+```
+
+**Implementação com Recharts:**
+
+**Linear:**
+```
+Usar componente <BarChart> do recharts
+- 1 barra horizontal
+- Preenchimento animado de 0 até (valor_atual/valor_meta * 100)%
+- Animação: duration 1000ms, easeOut
+```
+
+**Circular:**
+```
+Usar componente <RadialBarChart> do recharts
+- Círculo com preenchimento radial
+- Centro mostra: valor_atual + "/" + valor_meta
+- Porcentagem abaixo em texto menor
+```
+
+**Comportamento de Redimensionamento:**
+- Linear: `minW: 6, minH: 2`
+- Circular: `minW: 4, minH: 4` (deve ser quadrado)
+- Redimensionar mantém proporção do gráfico
+
+**Painel de Propriedades:**
+- Input: Título da meta
+- Number input: Valor atual
+- Number input: Valor meta
+- Radio buttons: Tipo de barra (linear/circular)
+- Toggle: Mostrar porcentagem
+- Color picker: Cor do preenchimento
+- Color picker: Cor de fundo da barra
+
+---
+
+## 19. SISTEMA DE ÍCONES (LUCIDE-REACT)
+
+### Implementação do IconPicker
+
+**Componente IconPicker:**
+```
+Funcionalidade:
+- Input de busca: filtra ícones por nome
+- Grid de ícones (8 colunas)
+- Cada ícone é clicável
+- Ícone selecionado tem border azul
+- Preview do ícone selecionado grande no topo
+```
+
+**Ícones Mais Usados (Pré-selecionados):**
+
+**Produtividade:**
+- CheckSquare, Square, Circle, Star, Heart
+- Flag, AlertCircle, Clock, Calendar
+- Clipboard, FileText, BookOpen
+
+**Saúde:**
+- GlassWater, Droplets, Utensils, Apple
+- Moon, Sun, Activity, Heart
+- Dumbbell, Bike, FootprintsIcon
+
+**Financeiro:**
+- DollarSign, TrendingUp, PiggyBank, Wallet
+- CreditCard, ReceiptText, Calculator
+
+**Social:**
+- Users, User, MessageCircle, Mail
+- Phone, Camera, Image, Gift
+- Cake, PartyPopper
+
+**Natureza:**
+- Flower, Leaf, TreePine, Sprout
+- Cloud, CloudRain, Snowflake, Flame
+
+**Formas:**
+- Square, Circle, Triangle, Diamond
+- Star, Heart, Hexagon
+
+### Uso nos Widgets
+
+**Regra:** Todo widget que tenha lista ou itens repetitivos DEVE permitir escolha de ícone customizado via IconPicker.
+
+**Exemplos:**
+- **ListaDeTarefas:** Cada tarefa pode ter ícone próprio
+- **TrackerDeHabitos:** Cada hábito tem ícone representativo
+- **PrioridadesDoDia:** Ícones de flag com cores diferentes
+- **ControleDeAgua:** Ícone GlassWater obrigatório
+- **Refeicoes:** Coffee, UtensilsCrossed, Cookie, etc.
+
+---
+
+## 20. EXPORTAÇÃO: ESPECIFICAÇÕES TÉCNICAS
+
+### Implementação com html-to-image
+
+**Preparação do Canvas para Exportação:**
+
+1. **Ocultar Elementos de UI:**
+   - Antes de exportar: adicionar classe `.export-mode` no body
+   - CSS: `.export-mode .grid-handles { display: none; }`
+   - Ocultar: handles de resize, borders de seleção, botões de ação
+
+2. **Garantir Fontes Carregadas:**
+   - Usar `document.fonts.ready.then()` antes de exportar
+   - Evita fontes faltando na imagem final
+
+3. **Configuração do html-to-image:**
+```
+Opções:
+- quality: 1.0 (máxima qualidade)
+- pixelRatio: 2 (para Retina) ou 3 (para impressão)
+- backgroundColor: '#FFFFFF' (ou cor do tema)
+- cacheBust: true (evita cache de imagens antigas)
+- skipAutoScale: false (respeita zoom do navegador)
+```
+
+4. **Processamento:**
+```
+Fluxo:
+1. Adicionar classe .export-mode
+2. Aguardar document.fonts.ready
+3. Chamar toPng() ou toJpeg() com configurações
+4. Receber blob da imagem
+5. Remover classe .export-mode
+6. Criar URL temporário do blob
+7. Criar elemento <a> com download
+8. Clicar automaticamente
+9. Revogar URL temporário
+Opções de Exportação na UI
+Modal de Exportação:
+Seção 1: Formato
+
+Radio buttons: PNG (padrão) / JPG / PDF
+Texto explicativo: "PNG para transparência, JPG para menor tamanho"
+
+Seção 2: Qualidade
+
+Slider: Baixa (1x) / Média (2x) / Alta (3x)
+Preview do tamanho do arquivo estimado: "~2.3 MB"
+
+Seção 3: Configurações Adicionais
+
+Toggle: "Incluir fundo" (se off, fundo transparente em PNG)
+Toggle: "Adicionar marca d'água" (nome do app no canto)
+Toggle: "Adicionar margem" (20px ao redor, útil para impressão)
+
+Seção 4: Ação
+
+Botão primário: "Baixar Imagem"
+Botão secundário: "Copiar para Área de Transferência"
+Loading state durante processamento
+
+Tratamento de Erros
+Erros Comuns:
+
+Fontes não carregadas: Aguardar 2s extra e tentar novamente
+Canvas muito grande: Avisar usuário e sugerir reduzir qualidade
+Imagens externas não carregam: Avisar que imagens precisam ter CORS habilitado
+Blob muito grande: Comprimir JPG automaticamente
+
+
+21. SEGURANÇA E POLÍTICAS RLS (SUPABASE)
+Row Level Security Policies
+Tabela: templates_usuario
+Policy 1: SELECT (Leitura)
+sqlNome: "Usuários só veem seus próprios templates"
+Condição: auth.uid() = user_id
+Policy 2: INSERT (Criação)
+sqlNome: "Usuários só criam templates para si mesmos"
+Condição: auth.uid() = user_id
+Policy 3: UPDATE (Edição)
+sqlNome: "Usuários só editam seus próprios templates"
+Condição: auth.uid() = user_id
+Policy 4: DELETE (Exclusão)
+sqlNome: "Usuários só deletam seus próprios templates"
+Condição: auth.uid() = user_id
+Tabela: templates_publicos
+Policy 1: SELECT
+sqlNome: "Todos podem ver templates públicos"
+Condição: true (sem restrição)
+Policy 2-4: INSERT/UPDATE/DELETE
+sqlNome: "Apenas admins modificam templates públicos"
+Condição: auth.jwt() ->> 'role' = 'admin'
+Tabela: temas_visuais
+Policy: SELECT
+sqlNome: "Todos podem ver temas"
+Condição: true
+Tabela: biblioteca_assets
+Policy: SELECT
+sqlNome: "Todos podem ver assets"
+Condição: true
+```
+
+### Validações no Backend (Supabase Functions)
+
+**Função: validar_layout_json**
+```
+Validações:
+- Verificar se layout_json está bem formado
+- Garantir que widgets referenciados existem no widgetRegistry
+- Validar dimensões do canvas (não aceitar > 10000px)
+- Limitar número de widgets por template (máximo 50)
+```
+
+**Função: criar_template_de_publico**
+```
+Fluxo:
+1. Usuário clica "Usar Template" em um template público
+2. Backend duplica o layout_json do template público
+3. Cria novo registro em templates_usuario com user_id do usuário atual
+4. Retorna ID do novo template
+5. Frontend redireciona para /editor/[novo_id]
+```
+
+---
+
+## 22. PERFORMANCE E OTIMIZAÇÃO
+
+### Otimizações Críticas
+
+**1. Lazy Loading de Widgets:**
+```
+- Não carregar todos os 28 componentes de widgets no bundle inicial
+- Usar dynamic imports do Next.js
+- Carregar widget apenas quando arrastado para o canvas
+```
+
+**2. Memoização com React:**
+```
+- Usar React.memo() em todos os componentes de widget
+- Evitar re-renders desnecessários quando outros widgets mudam
+- Usar useMemo para cálculos pesados (ex: porcentagem de progresso)
+```
+
+**3. Debounce no Auto-Save:**
+```
+- Usar lodash debounce ou custom hook
+- Aguardar 3s de inatividade antes de salvar no Supabase
+- Evitar requests excessivos durante edição rápida
+```
+
+**4. Virtualização da Galeria:**
+```
+- Usar react-window ou react-virtualized
+- Renderizar apenas os cards visíveis no viewport
+- Lazy load de imagens de preview (usar Intersection Observer)
+```
+
+**5. Otimização do html-to-image:**
+```
+- Cachear imagens já convertidas para base64
+- Processar em Web Worker se possível
+- Mostrar loading skeleton durante processamento
+```
+
+**6. Bundle Size:**
+```
+- Tree-shaking do lucide-react (importar apenas ícones usados)
+- Considerar import dinâmico do recharts (só carregar quando widget de gráfico é usado)
+- Comprimir imagens de assets para WebP
+
+23. TESTES E QUALIDADE
+Casos de Teste Essenciais
+Teste 1: Criar Template do Zero
+
+Usuário logado acessa /editor/novo
+Arrasta 3 widgets diferentes para o canvas
+Redimensiona e move widgets
+Salva template com nome
+Verifica se aparece em "Meus Templates"
+
+Teste 2: Usar Template Público
+
+Usuário acessa galeria
+Clica "Usar Template" em um template
+Verifica se abre no editor com conteúdo correto
+Edita conteúdo de um widget
+Salva e exporta como PNG
+
+Teste 3: Persistência de Dados
+
+Cria template, adiciona widgets
+Fecha navegador
+Reabre e acessa o mesmo template
+Verifica se tudo está igual
+
+Teste 4: Colisão de Widgets
+
+Arrasta widget sobre outro
+Verifica se não há sobreposição
+Verifica se o grid reorganiza automaticamente
+
+Teste 5: Exportação
+
+Cria template simples
+Exporta como PNG, JPG e PDF
+Verifica qualidade e tamanho dos arquivos
+Verifica se fontes estão corretas
+
+Teste 6: Responsividade
+
+Abre editor em mobile
+Verifica se canvas está visível completo (com zoom out)
+Testa arrastar widgets com touch
+Testa abrir sidebars
+
+Teste 7: Performance com Muitos Widgets
+
+Adiciona 30+ widgets no canvas
+Verifica se UI continua fluida
+Testa auto-save com muitos dados
+
+
+24. ROADMAP DE FUNCIONALIDADES FUTURAS
+Fase 2 (Pós-Lançamento)
+
+
+
+
+
+
+4. Integrações
+
+Exportar direto para Google Drive
+Publicar direto no Instagram Stories
+Integração com Notion (criar página com template)
+
+5. IA Assistida
+
+"Gerar template baseado em descrição"
+Sugestões de layout inteligentes
+Auto-completar textos com IA
+
+6. Versioning
+
+Histórico de versões do template
+Restaurar versões antigas
+Comparar mudanças entre versões
+
+7. Assets Customizados
+
+Upload de fontes próprias
+Upload de ícones/ilustrações customizadas
+Biblioteca pessoal de assets
+
+
+25. MÉTRICAS E ANALYTICS
+Eventos para Rastrear
+Engajamento:
+
+template_criado
+template_salvo
+template_exportado (formato: PNG/JPG/PDF)
+template_publico_usado
+widget_adicionado (qual widget)
+tema_aplicado (qual tema)
+
+Conversão:
+
+usuario_cadastrado
+primeiro_template_criado
+primeiro_export_realizado
+
+Performance:
+
+tempo_medio_edicao
+tempo_para_primeiro_export
+numero_widgets_por_template (média)
+
+Erros:
+
+erro_exportacao
+erro_auto_save
+erro_upload_imagem
+
+Implementação
+
+Usar Supabase Analytics ou Plausible
+GDPR compliant (sem cookies desnecessários)
+Dashboard interno para admin visualizar métricas
+
+
+26. DOCUMENTAÇÃO PARA O USUÁRIO
+Help Center Integrado
+Seções:
+1. Primeiros Passos
+
+Como criar sua primeira template
+Tutorial em vídeo (2 min)
+GIFs animados de cada ação
+
+2. Widgets Explicados
+
+Página dedicada para cada widget
+Casos de uso recomendados
+Exemplos visuais
+
+3. Temas e Personalização
+
+Como escolher um tema
+Como customizar cores
+Boas práticas de design
+
+4. Exportação e Uso
+
+Diferenças entre PNG/JPG/PDF
+Qual qualidade escolher
+Como usar no Instagram/Notion/etc
+
+5. Troubleshooting
+
+FAQ de problemas comuns
+Como reportar bugs
+Contato de suporte
+
+Tooltips In-App
+
+Hover em qualquer botão mostra tooltip explicativo
+Primeiros acessos: tour guiado interativo (opcional)
+Ícones de "?" ao lado de funcionalidades complexas
+
+
+27. CHECKLIST DE IMPLEMENTAÇÃO
+Fase 1: Setup e Estrutura
+
+ Configurar projeto Next.js com App Router
+ Instalar todas as dependências listadas
+ Configurar Tailwind CSS
+ Configurar Supabase (Auth + Database)
+ Criar estrutura de pastas
+
+Fase 2: Banco de Dados
+
+ Criar tabela templates_publicos
+ Criar tabela templates_usuario
+ Criar tabela temas_visuais
+ Criar tabela biblioteca_assets
+ Configurar RLS policies
+ Povoar temas_visuais com os 5 temas
+
+Fase 3: Autenticação
+
+ Implementar página de login
+ Implementar página de cadastro
+ Configurar Auth do Supabase
+ Implementar proteção de rotas
+
+Fase 4: Editor Base
+
+ Criar componente Canvas
+ Integrar react-grid-layout
+ Implementar arrastar e soltar
+ Implementar redimensionamento
+ Implementar evitar sobreposição
+
+Fase 5: Widgets (Criar os 28)
+
+ WidgetTexto
+ WidgetImagem
+ WidgetDivisor
+ WidgetListaDeTarefas
+ WidgetListaNumerada
+ WidgetListaComPontos
+ WidgetPlannerSemanal
+ WidgetPlannerMensal
+ WidgetPrioridadesDoDia
+ WidgetHorarioDoMeuDia
+ WidgetTrackerDeHabitos
+ WidgetControleDeAgua
+ WidgetMoodTracker
+ WidgetTrackerDeExercicios
+ WidgetGratitude
+ WidgetProgressBar
+ WidgetContadorRegressivo
+ WidgetMetas3Meses
+ WidgetControleDeGastos
+ WidgetPoupanca
+ WidgetTrackerDeSono
+ WidgetRefeicoes
+ WidgetTrackerDeCiclo
+ WidgetBookTracker
+ WidgetPomodoroPlanner
+ WidgetIdeias
+ WidgetMemoriasDoMes
+ WidgetAniversarios
+
+Fase 6: UI do Editor
+
+ Sidebar esquerda (Biblioteca de Widgets)
+ Sidebar direita (Painel de Propriedades)
+ Toolbar superior (Save, Export, Undo/Redo)
+ Painel de Layers
+ Theme Selector
+
+Fase 7: Funcionalidades Avançadas
+
+ Auto-save implementado
+ Undo/Redo funcionando
+ Sistema de temas aplicado
+ IconPicker criado
+ ColorPicker customizado
+
+Fase 8: Exportação
+
+ Integrar html-to-image
+ Implementar export para PNG
+ Implementar export para JPG
+ Implementar export para PDF
+ Modal de exportação com opções
+
+Fase 9: Galeria
+
+ Página de galeria de templates públicos
+ Layout Masonry implementado
+ Filtros funcionando
+ Busca funcionando
+ Cards com hover animado
+
+Fase 10: Templates Públicos
+
+ Criar os 15 templates pré-configurados
+ Gerar imagens de preview
+ Inserir no banco de dados
+ Testar "Usar Template"
+
+Fase 11: Dashboard do Usuário
+
+ Página "Meus Templates"
+ Lista de templates salvos
+ Opções: Editar
+Tentar novamenteTContinuarDiretriz Técnica COMPLETA: App Criador de Templates
+Documento de Especificação para Desenvolvimento (CONTINUAÇÃO FINAL)
+
+27. CHECKLIST DE IMPLEMENTAÇÃO (CONTINUAÇÃO)
+Fase 11: Dashboard do Usuário (continuação)
+
+ Opções: Editar, Duplicar, Deletar
+ Cards com preview dos templates
+ Ordenação por data de criação/modificação
+ Busca dentro dos próprios templates
+ Indicador de "não salvo" em templates com mudanças
+
+Fase 12: Animações
+
+ Implementar animações com Framer Motion
+ Animação de entrada de widgets na biblioteca
+ Animação de drag and drop
+ Animação de seleção de blocos
+ Animação de botões (hover, click)
+ Animação de modal de exportação
+ Animação de hover em cards da galeria
+ Micro-animações em checkboxes, progress bars
+
+Fase 13: Responsividade
+
+ Adaptar editor para tablet
+ Adaptar editor para mobile
+ Sidebars colapsáveis em telas menores
+ Canvas com zoom-out automático em mobile
+ Navegação por abas em mobile
+ Touch gestures para arrastar widgets
+
+Fase 14: Acessibilidade
+
+ Implementar navegação por teclado
+ Adicionar aria-labels em elementos interativos
+ Garantir contraste WCAG AA
+ Testar com screen readers
+ Implementar modo de alto contraste (opcional)
+ Focus visible em todos os elementos interativos
+
+Fase 15: Performance
+
+ Implementar lazy loading de widgets
+ Memoizar componentes com React.memo
+ Implementar debounce no auto-save
+ Virtualizar galeria de templates
+ Otimizar exportação com html-to-image
+ Reduzir bundle size (tree-shaking, code splitting)
+
+Fase 16: Testes
+
+ Testar criação de template do zero
+ Testar uso de template público
+ Testar persistência de dados (fechar/reabrir)
+ Testar colisão de widgets
+ Testar exportação em todos os formatos
+ Testar responsividade em diferentes dispositivos
+ Testar performance com 30+ widgets
+ Testar em diferentes navegadores (Chrome, Firefox, Safari)
+
+Fase 17: Polimento Final
+
+ Revisão de todos os textos (copywriting)
+ Verificar consistência visual em todo o app
+ Adicionar loading states onde necessário
+ Adicionar empty states (ex: "Nenhum template criado ainda")
+ Adicionar mensagens de erro amigáveis
+ Adicionar success notifications (toast)
+ Testar fluxo completo de ponta a ponta
+
+Fase 18: Documentação e Ajuda
+
+ Criar Help Center integrado
+ Escrever documentação de cada widget
+ Gravar vídeo tutorial de 2min
+ Criar GIFs animados para ações principais
+ Implementar tooltips in-app
+ Criar tour guiado para novos usuários (opcional)
+
+Fase 19: Analytics e Métricas
+
+ Configurar Supabase Analytics ou Plausible
+ Implementar tracking de eventos principais
+ Criar dashboard de métricas para admin
+ Configurar alertas de erro
+
+Fase 20: Deploy e Lançamento
+
+ Configurar ambiente de produção no Vercel
+ Configurar variáveis de ambiente
+ Testar build de produção
+ Configurar domínio customizado
+ Configurar SSL/HTTPS
+ Fazer soft launch com usuários beta
+ Coletar feedback inicial
+ Ajustar bugs críticos
+ Lançamento público
+
+
+28. ESPECIFICAÇÕES DE ASSETS VISUAIS
+Imagens de Preview dos Templates Públicos
+Especificações Técnicas:
+
+Formato: PNG ou WebP
+Dimensões: 400x600px (proporção 2:3)
+Qualidade: Alta (para visualização na galeria)
+Armazenamento: Supabase Storage bucket "template-previews"
+Naming convention: {template_id}_preview.png
+
+Como Gerar:
+
+Criar o template no editor
+Usar função de exportação em alta qualidade
+Redimensionar para 400x600px mantendo proporção
+Upload para Supabase Storage
+Salvar URL no campo imagem_preview da tabela
+
+Biblioteca de Assets
+Categorias e Conteúdo Inicial:
+1. Ilustrações Decorativas (10-15 itens)
+
+Flores simples (outline style)
+Folhas e plantas
+Formas geométricas (círculos, triângulos decorativos)
+Estrelas e sparkles
+Corações outline
+
+Fonte Recomendada:
+
+Freepik (licença gratuita com atribuição)
+unDraw (ilustrações customizáveis)
+Figma Community (buscar "decorative elements")
+
+2. Patterns de Fundo (5-8 itens)
+
+Dots pattern (pontos espaçados)
+Lines pattern (linhas diagonais sutis)
+Grid pattern (grade fina)
+Waves pattern (ondas suaves)
+Confetti pattern (pontos coloridos aleatórios)
+
+Implementação:
+
+CSS background-image com repeat
+SVG inline ou CSS puro
+Opacidade de 5-15% para não interferir com conteúdo
+
+3. Divisores Decorativos (8-10 itens)
+
+Linha com estrela central
+Linha com coração central
+Linha ondulada
+Linha dupla
+Linha com pontos nas pontas
+Linha com folha central
+
+Implementação:
+
+Componentes React com lucide-react icons
+Flexbox para centralizar ícones
+Border-top/bottom para linhas
+
+4. Badges e Labels (pré-configurados)
+
+"Importante" (vermelho suave)
+"Urgente" (laranja)
+"Feito" (verde)
+"Em Progresso" (azul)
+"Pausado" (cinza)
+"Alta Prioridade" (vermelho)
+"Média Prioridade" (amarelo)
+"Baixa Prioridade" (verde)
+
+Estilos:
+
+Outline: border 2px, fundo transparente
+Filled: fundo colorido, texto branco
+Soft: fundo colorido 20% opacidade, texto colorido
+
+
+29. GUIA DE ESTILO PARA DESENVOLVIMENTO
+Convenções de Código
+Nomenclatura:
+
+Componentes: PascalCase (ex: WidgetTexto.tsx)
+Funções/hooks: camelCase (ex: useAutoSave.ts)
+Constantes: UPPER_SNAKE_CASE (ex: DEFAULT_CANVAS_SIZE)
+Arquivos de tipos: .types.ts (ex: widget.types.ts)
+
+Estrutura de Componente Widget:
+typescript// widget-exemplo.tsx
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { IconName } from 'lucide-react';
+import { WidgetProps } from '@/types/widget.types';
+
+interface WidgetExemploProps extends WidgetProps {
+  // Props específicas deste widget
+}
+
+export function WidgetExemplo({ 
+  id, 
+  conteudo, 
+  estilo, 
+  onUpdate 
+}: WidgetExemploProps) {
+  const [localState, setLocalState] = useState(conteudo);
+  
+  const handleChange = (newValue: any) => {
+    setLocalState(newValue);
+    onUpdate(id, newValue);
+  };
+  
+  return (
+    <motion.div
+      className="widget-container"
+      style={{
+        backgroundColor: estilo.backgroundColor,
+        borderRadius: estilo.borderRadius,
+        padding: estilo.padding,
+      }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Conteúdo do widget */}
+    </motion.div>
+  );
+}
+
+// Configuração padrão do widget (para biblioteca)
+WidgetExemplo.defaultConfig = {
+  tipo: 'exemplo',
+  nome: 'Widget Exemplo',
+  categoria: 'texto',
+  icone: 'IconName',
+  minW: 4,
+  minH: 2,
+  defaultContent: {
+    // Conteúdo inicial padrão
+  },
+  defaultStyle: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '8px',
+    padding: 16,
+  }
+};
+Comentários:
+
+Comentar lógica complexa ou não óbvia
+Não comentar código óbvio
+Usar JSDoc para funções/componentes exportados
+TODO: para tarefas pendentes
+FIXME: para bugs conhecidos
+
+Formatação:
+
+Usar Prettier com configuração padrão
+Aspas simples para strings
+Semicolons obrigatórios
+Trailing commas em objetos/arrays
+
+
+30. GLOSSÁRIO DE TERMOS
+Canvas: A área de trabalho onde o usuário monta seu template
+Widget: Bloco funcional arrastável (tarefa, planner, tracker, etc)
+Grid Layout: Sistema de grade invisível que organiza os widgets
+Tema Visual: Conjunto pré-configurado de cores, tipografia e estilos
+Template Público: Modelo pronto criado pelo admin, disponível para todos
+Template de Usuário: Design salvo criado/personalizado pelo usuário
+Layout JSON: Estrutura de dados que define posições e conteúdos dos widgets
+Handle: Pequenos quadrados nos cantos dos widgets para redimensionar
+Snap: Comportamento de "encaixe" automático em grid ou alinhamento
+Streak: Sequência de dias consecutivos (usado em trackers de hábitos)
+Export: Ação de converter o canvas em imagem (PNG/JPG/PDF)
+Auto-save: Salvamento automático periódico do progresso
+RLS (Row Level Security): Sistema de segurança do Supabase baseado em linhas
+Asset: Elemento visual (ícone, ilustração, pattern) da biblioteca
+Layer (Camada): Nível de profundidade de um widget no canvas (z-index)
+
+31. CRITÉRIOS DE SUCESSO DO PRODUTO
+Métricas de Lançamento (Primeiros 30 dias)
+Engajamento:
+
+500+ usuários cadastrados
+70% dos usuários criam pelo menos 1 template
+50% dos usuários exportam ao menos 1 imagem
+Tempo médio de sessão: 8+ minutos
+
+Qualidade:
+
+0 bugs críticos (que impedem uso do app)
+Tempo de carregamento do editor: < 3 segundos
+Tempo de exportação: < 5 segundos
+Taxa de sucesso de exportação: > 95%
+
+Satisfação:
+
+NPS (Net Promoter Score): > 40
+Feedback positivo em 70%+ das avaliações
+Taxa de abandono no onboarding: < 30%
+
+Performance Técnica:
+
+Disponibilidade (uptime): > 99%
+Core Web Vitals no verde (Lighthouse)
+Sem memory leaks no uso prolongado
+
+Indicadores de Product-Market Fit
+Sinais Positivos:
+
+Usuários voltam 3+ vezes na primeira semana
+Usuários criam 5+ templates no primeiro mês
+Taxa de retenção D7 (Day 7): > 40%
+Feedback espontâneo: "Isso é exatamente o que eu precisava!"
+
+Sinais de Alerta:
+
+Usuários abandonam na criação do primeiro template
+Ninguém usa templates públicos (galeria ignorada)
+Feedback: "É muito complicado"
+Alta taxa de erro em exportações
+Usuários pedem funcionalidades que já existem (UI não clara)
+
+
+32. ESTRATÉGIA DE MONETIZAÇÃO (FUTURO)
+Modelo Freemium (Recomendado)
+Plano Gratuito:
+
+Até 5 templates salvos
+Todos os widgets disponíveis
+Exportação em PNG/JPG (qualidade média)
+Marca d'água pequena no canto
+Acesso aos 5 temas visuais padrão
+
+Plano Pro ($10/mês ou $8/mês anual):
+
+Templates ilimitados
+Exportação em alta qualidade + PDF
+Sem marca d'água
+10 temas visuais premium adicionais
+Biblioteca de assets premium (50+ itens)
+Prioridade no suporte
+
+
+Pack de Templates Premium ($10 uma vez)
+Conteúdo:
+
+30 templates exclusivos e profissionais
+15 temas visuais adicionais
+100+ assets decorativos
+eBook: "Guia de Design para Planners Digitais"
+Acesso vitalício, sem mensalidade
+
+Estratégia de Venda:
+
+Landing page dedicada com exemplos visuais
+Depoimentos de usuários
+Garantia de 7 dias (devolução se não gostar)
+Upsell no checkout: "Adicione Plano Pro por +$5"
+
+
+33. DIFERENCIAL COMPETITIVO
+Por que escolher este app vs. Canva/Notion/GoodNotes?
+vs. Canva:
+
+Mais focado em produtividade (não design gráfico genérico)
+Templates interativos (checkboxes, trackers animados)
+Interface mais simples para quem não é designer
+Sem confusão de mil recursos - apenas o essencial
+
+vs. Notion:
+
+Visual muito mais customizável e bonito
+Exportação para imagem (Notion não tem)
+Não precisa entender estrutura de databases
+Ideal para quem quer planners visuais, não bancos de dados
+
+vs. GoodNotes/Apps de Planner Digital:
+
+Não precisa de iPad/Apple Pencil
+Funciona em qualquer dispositivo (web)
+Cria seus próprios templates em minutos
+Templates "vivos" (não PDFs estáticos)
+
+Proposta de Valor Única:
+"Crie planners, trackers e templates visuais profissionais em minutos, sem ser designer. Arraste, personalize, exporte. Simples assim."
+
+34. ROADMAP DE LANÇAMENTO
+Sprint 1-2 (Semanas 1-2): Fundação
+
+Setup do projeto
+Autenticação funcionando
+Banco de dados configurado
+Editor básico com grid layout
+
+Sprint 3-4 (Semanas 3-4): Widgets Essenciais
+
+Criar 10 widgets principais (texto, lista, planners, trackers)
+Biblioteca de widgets funcional
+Arrastar e soltar funcionando
+
+Sprint 5-6 (Semanas 5-6): Personalização
+
+Sistema de temas implementado
+Painel de propriedades completo
+IconPicker e ColorPicker
+
+Sprint 7-8 (Semanas 7-8): Persistência e Exportação
+
+Auto-save implementado
+Exportação para PNG/JPG
+Galeria de templates públicos
+15 templates pré-configurados criados
+
+Sprint 9-10 (Semanas 9-10): Polimento e UX
+
+Animações com Framer Motion
+Responsividade completa
+Acessibilidade
+Help Center e documentação
+
+Sprint 11-12 (Semanas 11-12): Testes e Lançamento
+
+Testes extensivos
+Correção de bugs
+Beta com 20-30 usuários
+Feedback e ajustes finais
+Deploy em produção
+Lançamento público
+
+Timeline Total: 12 semanas (3 meses)
+
+35. RECURSOS ADICIONAIS PARA O DESENVOLVEDOR
+Links Úteis
+Documentação Oficial:
+
+Next.js App Router: https://nextjs.org/docs/app
+Supabase Docs: https://supabase.com/docs
+React Grid Layout: https://github.com/react-grid-layout/react-grid-layout
+Lucide React Icons: https://lucide.dev/icons
+Framer Motion: https://www.framer.com/motion
+Recharts: https://recharts.org/en-US
+html-to-image: https://github.com/bubkoo/html-to-image
+
+Referências de Design:
+
+Dribbble (buscar "planner template"): https://dribbble.com
+Behance (buscar "habit tracker"): https://behance.net
+Pinterest (buscar "aesthetic planner"): https://pinterest.com
+
+Ferramentas:
+
+Figma (para prototipar antes de codificar): https://figma.com
+Coolors (gerador de paletas): https://coolors.co
+SVG Optimizer: https://jakearchibald.github.io/svgomg/
+TinyPNG (comprimir imagens): https://tinypng.com
+
+Padrões de Código Úteis
+Hook de Auto-Save:
+typescript// useAutoSave.ts
+import { useEffect, useRef } from 'react';
+import { debounce } from 'lodash';
+
+export function useAutoSave(data: any, saveFunction: (data: any) => Promise<void>) {
+  const debouncedSave = useRef(
+    debounce(async (dataToSave: any) => {
+      await saveFunction(dataToSave);
+    }, 3000)
+  ).current;
+
+  useEffect(() => {
+    debouncedSave(data);
+  }, [data, debouncedSave]);
+}
+Hook de Grid Layout:
+typescript// useGridLayout.ts
+import { useState, useCallback } from 'react';
+import { Layout } from 'react-grid-layout';
+
+export function useGridLayout(initialLayout: Layout[]) {
+  const [layout, setLayout] = useState<Layout[]>(initialLayout);
+
+  const onLayoutChange = useCallback((newLayout: Layout[]) => {
+    setLayout(newLayout);
+  }, []);
+
+  const addWidget = useCallback((widgetType: string) => {
+    const newWidget: Layout = {
+      i: `w${Date.now()}`,
+      x: 0,
+      y: Infinity, // Adiciona no final
+      w: 6,
+      h: 3,
+    };
+    setLayout([...layout, newWidget]);
+  }, [layout]);
+
+  const removeWidget = useCallback((widgetId: string) => {
+    setLayout(layout.filter(item => item.i !== widgetId));
+  }, [layout]);
+
+  return { layout, onLayoutChange, addWidget, removeWidget };
+}
+
+36. CONSIDERAÇÕES FINAIS
+Princípios de Design a Seguir
+
+Simplicidade Acima de Tudo: Cada feature deve ter um propósito claro. Se não é essencial para o MVP, fica para Fase 2.
+Feedback Visual Constante: O usuário sempre deve saber o que está acontecendo (loading, salvando, erro, sucesso).
+Zero Curva de Aprendizado: Se o usuário precisa ler documentação para usar, o design falhou. A interface deve ser auto-explicativa.
+Performance é Feature: Um app lento é um app ruim. Priorizar otimizações desde o início.
+Mobile-First Mindset: Mesmo que o uso principal seja desktop, garantir que funciona perfeitamente em mobile.
+
+Mantra do Produto
+"Profissional em Minutos, Não em Horas"
+O valor deste app está em permitir que qualquer pessoa crie templates visuais que parecem ter sido feitos por um designer profissional, em menos de 5 minutos. Toda decisão de design e desenvolvimento deve servir a este objetivo.
+Critério de "Pronto para Lançar"
+O app está pronto quando:
+
+✅ Usuário consegue criar template do zero em < 3 min
+✅ Usuário consegue usar template público e personalizar em < 2 min
+✅ Exportação funciona 100% das vezes
+✅ Auto-save nunca perde dados
+✅ Funciona perfeitamente em Chrome, Firefox, Safari
+✅ Funciona perfeitamente em mobile (iOS e Android)
+✅ 0 bugs críticos
+✅ Todos os 15 templates públicos estão lindos e funcionais
+✅ Documentação básica está completa
+
+
+FIM DA DIRETRIZ TÉCNICA
+Resumo Executivo:
+Este documento especifica um aplicativo web para criação de templates visuais (planners, trackers, listas) através de um editor drag-and-drop intuitivo.
+Stack Principal: Next.js, Supabase, React Grid Layout, html-to-image, Lucide React, Framer Motion, Recharts.
+Diferenciais: 28 widgets funcionais, 5 temas visuais profissionais, sistema de grid inteligente sem sobreposição, exportação de alta qualidade, galeria de 15 templates prontos.
+Timeline: 12 semanas até lançamento.
+Objetivo: Permitir que qualquer pessoa crie templates profissionais em minutos, não em horas.
+
+Versão: 1.0
+Data: 2025
+Preparado para: Desenvolvimento com Cursor AI / Equipe de Dev
+Status: Documento Completo e Final ✅

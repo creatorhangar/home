@@ -1,0 +1,147 @@
+<!--
+  Instant Print Supply Image Converter
+  This application was created by Instant Print Supply.
+  For more information, visit: https://www.etsy.com/shop/InstantPrintSupply
+  Plagiarism or unauthorized use of this code is discouraged.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instant Print Supply - Image Compressor & Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+      /* Custom styles for the range input thumb for better aesthetics */
+      .range-thumb::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #F97316; /* primary-action color */
+        cursor: pointer;
+        border-radius: 50%;
+        border: 3px solid #FFFFFF; /* light-card color */
+        box-shadow: 0 0 2px rgba(0,0,0,0.3);
+        margin-top: -8px; /* Vertically center thumb on the track */
+      }
+
+      .range-thumb::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #F97316; /* primary-action color */
+        cursor: pointer;
+        border-radius: 50%;
+        border: 3px solid #FFFFFF; /* light-card color */
+        box-shadow: 0 0 2px rgba(0,0,0,0.3);
+      }
+
+      /* Dark mode styles for the thumb's border */
+      .dark .range-thumb::-webkit-slider-thumb {
+        border-color: #1E1E1E; /* dark-card color */
+      }
+
+      .dark .range-thumb::-moz-range-thumb {
+        border-color: #1E1E1E; /* dark-card color */
+      }
+
+      /* NEW Elegant animation for the conversion reveal */
+      @keyframes card-glow-success {
+        0% { box-shadow: 0 0 0px 0px rgba(22, 163, 74, 0); }
+        50% { box-shadow: 0 0 12px 3px rgba(22, 163, 74, 0.7); }
+        100% { box-shadow: 0 0 0px 0px rgba(22, 163, 74, 0); }
+      }
+      .animate-glow-success {
+        animation: card-glow-success 1.5s ease-out;
+      }
+
+      @keyframes card-glow-warning {
+        0% { box-shadow: 0 0 0px 0px rgba(220, 38, 38, 0); }
+        50% { box-shadow: 0 0 12px 3px rgba(220, 38, 38, 0.7); }
+        100% { box-shadow: 0 0 0px 0px rgba(220, 38, 38, 0); }
+      }
+      .animate-glow-warning {
+        animation: card-glow-warning 1.5s ease-out;
+      }
+
+      /*
+        BACKUP of the 3D Flip utilities for the card reveal effect as requested.
+        This effect is currently disabled because the new 'Before & After' card design
+        is not compatible with a flip animation. This code is preserved here for future use.
+      */
+      /*
+      .perspective { perspective: 1000px; }
+      .transform-style-3d { transform-style: preserve-3d; }
+      .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+      .rotate-y-180 { transform: rotateY(180deg); }
+      */
+
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              // Dark Theme Colors
+              'dark-bg': '#121212',
+              'dark-card': '#1E1E1E',
+              'dark-gray': '#888888',
+              'light-text': '#E0E0E0',
+              'border-gray': '#333333',
+              
+              // Light Theme Colors (New Palette)
+              'light-bg': '#FDFBF6',
+              'light-panel': '#F5F5F5',
+              'light-card': '#FFFFFF',
+              'dark-text': '#212529',
+              'light-gray': '#6C757D',
+              'light-border': '#E0E0E0',
+              'light-accent': '#F1F3F5',
+
+              // Shared Colors
+              'primary-action': '#F97316', // Orange-500 from Tailwind
+              'primary-action-light': '#FFF7ED',
+              'success': '#16A34A',
+              'danger': '#DC2626',
+            },
+            borderRadius: {
+              'xl': '16px',
+            },
+          }
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "vite": "https://aistudiocdn.com/vite@^7.1.4",
+    "uuid": "https://aistudiocdn.com/uuid@^12.0.0",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.2",
+    "file-saver": "https://aistudiocdn.com/file-saver@^2.0.5",
+    "jszip": "https://aistudiocdn.com/jszip@^3.10.1",
+    "vite-plugin-singlefile": "https://aistudiocdn.com/vite-plugin-singlefile@^2.3.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-light-bg text-dark-text font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

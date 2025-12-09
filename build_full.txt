@@ -1,0 +1,290 @@
+
+> creator-hangar@0.1.0 build
+> next build
+
+   ▲ Next.js 16.0.7 (Turbopack)
+   - Environments: .env.local
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 12 errors:
+./src/components/tools/gerador-templates/index.css
+Error evaluating Node.js code
+CssSyntaxError: C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\src\components\tools\gerador-templates\index.css:18:3: The `border-ui-border` class does not exist. If `border-ui-border` is a custom class, make sure it is defined within a `@layer` directive.
+    at Input.error (node_modules/postcss/lib/input.js:135:16) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\node_modules_fe693df6._.js:4651:22]
+    at AtRule.error (node_modules/postcss/lib/node.js:146:32) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\node_modules_fe693df6._.js:928:38]
+    [at processApply (C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)]
+    [at C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9]
+    [at C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50]
+    [at async plugins (C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\node_modules\tailwindcss\lib\plugin.js:38:17)]
+    at async LazyResult.runAsync (node_modules/postcss/lib/lazy-result.js:293:11) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\node_modules_fe693df6._.js:6206:21]
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\[root-of-the-server]__51225daf._.js:146:36]
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31]
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/gerador-templates/index.css [Client Component Browser]
+    ./src/components/tools/gerador-templates/GeradorTemplatesTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/gerador-templates/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/gerador-templates/page.tsx [Server Component]
+
+
+./src/components/tools/loop-video/shaders/InterstellarSingularityShader.ts:3:13
+Ecmascript file had an error
+[0m [90m 1 |[39m [36mimport[39m [33m*[39m [36mas[39m [33mTHREE[39m [36mfrom[39m [32m'three'[39m[33m;[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m [33mTHREE[39m [36mfrom[39m [32m'three'[39m[33m;[39m
+ [90m   |[39m             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 4 |[39m
+ [90m 5 |[39m [36mexport[39m [36mconst[39m [33mInterstellarSingularityShader[39m [33m=[39m {
+ [90m 6 |[39m     uniforms[33m:[39m {[0m
+
+the name `THREE` is defined multiple times
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/loop-video/shaders/InterstellarSingularityShader.ts [Client Component Browser]
+    ./src/components/tools/loop-video/components/canvas/FractalManager.tsx [Client Component Browser]
+    ./src/components/tools/loop-video/components/canvas/SceneContainer.tsx [Client Component Browser]
+    ./src/components/tools/loop-video/LoopVideoTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/loop-video/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/loop-video/page.tsx [Server Component]
+
+
+./src/components/tools/foto-hd/FotoHDTool.tsx:7:1
+Module not found: Can't resolve './components/AdjustModal'
+[0m [90m  5 |[39m [36mimport[39m { [33mUpload[39m[33m,[39m [33mDownload[39m[33m,[39m [33mSparkles[39m[33m,[39m [33mRotateCcw[39m[33m,[39m [33mAlertCircle[39m[33m,[39m [33mTrash2[39m[33m,[39m [33mEye[39m[33m,[39m [33mCheck[39m[33m,[39m [33mChevronDown[39m[33m,[39m [33mZap[39m[33m,[39m [33mTarget[39m[33m,[39m [33mGem[39m[33m,[39m [33mPlay[39m[33m,[39m [33mSettings2[39m[33m,[39m [33mX[39m[33m,[39m [33mPencil[39m[33m,[39m [33mSquare[39m } [36mfrom[39m [32m'lucide-react'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mSmartPreview[39m } [36mfrom[39m [32m'./components/SmartPreview'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mAdjustModal[39m } [36mfrom[39m [32m'./components/AdjustModal'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { cn } [36mfrom[39m [32m'@/lib/utils'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useUsage } [36mfrom[39m [32m'@/lib/hooks/useUsage'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/foto-hd/FotoHDTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/foto-hd/FotoHDTool.tsx:6:1
+Module not found: Can't resolve './components/SmartPreview'
+[0m [90m 4 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mUpload[39m[33m,[39m [33mDownload[39m[33m,[39m [33mSparkles[39m[33m,[39m [33mRotateCcw[39m[33m,[39m [33mAlertCircle[39m[33m,[39m [33mTrash2[39m[33m,[39m [33mEye[39m[33m,[39m [33mCheck[39m[33m,[39m [33mChevronDown[39m[33m,[39m [33mZap[39m[33m,[39m [33mTarget[39m[33m,[39m [33mGem[39m[33m,[39m [33mPlay[39m[33m,[39m [33mSettings2[39m[33m,[39m [33mX[39m[33m,[39m [33mPencil[39m[33m,[39m [33mSquare[39m } [36mfrom[39m [32m'lucide-react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mSmartPreview[39m } [36mfrom[39m [32m'./components/SmartPreview'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mAdjustModal[39m } [36mfrom[39m [32m'./components/AdjustModal'[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { cn } [36mfrom[39m [32m'@/lib/utils'[39m[33m;[39m
+ [90m 9 |[39m [36mimport[39m { useUsage } [36mfrom[39m [32m'@/lib/hooks/useUsage'[39m[33m;[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/foto-hd/FotoHDTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/foto-hd/FotoHDTool.tsx:116:38
+Module not found: Can't resolve './workers/processor.worker.ts'
+[0m [90m 114 |[39m   [36mconst[39m initWorker [33m=[39m useCallback(() [33m=>[39m {
+ [90m 115 |[39m     [36mif[39m ([33m![39mworkerRef[33m.[39mcurrent) {
+[31m[1m>[22m[39m[90m 116 |[39m       workerRef[33m.[39mcurrent [33m=[39m [36mnew[39m [33mWorker[39m([36mnew[39m [33mURL[39m([32m'./workers/processor.worker.ts'[39m[33m,[39m [36mimport[39m[33m.[39mmeta[33m.[39murl)[33m,[39m {
+ [90m     |[39m                                      [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 117 |[39m         type[33m:[39m [32m'module'[39m[33m,[39m
+ [90m 118 |[39m       })[33m;[39m
+ [90m 119 |[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/foto-hd/FotoHDTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/foto-hd/FotoHDTool.tsx:116:27
+Module not found: Can't resolve './workers/processor.worker.ts'
+[0m [90m 114 |[39m   [36mconst[39m initWorker [33m=[39m useCallback(() [33m=>[39m {
+ [90m 115 |[39m     [36mif[39m ([33m![39mworkerRef[33m.[39mcurrent) {
+[31m[1m>[22m[39m[90m 116 |[39m       workerRef[33m.[39mcurrent [33m=[39m [36mnew[39m [33mWorker[39m([36mnew[39m [33mURL[39m([32m'./workers/processor.worker.ts'[39m[33m,[39m [36mimport[39m[33m.[39mmeta[33m.[39murl)[33m,[39m {
+ [90m     |[39m                           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 117 |[39m         type[33m:[39m [32m'module'[39m[33m,[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 118 |[39m       })[33m;[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 119 |[39m
+ [90m 120 |[39m       workerRef[33m.[39mcurrent[33m.[39monmessage [33m=[39m (e) [33m=>[39m {
+ [90m 121 |[39m         [36mconst[39m { type[33m,[39m progress[33m:[39m workerProgress[33m,[39m result[33m:[39m workerResult[33m,[39m error[33m:[39m workerError[33m,[39m jobId } [33m=[39m e[33m.[39mdata[33m;[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/foto-hd/FotoHDTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/tools/criador-capas/page.tsx
+Module not found: Can't resolve '@/components/tools/criador-capas/CriaCapaTool'
+Import map: aliased to relative './src/components/tools/criador-capas/CriaCapaTool' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/(app)/tools/criador-capas/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/criador-capas/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/(app)/tools/criador-capas/page.tsx [Client Component SSR]
+    ./src/app/(app)/tools/criador-capas/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/tools/criador-capas/page.tsx:7:11
+Module not found: Can't resolve '@/components/tools/criador-capas/CriaCapaTool'
+[0m [90m  5 |[39m
+ [90m  6 |[39m [36mconst[39m [33mCriaCapaTool[39m [33m=[39m dynamic(
+[31m[1m>[22m[39m[90m  7 |[39m     () [33m=>[39m [36mimport[39m([32m'@/components/tools/criador-capas/CriaCapaTool'[39m)[33m,[39m
+ [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m     {
+ [90m  9 |[39m         ssr[33m:[39m [36mfalse[39m[33m,[39m
+ [90m 10 |[39m         loading[33m:[39m () [33m=>[39m ([0m
+
+Import map: aliased to relative './src/components/tools/criador-capas/CriaCapaTool' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/(app)/tools/criador-capas/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/criador-capas/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/(app)/tools/criador-capas/page.tsx [Client Component SSR]
+    ./src/app/(app)/tools/criador-capas/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/gerador-templates/widgets.tsx:5:1
+Module not found: Can't resolve 'recharts'
+[0m [90m 3 |[39m [36mimport[39m { [33mDroplet[39m[33m,[39m [33mGlassWater[39m[33m,[39m [33mType[39m[33m,[39m [33mSquare[39m[33m,[39m [33mCheckSquare[39m[33m,[39m [33mCalendarDays[39m[33m,[39m [33mQuote[39m[33m,[39m [33mStar[39m[33m,[39m [33mHeart[39m[33m,[39m [33mCamera[39m[33m,[39m [33mFlag[39m[33m,[39m [33mCalendar[39m[33m,[39m [33mCoffee[39m[33m,[39m [33mUtensils[39m[33m,[39m [33mCookie[39m[33m,[39m [33mMoon[39m[33m,[39m [33mShoppingCart[39m[33m,[39m [33mCar[39m[33m,[39m [33mFilm[39m[33m,[39m [33mPiggyBank[39m[33m,[39m [33mCake[39m[33m,[39m [33mBook[39m[33m,[39m [33mTimer[39m[33m,[39m [33mLightbulb[39m } [36mfrom[39m [32m'lucide-react'[39m
+ [90m 4 |[39m [36mimport[39m [33mReact[39m [36mfrom[39m [32m'react'[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { [33mBarChart[39m[33m,[39m [33mBar[39m[33m,[39m [33mXAxis[39m[33m,[39m [33mYAxis[39m[33m,[39m [33mTooltip[39m[33m,[39m [33mResponsiveContainer[39m[33m,[39m [33mRadialBarChart[39m[33m,[39m [33mRadialBar[39m } [36mfrom[39m [32m'recharts'[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { [33mSTICKER_PACKS[39m } [36mfrom[39m [32m'./stickers'[39m
+ [90m 7 |[39m
+ [90m 8 |[39m [36mexport[39m type [33mWidgetKind[39m [33m=[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/gerador-templates/widgets.tsx [Client Component Browser]
+    ./src/components/tools/gerador-templates/GeradorTemplatesTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/gerador-templates/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/gerador-templates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/compressor-imagem/CompressorImagemTool.tsx:4:1
+Module not found: Can't resolve 'uuid'
+[0m [90m 2 |[39m
+ [90m 3 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useState[33m,[39m useEffect[33m,[39m useRef[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { v4 [36mas[39m uuidv4 } [36mfrom[39m [32m'uuid'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m [33mJSZip[39m [36mfrom[39m [32m'jszip'[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m saveAs [36mfrom[39m [32m'file-saver'[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m heic2any [36mfrom[39m [32m'heic2any'[39m[33m;[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/compressor-imagem/CompressorImagemTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/compressor-imagem/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/compressor-imagem/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/compressor-imagem/components/SettingsPanel.tsx:2:1
+Module not found: Can't resolve 'uuid'
+[0m [90m 1 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useState[33m,[39m useRef[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { v4 [36mas[39m uuidv4 } [36mfrom[39m [32m'uuid'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m type { [33mSettings[39m[33m,[39m [33mOutputFormat[39m[33m,[39m [33mProcessingStatus[39m[33m,[39m [33mImageFile[39m[33m,[39m [33mWatermarkSettings[39m[33m,[39m [33mPreset[39m } [36mfrom[39m [32m'../types'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'./Button'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { useI18n } [36mfrom[39m [32m'../i18n'[39m[33m;[39m[0m
+
+
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/compressor-imagem/components/SettingsPanel.tsx [Client Component Browser]
+    ./src/components/tools/compressor-imagem/CompressorImagemTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/compressor-imagem/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/compressor-imagem/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/components/tools/foto-hd/FotoHDTool.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/src/components/tools/foto-hd/FotoHDTool.tsx [app-client] (ecmascript)
+
+Caused by:
+- Worker loader could not be created
+
+Debug info:
+- An error occurred while generating the chunk item [project]/src/components/tools/foto-hd/FotoHDTool.tsx [app-client] (ecmascript)
+- Execution of <MergedEcmascriptModuleChunkItem as EcmascriptChunkItem>::content_with_async_module_info failed
+- Execution of *EcmascriptChunkItemContent::new failed
+- Execution of EcmascriptModuleContent::new_merged failed
+- Worker loader could not be created
+
+Import trace:
+  Client Component Browser:
+    ./src/components/tools/foto-hd/FotoHDTool.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Client Component Browser]
+    ./src/app/(app)/tools/foto-hd/page.tsx [Server Component]
+
+
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\[root-of-the-server]__51225daf._.js:146:36])
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [C:\Users\Tiago\Documents\trae_projects\landing_page (3)\creator-hangar\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31])
+    at <unknown> (./src/components/tools/loop-video/shaders/InterstellarSingularityShader.ts:3:13)
+    at <unknown> (./src/components/tools/foto-hd/FotoHDTool.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/foto-hd/FotoHDTool.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/foto-hd/FotoHDTool.tsx:116:38)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/foto-hd/FotoHDTool.tsx:116:27)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/app/(app)/tools/criador-capas/page.tsx:7:11)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/gerador-templates/widgets.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/compressor-imagem/CompressorImagemTool.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./src/components/tools/compressor-imagem/components/SettingsPanel.tsx:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

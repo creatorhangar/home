@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Asset Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#9061F9",
+                        "background-light": "#F7F8FA",
+                        "background-dark": "#121212",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                    },
+                    fontFamily: {
+                        display: ["Sora", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        lg: "16px",
+                        xl: "20px",
+                        "2xl": "24px",
+                        "3xl": "32px",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        body {
+            @apply bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="min-h-screen">
+<header class="relative bg-white dark:bg-surface-dark/50 py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-100/30 via-pink-100/30 to-rose-100/30 dark:from-purple-900/20 dark:via-pink-900/20 dark:to-rose-900/20 opacity-50 -z-10"></div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">Seu Portal para Recursos Criativos</h1>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">Encontre wallpapers, texturas, PNGs e muito mais para dar vida aos seus projetos.</p>
+<div class="max-w-2xl mx-auto">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-2xl">search</span>
+<input class="w-full pl-14 pr-36 py-5 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl shadow-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 dark:text-gray-200 placeholder:text-gray-400" placeholder="Buscar por 'flores vintage'..." type="search"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">Buscar</button>
+</div>
+</div>
+</div>
+</header>
+<main class="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto space-y-20 md:space-y-28">
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-4">
+<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Ferramentas Criativas</h2>
+<p class="text-gray-500 dark:text-gray-400">Eleve seus projetos com nossas ferramentas e filtros interativos.</p>
+</div>
+<div class="md:col-span-8 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+<a class="group relative flex flex-col items-center justify-center p-6 bg-rose-50 dark:bg-rose-900/20 rounded-xl overflow-hidden text-center transition-all duration-300 hover:scale-105 hover:shadow-xl" href="#">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-rose-500 dark:text-rose-400">palette</span>
+<h3 class="mt-2 font-semibold text-gray-800 dark:text-gray-200">Gerador de Paletas</h3>
+</div>
+</a>
+<a class="group relative flex flex-col items-center justify-center p-6 bg-sky-50 dark:bg-sky-900/20 rounded-xl overflow-hidden text-center transition-all duration-300 hover:scale-105 hover:shadow-xl" href="#">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-sky-500 dark:text-sky-400">auto_awesome</span>
+<h3 class="mt-2 font-semibold text-gray-800 dark:text-gray-200">Criador IA</h3>
+</div>
+</a>
+<a class="group relative flex flex-col items-center justify-center p-6 bg-amber-50 dark:bg-amber-900/20 rounded-xl overflow-hidden text-center transition-all duration-300 hover:scale-105 hover:shadow-xl" href="#">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-amber-500 dark:text-amber-400">texture</span>
+<h3 class="mt-2 font-semibold text-gray-800 dark:text-gray-200">Misturador de Texturas</h3>
+</div>
+</a>
+<a class="group relative flex flex-col items-center justify-center p-6 bg-teal-50 dark:bg-teal-900/20 rounded-xl overflow-hidden text-center transition-all duration-300 hover:scale-105 hover:shadow-xl" href="#">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-teal-500 dark:text-teal-400">filter_vintage</span>
+<h3 class="mt-2 font-semibold text-gray-800 dark:text-gray-200">Filtros Populares</h3>
+</div>
+</a>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="group relative rounded-2xl overflow-hidden bg-white dark:bg-surface-dark shadow-lg lg:col-span-2">
+<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="p-8 md:p-10 flex flex-col justify-center">
+<h3 class="text-3xl font-bold text-gray-900 dark:text-white">Junk Journal</h3>
+<p class="mt-2 text-gray-500 dark:text-gray-400">Elementos vintage para seus projetos criativos.</p>
+<a class="inline-flex items-center mt-6 text-primary font-semibold hover:underline" href="#">Ver coleção <span class="material-symbols-outlined text-base ml-1">arrow_forward</span></a>
+</div>
+<div class="relative h-64 md:h-auto min-h-[300px] p-6">
+<img alt="Vintage paper scrap" class="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-auto object-cover rounded-lg shadow-xl transform -rotate-12 group-hover:-rotate-15 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLOevGu1PZ_tfLqiAeB6-YudicTwaa5TNM4xn8XhoJo2NofjbwZV3GTeol54neyyiDGeOhOyKShOd6PCE6val0vPIbH6Izwc1Anu_A6gG1VMvuUqkevtyAibI-1-FbZsovNxiaoXrBUvf9myb1RNTpVYjBioMTKjcfgQ471fXs6v54vNAmUKGklyt30rIadjQw8n7Fv-9x8DwhoKXaw-izcMmail6RuVnRXDI9v2yPcwsR5iAtkx8k81-v8IZaNwOIZY08i74VPch1"/>
+<img alt="Pressed autumn leaves" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-auto object-cover rounded-lg shadow-xl z-10 transform group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZbcQ1Fq0Qkcnjm2gf_MXXzlgfQgPlbBK8nidSZgFLzwzZlpTsNpDfjh3OA-UIR2eICdPh2SRuWxBUinRHYuk17SaxSyfdvzvQaAYaQMDh00f_CSXgoFuRo2gSVycRdheDv2WJHNKHwE_zm48E006odetDQpMMUI8RQWJrZf0P7p0cVLVMDUdjHAFDhcGNwZmMtWIzB2F_96ZPTetPuc2TrQHBBApqLrFnOb42E6PFc64VEEyg2M12kgh2U1AD7JM5ktmFgLDEB3Tn"/>
+<img alt="Delicate gold leaf" class="absolute top-1/2 right-1/4 -translate-y-1/2 w-48 h-auto object-cover rounded-lg shadow-xl transform rotate-6 group-hover:rotate-10 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcmolLIfoNVNxFkXt4KUQ5IAhxtcmzlKtuGeyhwzRwn1a1k5fiyVWgZAf9F3UngzJcqTXAOwZIUWtrTJqEs1WyhVq39e2946OoufokLRdWxrVOZzkQAGOrgo-6G_W0kHXsQFgDXhQwWP0g97GVBje00I27KhIXyLv1RGnSMf37ODB6zSRT8rd_h52-BQU-6GSju8h9vwVQOXQoW5umBi2wttRMQnry6kYg7oWUmwitVRW7z0aNhoBe-_X3egNBmoO8ejsjo2-BcvAj"/>
+</div>
+</div>
+</div>
+<div class="group relative rounded-2xl overflow-hidden bg-white dark:bg-surface-dark shadow-lg">
+<div class="relative h-60">
+<div class="absolute inset-0 flex items-center justify-center gap-4 p-4 bg-gradient-to-br from-lime-50 to-emerald-50 dark:from-lime-900/20 dark:to-emerald-900/20">
+<img alt="Pink flower clipart" class="w-1/3 max-w-[120px] h-auto object-contain transition-transform duration-300 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXP6fGzj2bifKUgrk7lj81Seas-rwT4yEbIlafCCgZTcWAUP_eEXhHa3HmmP9CJHRFpq2xaR2lwnudYbYP4EZnUobGEo-QMT_9vrzeLtaVpj38xDDVvYWAS-TTj9r5Xfyhx7P99vc2Qd1PWLHAsZ9QysVerGWqUQui5nuqQhh2Ugy2eFMyjY_vSphMsRUmh1PgbuvpcVAd6erFMKs5UCpdBtCZg4aKZYd06x5iC69bK06jsjQlwq1nJvC9rFxzg3JihhRRT7fqy44K"/>
+<img alt="Pink Camellia flower" class="w-1/3 max-w-[120px] h-auto object-contain transition-transform duration-300 group-hover:scale-110 delay-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG_QaqFSEVe5zJZp6-xIR6xwkGDoNMiHPHfANLNM1lIvS6bY09nsJ-iNFRZddePinq91h9mBQgsf2iWQXf_5gkHuXw_DIeh_t9n9-PUaMS8qKbOy-RvWzOa5l_9Zx0Uu4l-TaC718rkPGIrnXmIJxnmBIwKTdID6Q4GOn2EeGACFKGzW08yCMW6YhIBBFJI2v1z-TV3D5wczb95QlZiUelWIO9pm0idWWsLwEw5XtL_21vs25pAoyEcVJCkd4TsqsmHfZg5U-W9aIn"/>
+<img alt="Elegant watercolor floral wreath" class="w-1/3 max-w-[120px] h-auto object-contain transition-transform duration-300 group-hover:scale-110 delay-150" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3TNml8HBnzUPyRNGbgGI1fUrVAcD9gqHY_igyLggb7HopoTWj0hZia35D5s2rJ2HzogOCWBu5tkR_5ZP5iNU_Ts2ZCKho4ngIXboMyYw90gEU7IF5vUH2zOd72O1Xe7vWqwLksroMnkusYyTC60RabsJqFuAQhMH_-QhAB99l2Nmzq6JBByZStw87eLJ4pUGkplVT5Tn3K6BOgS_4TAPRTmPlCtWv7zrIRja_kKluD5Lbhy5QPrZs0BVP_iTIWfF0u53z0U7-JTFL"/>
+</div>
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">PNGs</h3>
+<p class="mt-1 text-gray-500 dark:text-gray-400">Imagens com fundo transparente.</p>
+<a class="inline-flex items-center mt-4 text-primary font-semibold hover:underline" href="#">Ver coleção <span class="material-symbols-outlined text-base ml-1">arrow_forward</span></a>
+</div>
+</div>
+<div class="group relative rounded-2xl overflow-hidden bg-white dark:bg-surface-dark shadow-lg">
+<img alt="Abstract geometric pattern in shades of teal and coral" class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpd8UPNZeM4ub7pgq4wpZqgyQGXIOxZiZs0exEw_-mq_qV6QwrlFIB2E5M-7K4Yxu45fT_bnoFYoGIFjL62ttz_8dgT0FEu29ZLU_QAehquGd3Bor17slXx3UiQ_wtxSKoaRMsHA90CVx_d-1qfXFf3st6wJg9kGxvrmE4geoEuUjPnR7IGycRG2ydF41oCtr2yEPTLfa4AqfY0hhAzsXxr5HigpPM36DNBIN_26qsX9ReM4Mi9vaX0OoJ5AESQ5PqxN2iR17i327e"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="relative p-8 flex flex-col h-full justify-end text-white">
+<h3 class="text-2xl font-bold">Wallpapers</h3>
+<p class="mt-1 opacity-90">Fundos para seus dispositivos.</p>
+<a class="inline-flex items-center mt-4 text-white font-semibold hover:underline" href="#">Ver coleção <span class="material-symbols-outlined text-base ml-1">arrow_forward</span></a>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-5 gap-8">
+<div class="md:col-span-2 rounded-2xl bg-rose-50 dark:bg-rose-900/20 p-8 flex flex-col justify-center">
+<h3 class="text-3xl font-bold text-gray-900 dark:text-white">Convites de Casamento</h3>
+<p class="mt-2 text-gray-600 dark:text-gray-400">Gráficos elegantes para o seu dia especial.</p>
+<a class="inline-flex items-center mt-6 text-rose-600 dark:text-rose-400 font-semibold hover:underline" href="#">Ver coleção <span class="material-symbols-outlined text-base ml-1">arrow_forward</span></a>
+</div>
+<div class="md:col-span-3 grid grid-cols-3 gap-4">
+<div class="group relative overflow-hidden rounded-xl">
+<img alt="Elegant watercolor floral wreath" class="w-full h-full object-cover aspect-square transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3TNml8HBnzUPyRNGbgGI1fUrVAcD9gqHY_igyLggb7HopoTWj0hZia35D5s2rJ2HzogOCWBu5tkR_5ZP5iNU_Ts2ZCKho4ngIXboMyYw90gEU7IF5vUH2zOd72O1Xe7vWqwLksroMnkusYyTC60RabsJqFuAQhMH_-QhAB99l2Nmzq6JBByZStw87eLJ4pUGkplVT5Tn3K6BOgS_4TAPRTmPlCtWv7zrIRja_kKluD5Lbhy5QPrZs0BVP_iTIWfF0u53z0U7-JTFL"/>
+</div>
+<div class="group relative overflow-hidden rounded-xl">
+<img alt="Elegant watercolor floral wreath" class="w-full h-full object-cover aspect-square transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3TNml8HBnzUPyRNGbgGI1fUrVAcD9gqHY_igyLggb7HopoTWj0hZia35D5s2rJ2HzogOCWBu5tkR_5ZP5iNU_Ts2ZCKho4ngIXboMyYw90gEU7IF5vUH2zOd72O1Xe7vWqwLksroMnkusYyTC60RabsJqFuAQhMH_-QhAB99l2Nmzq6JBByZStw87eLJ4pUGkplVT5Tn3K6BOgS_4TAPRTmPlCtWv7zrIRja_kKluD5Lbhy5QPrZs0BVP_iTIWfF0u53z0U7-JTFL"/>
+</div>
+<div class="group relative overflow-hidden rounded-xl">
+<img alt="Pink Camellia flower" class="w-full h-full object-cover aspect-square transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG_QaqFSEVe5zJZp6-xIR6xwkGDoNMiHPHfANLNM1lIvS6bY09nsJ-iNFRZddePinq91h9mBQgsf2iWQXf_5gkHuXw_DIeh_t9n9-PUaMS8qKbOy-RvWzOa5l_9Zx0Uu4l-TaC718rkPGIrnXmIJxnmBIwKTdID6Q4GOn2EeGACFKGzW08yCMW6YhIBBFJI2v1z-TV3D5wczb95QlZiUelWIO9pm0idWWsLwEw5XtL_21vs25pAoyEcVJCkd4TsqsmHfZg5U-W9aIn"/>
+</div>
+</div>
+</section>
+<section>
+<div class="flex flex-col sm:flex-row justify-between items-baseline mb-8">
+<h2 class="text-4xl font-bold text-gray-900 dark:text-white">Mais Recentes</h2>
+<a class="text-primary font-semibold hover:underline whitespace-nowrap mt-2 sm:mt-0" href="#">Ver tudo <span class="material-symbols-outlined text-lg align-middle">east</span></a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+<div class="group relative overflow-hidden rounded-2xl shadow-md col-span-2 row-span-2">
+<img alt="Abstract geometric pattern in shades of teal and coral" class="w-full h-full object-cover aspect-[1/1] transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNrCA-orWJTNFh5qzUgkMP8bFIulK0UTF9qVlsI4_PkG5jv47h-nkomhsID7mi-6sKTX7E3NKtt7c2MSr5x5bdCUBAtkHhcVRskfiWPFj_Xn2o0UcXdyII3t5k2rdr4Gu_QdtP2kzhD4rW3hA3AkWQg9F1UrdMpRyLTz9rsYjSYeOfQoBhNVorFSOKKTRWNpkUv8mF9SbBMUQX4gq9a3bEOtTrpsS2a38dHeRL3ZRkp_4koz8OWYjYt6zv4nV14NUJ53H-6gV6inCX"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+<div class="group relative overflow-hidden rounded-2xl shadow-md">
+<img alt="Swirling silver silk texture" class="w-full h-full object-cover aspect-[1/1] transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNJWDBEn_IlepuDZ4Ixqg-En2UgOWj84GPkECz6x_tK530tdG2SfX_X5-cggqt_IjbaOOivkOengn-sJirPhOYBQQfzdB6oivjPP_Nlp42WTmu5xg3XYlJR1QHaEKZrjJh2SVlyuXOYXMiB8AZdSWT9iRrujDxQCjGrLNfsbmVIIzhE3afCXTfOj6B_VB-9auoQWJ70QMkrJp8RzvNjLV-s2Y015FDqhp26YsMXotn8Ng7X7y2V5C2-SnOyYUaNLGs1wk0NcFBvvrX"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+<div class="group relative overflow-hidden rounded-2xl shadow-md">
+<img alt="A city skyline at dusk with lights reflecting on the water" class="w-full h-full object-cover aspect-[1/1] transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM95v7kKtYAgqjSrP--XkUvFGfuMSKD9OaN8C3F9DQr1ydxi7aB7udvjBWGJCH8zdfqGm_42XAeG2fUPGz-7WoIQBdox_ElBDI-Tx7gqclvYzinbJ8pAq0HKAkKLpcMhPrmrR1G3YF7s4HXi6wrn4HLkMA0iAmyhJAwmFyfxyls3uZndbWAAQ89R8xctTJ0qP4qM4RyvyCOSRNeowHkRPR3ZvOT4hkMZhRwfJiiCnhruE6OKL7vDC1BR4nDrBIKeJGKIzTZdb6Vw_D"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+<div class="group relative overflow-hidden rounded-2xl shadow-md">
+<img alt="Blue and white floral tile pattern" class="w-full h-full object-cover aspect-[1/1] transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAanNQj0c5-YH7IoZYHm_cheVr_ZQn1Upsi9ReKPwgZdzd3nyfsNl9tgXr7g-KAOPvsF5yXQ9MK9_ieJabslJr8bltwWjYqYsPou4s29HQ1i3EsAbPyYS4TiTRsghxVTYainr8VTyylPftOUaBJTC3kq_JRyiA0KXqCgEtZBiKtFR9gDniSBX7_Do8JPYcpyiQJa9n3knhoSAbd3QF0WESgzkICK0ibS1qgjPd4anszQ6vgrmwBDELo-LX4U3G2lrikta4luzOL2DLF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+<div class="group relative overflow-hidden rounded-2xl shadow-md">
+<img alt="Pressed autumn leaves with a golden border" class="w-full h-full object-cover aspect-[1/1] transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZbcQ1Fq0Qkcnjm2gf_MXXzlgfQgPlbBK8nidSZgFLzwzZlpTsNpDfjh3OA-UIR2eICdPh2SRuWxBUinRHYuk17SaxSyfdvzvQaAYaQMDh00f_CSXgoFuRo2gSVycRdheDv2WJHNKHwE_zm48E006odetDQpMMUI8RQWJrZf0P7p0cVLVMDUdjHAFDhcGNwZmMtWIzB2F_96ZPTetPuc2TrQHBBApqLrFnOb42E6PFc64VEEyg2M12kgh2U1AD7JM5ktmFgLDEB3Tn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,259 @@
+analise/src/components/ui/HUD.tsx(45,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(47,13): error TS1109: Expression expected.
+analise/src/components/ui/HUD.tsx(47,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(48,24): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(54,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(56,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(60,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(61,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(63,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(73,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(75,27): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(80,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(82,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(88,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(90,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(91,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(93,36): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(95,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(97,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(103,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(105,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(108,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(110,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(113,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(115,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(124,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(126,35): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(129,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(131,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(136,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(138,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(141,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(143,41): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(152,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(154,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(159,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(161,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(173,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(175,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(177,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(179,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(192,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(194,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(196,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(198,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(202,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(204,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(212,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(214,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(217,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(219,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(227,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(240,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(242,13): error TS1109: Expression expected.
+analise/src/components/ui/HUD.tsx(242,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(243,24): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(249,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(251,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(255,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(256,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(258,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(268,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(270,27): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(275,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(277,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(283,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(285,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(286,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(288,36): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(290,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(292,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(298,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(300,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(303,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(305,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(308,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(310,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(319,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(321,35): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(324,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(326,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(331,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(333,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(336,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(338,41): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(347,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(349,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(354,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(356,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(368,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(370,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(372,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(374,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(387,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(389,30): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(391,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(393,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(397,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(399,26): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(407,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(409,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(412,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(414,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(422,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(424,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(426,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(428,35): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(430,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(432,28): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(438,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(440,25): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(450,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(452,31): error TS1005: '}' expected.
+analise/src/components/ui/HUD.tsx(455,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(456,8): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+analise/src/components/ui/HUD.tsx(456,11): error TS17002: Expected corresponding JSX closing tag for 'div'.
+src/components/tools/criador-capas/components/ui/HUD.tsx(45,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(47,13): error TS1109: Expression expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(47,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(48,24): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(54,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(56,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(60,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(61,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(63,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(73,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(75,27): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(80,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(82,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(88,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(90,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(91,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(93,36): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(95,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(97,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(103,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(105,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(108,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(110,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(113,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(115,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(124,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(126,35): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(129,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(131,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(136,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(138,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(141,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(143,41): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(152,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(154,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(159,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(161,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(173,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(175,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(177,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(179,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(192,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(194,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(196,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(198,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(202,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(204,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(212,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(214,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(217,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(219,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(227,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(240,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(242,13): error TS1109: Expression expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(242,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(243,24): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(249,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(251,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(255,13): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(256,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(258,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(268,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(270,27): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(275,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(277,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(283,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(285,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(286,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(288,36): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(290,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(292,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(298,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(300,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(303,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(305,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(308,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(310,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(319,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(321,35): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(324,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(326,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(331,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(333,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(336,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(338,41): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(347,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(349,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(354,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(356,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(368,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(370,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(372,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(374,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(387,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(389,30): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(391,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(393,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(397,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(399,26): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(407,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(409,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(412,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(414,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(422,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(424,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(426,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(428,35): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(430,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(432,28): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(438,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(440,25): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(450,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(452,31): error TS1005: '}' expected.
+src/components/tools/criador-capas/components/ui/HUD.tsx(455,9): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(456,8): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/criador-capas/components/ui/HUD.tsx(456,11): error TS17002: Expected corresponding JSX closing tag for 'div'.
+src/components/tools/foto-hd/FotoHDTool.tsx(456,5): error TS2657: JSX expressions must have one parent element.
+src/components/tools/foto-hd/FotoHDTool.tsx(1047,31): error TS1005: ')' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1047,33): error TS17002: Expected corresponding JSX closing tag for 'div'.
+src/components/tools/foto-hd/FotoHDTool.tsx(1048,30): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/tools/foto-hd/FotoHDTool.tsx(1055,29): error TS17002: Expected corresponding JSX closing tag for 'div'.
+src/components/tools/foto-hd/FotoHDTool.tsx(1057,25): error TS1005: ')' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1060,11): error TS1005: ';' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1062,10): error TS1005: ',' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1102,25): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1103,23): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1106,11): error TS1005: ';' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1108,10): error TS1005: ',' expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1204,23): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1205,21): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1206,19): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1206,20): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1208,17): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1209,15): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1210,13): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1210,15): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1220,2): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1221,11): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1222,9): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1258,7): error TS1128: Declaration or statement expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1259,5): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1260,3): error TS1109: Expression expected.
+src/components/tools/foto-hd/FotoHDTool.tsx(1261,1): error TS1128: Declaration or statement expected.

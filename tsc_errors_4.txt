@@ -1,0 +1,146 @@
+src/components/tools/compressor-imagem/components/ImagePreviewCard.tsx(207,101): error TS2322: Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.
+  Type 'HTMLDivElement | null' is not assignable to type 'HTMLDivElement'.
+    Type 'null' is not assignable to type 'HTMLDivElement'.
+src/components/tools/compressor-imagem/components/ImagePreviewCard.tsx(218,100): error TS2322: Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.
+  Type 'HTMLDivElement | null' is not assignable to type 'HTMLDivElement'.
+    Type 'null' is not assignable to type 'HTMLDivElement'.
+src/components/tools/compressor-imagem/CompressorImagemTool.tsx(356,10): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(message: any, transfer?: Transferable[] | undefined): void | undefined', gave the following error.
+    Argument of type '[ArrayBuffer, ImageBitmap | null]' is not assignable to parameter of type 'Transferable[]'.
+      Type 'ArrayBuffer | ImageBitmap | null' is not assignable to type 'Transferable'.
+        Type 'null' is not assignable to type 'Transferable'.
+  Overload 2 of 3, '(message: any, transfer: Transferable[]): void | undefined', gave the following error.
+    Argument of type '[ArrayBuffer, ImageBitmap | null]' is not assignable to parameter of type 'Transferable[]'.
+      Type 'ArrayBuffer | ImageBitmap | null' is not assignable to type 'Transferable'.
+        Type 'null' is not assignable to type 'Transferable'.
+  Overload 3 of 3, '(message: any, options?: StructuredSerializeOptions | undefined): void | undefined', gave the following error.
+    Type '[ArrayBuffer, ImageBitmap | null]' has no properties in common with type 'StructuredSerializeOptions'.
+src/components/tools/compressor-imagem/index.tsx(4,17): error TS2307: Cannot find module './App' or its corresponding type declarations.
+src/components/tools/criador-capas/App (3).tsx(70,83): error TS18048: 'parsed.pages' is possibly 'undefined'.
+src/components/tools/criador-capas/app/admin/gerenciar-conceitos/page.tsx(4,28): error TS2307: Cannot find module '@/components/admin/ConceptManager' or its corresponding type declarations.
+src/components/tools/criador-capas/app/admin/upload/page.tsx(4,27): error TS2307: Cannot find module '@/components/admin/ImageUploader' or its corresponding type declarations.
+src/components/tools/criador-capas/app/galeria/page.tsx(4,25): error TS2307: Cannot find module '@/components/gallery/GalleryGrid' or its corresponding type declarations.
+src/components/tools/criador-capas/app/layout.tsx(4,25): error TS2307: Cannot find module 'react-hot-toast' or its corresponding type declarations.
+src/components/tools/criador-capas/app/page.tsx(4,25): error TS2307: Cannot find module '@/components/home/HeroSection' or its corresponding type declarations.
+src/components/tools/criador-capas/app/page.tsx(5,29): error TS2307: Cannot find module '@/components/home/FeaturesSection' or its corresponding type declarations.
+src/components/tools/criador-capas/app/page.tsx(6,28): error TS2307: Cannot find module '@/components/home/CategoryBlocks' or its corresponding type declarations.
+src/components/tools/criador-capas/app/page.tsx(7,27): error TS2307: Cannot find module '@/components/home/RecentGallery' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(4,29): error TS2307: Cannot find module '@/hooks/useConcepts' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(6,30): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(7,19): error TS2307: Cannot find module 'react-hot-toast' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(99,48): error TS7006: Parameter 'ct' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(102,42): error TS7006: Parameter 'tt' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/admin/ConceptManager.tsx(231,22): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(5,29): error TS2307: Cannot find module '@/hooks/useConcepts' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(6,27): error TS2307: Cannot find module '@/hooks/useImages' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(8,19): error TS2307: Cannot find module 'react-hot-toast' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(10,37): error TS2307: Cannot find module '@/lib/color-utils' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(11,46): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(204,29): error TS7006: Parameter 'categoria' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/admin/ImageUploader.tsx(218,31): error TS7006: Parameter 'traducao' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/canvas/ShaderCanvas.tsx(44,50): error TS2339: Property 'exportTime' does not exist on type 'AppState'.
+src/components/tools/criador-capas/components/canvas/VideoExporter.tsx(10,57): error TS2551: Property 'setExportProgress' does not exist on type 'AppState'. Did you mean 'exportProgress'?
+src/components/tools/criador-capas/components/canvas/VideoExporter.tsx(11,53): error TS2339: Property 'setExportTime' does not exist on type 'AppState'.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(4,21): error TS2300: Duplicate identifier 'Crop'.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(4,44): error TS2307: Cannot find module 'react-image-crop' or its corresponding type declarations.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(6,24): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(7,33): error TS2300: Duplicate identifier 'Crop'.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(98,9): error TS2304: Cannot find name 'toast'.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(103,7): error TS2304: Cannot find name 'toast'.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(187,26): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/editor/ImageEditorModal.tsx(188,28): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(4,27): error TS2307: Cannot find module '@/hooks/useImages' or its corresponding type declarations.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(5,29): error TS2307: Cannot find module '@/hooks/useConcepts' or its corresponding type declarations.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(6,38): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(7,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatImageUrl'.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(9,30): error TS2307: Cannot find module '@/components/editor/ImageEditorModal' or its corresponding type declarations.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(132,10): error TS2304: Cannot find name 'ImageIcon'.
+src/components/tools/criador-capas/components/gallery/GalleryGrid.tsx(147,22): error TS7006: Parameter 'image' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(4,29): error TS2307: Cannot find module '@/hooks/useConcepts' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(5,32): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(21,43): error TS7006: Parameter 'tt' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(44,38): error TS7006: Parameter 'categoria' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(77,34): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/home/CategoryBlocks.tsx(78,53): error TS7006: Parameter 'tt' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(3,27): error TS2307: Cannot find module '@/hooks/useImages' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(4,29): error TS2307: Cannot find module '@/hooks/useConcepts' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(5,38): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(6,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatImageUrl'.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(9,28): error TS2307: Cannot find module 'react-infinite-scroll-component' or its corresponding type declarations.
+src/components/tools/criador-capas/components/home/RecentGallery.tsx(111,31): error TS7006: Parameter 'image' implicitly has an 'any' type.
+src/components/tools/criador-capas/components/ProcessingFeedback.tsx(2,26): error TS2307: Cannot find module '@/components/ui/progress' or its corresponding type declarations.
+src/components/tools/criador-capas/components/ui/HUD.tsx(13,9): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/criador-capas/components/ui/HUD.tsx(13,18): error TS2339: Property 'setQuality' does not exist on type 'AppState'.
+src/components/tools/criador-capas/components/ui/progress.tsx(2,36): error TS2307: Cannot find module '@radix-ui/react-progress' or its corresponding type declarations.
+src/components/tools/criador-capas/components/VideoStudio.tsx(18,30): error TS2554: Expected 1 arguments, but got 0.
+src/components/tools/criador-capas/core/engine/CanvasRenderer.ts(483,28): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ 'scalloped-oval': string; 'vintage-plaque': string; 'ornate-frame': string; }'.
+src/components/tools/criador-capas/core/engine/CanvasRenderer.ts(485,30): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ 'scalloped-oval': string; 'vintage-plaque': string; 'ornate-frame': string; }'.
+src/components/tools/criador-capas/core/engine/labelStyles.ts(178,9): error TS2322: Type '"boho"' is not assignable to type 'LabelStyleId | undefined'.
+src/components/tools/criador-capas/hooks/useConcepts.ts(3,78): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/hooks/useImages.ts(3,52): error TS2307: Cannot find module '@/lib/types' or its corresponding type declarations.
+src/components/tools/criador-capas/main (2).tsx(4,17): error TS2307: Cannot find module './App.tsx' or its corresponding type declarations.
+src/components/tools/criador-capas/main (3).tsx(3,17): error TS2307: Cannot find module './App' or its corresponding type declarations.
+src/components/tools/criador-capas/main.tsx(4,17): error TS2307: Cannot find module './App.tsx' or its corresponding type declarations.
+src/components/tools/criador-capas/shaders/InterstellarSingularityShader.ts(1,13): error TS2300: Duplicate identifier 'THREE'.
+src/components/tools/criador-capas/shaders/InterstellarSingularityShader.ts(3,13): error TS2300: Duplicate identifier 'THREE'.
+src/components/tools/criador-capas/store.ts(50,23): error TS2740: Type '{ currentFractal: string; setFractal: (fractal: string) => unknown; bloomThreshold: number; bloomStrength: number; bloomRadius: number; setBloom: (settings: { threshold?: number | undefined; strength?: number | undefined; radius?: number | undefined; }) => unknown; ... 16 more ...; listPresets: () => string[]; }' is missing the following properties from type 'AppState': isExporting, setIsExporting, exportProgress, watermarkText, and 3 more.
+src/components/tools/criador-capas/store.ts(126,32): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/criador-capas/store.ts(127,32): error TS2339: Property 'appMode' does not exist on type 'AppState'.
+src/components/tools/criador-capas/widgets.tsx(5,102): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+src/components/tools/foto-hd/FotoHDTool.tsx(6,30): error TS2307: Cannot find module './components/SmartPreview' or its corresponding type declarations.
+src/components/tools/foto-hd/FotoHDTool.tsx(7,29): error TS2307: Cannot find module './components/AdjustModal' or its corresponding type declarations.
+src/components/tools/foto-hd/FotoHDTool.tsx(60,66): error TS2448: Block-scoped variable 'settings' used before its declaration.
+src/components/tools/foto-hd/FotoHDTool.tsx(60,66): error TS2454: Variable 'settings' is used before being assigned.
+src/components/tools/foto-hd/main.tsx(3,17): error TS2307: Cannot find module './App.tsx' or its corresponding type declarations.
+src/components/tools/gerador-templates/GeradorTemplatesTool.tsx(78,83): error TS18048: 'parsed.pages' is possibly 'undefined'.
+src/components/tools/gerador-templates/widgets.tsx(5,102): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+src/components/tools/loop-video/components/canvas/ShaderCanvas.tsx(44,50): error TS2339: Property 'exportTime' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/canvas/VideoExporter.tsx(10,57): error TS2551: Property 'setExportProgress' does not exist on type 'AppState'. Did you mean 'exportProgress'?
+src/components/tools/loop-video/components/canvas/VideoExporter.tsx(11,53): error TS2339: Property 'setExportTime' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/ui/HUD.tsx(18,9): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/ui/HUD.tsx(18,18): error TS2339: Property 'setQuality' does not exist on type 'AppState'.
+src/components/tools/loop-video/main.tsx(4,17): error TS2307: Cannot find module './App.tsx' or its corresponding type declarations.
+src/components/tools/loop-video/shaders/InterstellarSingularityShader.ts(1,13): error TS2300: Duplicate identifier 'THREE'.
+src/components/tools/loop-video/shaders/InterstellarSingularityShader.ts(3,13): error TS2300: Duplicate identifier 'THREE'.
+src/components/tools/loop-video/store.ts(50,23): error TS2740: Type '{ currentFractal: string; setFractal: (fractal: string) => unknown; bloomThreshold: number; bloomStrength: number; bloomRadius: number; setBloom: (settings: { threshold?: number | undefined; strength?: number | undefined; radius?: number | undefined; }) => unknown; ... 16 more ...; listPresets: () => string[]; }' is missing the following properties from type 'AppState': isExporting, setIsExporting, exportProgress, watermarkText, and 3 more.
+src/components/tools/loop-video/store.ts(126,32): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/loop-video/store.ts(127,32): error TS2339: Property 'appMode' does not exist on type 'AppState'.
+src/components/tools/removedor-fundo/components/ImageCard.tsx(201,54): error TS2304: Cannot find name 'onProcessImage'.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(896,13): error TS2698: Spread types may only be created from object types.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1322,172): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1326,35): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/index.tsx(4,17): error TS2307: Cannot find module './App' or its corresponding type declarations.
+src/components/tools/removedor-fundo/index.tsx(6,44): error TS2307: Cannot find module 'web-vitals' or its corresponding type declarations.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(19,10): error TS2300: Duplicate identifier 'useTranslation'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(20,8): error TS2300: Duplicate identifier 'Spinner'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(21,8): error TS2300: Duplicate identifier 'ErrorBoundary'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(22,10): error TS2300: Duplicate identifier 'useTranslation'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(23,8): error TS2300: Duplicate identifier 'Spinner'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(24,8): error TS2300: Duplicate identifier 'ErrorBoundary'.
+src/components/tools/removedor-fundo/RemovedorFundoTool.tsx(348,48): error TS2345: Argument of type '"system.error"' is not assignable to parameter of type 'ToastType | undefined'.
+src/components/tools/removedor-fundo/tests/e2e/app.spec.ts(1,30): error TS2307: Cannot find module '@playwright/test' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/e2e/app.spec.ts(2,28): error TS2307: Cannot find module '@axe-core/playwright' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/e2e/app.spec.ts(4,59): error TS7031: Binding element 'page' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/e2e/app.spec.ts(11,61): error TS7031: Binding element 'page' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/e2e/app.spec.ts(18,42): error TS7031: Binding element 'page' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/integration/useImageProcessor.spec.tsx(1,42): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/integration/useImageProcessor.spec.tsx(2,33): error TS2307: Cannot find module '@testing-library/react' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/integration/useImageProcessor.spec.tsx(3,35): error TS2307: Cannot find module '@/hooks/useImageProcessor' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/integration/useImageProcessor.spec.tsx(4,22): error TS2307: Cannot find module '@/utils/idb' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/setup/vitest.setup.ts(2,20): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(1,49): error TS2307: Cannot find module '@/utils/fileUtils' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(3,1): error TS2582: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(4,3): error TS2582: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(8,5): error TS2304: Cannot find name 'expect'.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(9,5): error TS2304: Cannot find name 'expect'.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(12,3): error TS2582: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(14,48): error TS7006: Parameter 'key' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(14,53): error TS7006: Parameter 'type' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(14,59): error TS7006: Parameter 'params' implicitly has an 'any' type.
+src/components/tools/removedor-fundo/tests/unit/fileUtils.spec.ts(19,5): error TS2304: Cannot find name 'expect'.
+src/components/tools/removedor-fundo/tests/unit/idb.spec.ts(1,60): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/idb.spec.ts(2,51): error TS2307: Cannot find module '@/utils/idb' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/idb.spec.ts(3,29): error TS2307: Cannot find module '@/types' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/imageProcessor.spec.ts(1,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/components/tools/removedor-fundo/tests/unit/imageProcessor.spec.ts(2,43): error TS2307: Cannot find module '@/utils/imageProcessor' or its corresponding type declarations.
+src/components/tools/removedor-fundo/workers/grabcutWorker.ts(100,7): error TS2367: This comparison appears to be unintentional because the types '"filter" | "graphcut" | "morph" | "iterative" | undefined' and '"cancel"' have no overlap.

@@ -20,29 +20,31 @@ export default function ToolsPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Tool Card - Criador de Capas */}
+
+
+                {/* Tool Card - Loop Video */}
                 <Link
-                    href="/tools/criador-capas"
+                    href="/tools/loop-video"
                     className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
                 >
                     <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
-                        <span className="text-2xl">🎨</span>
+                        <span className="text-2xl">🌀</span>
                     </div>
                     <h3 className="font-bold text-gray-900 mb-2">
-                        Criador de Capas
+                        Loop Video
                     </h3>
                     <p className="text-sm text-gray-600 mb-3">
-                        Crie capas profissionais para seus produtos
+                        Crie loops de vídeo hipnóticos e fractais
                     </p>
                     <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
-                        {isPro ? 'Ilimitado' : '5 Grátis/dia'}
+                        {isPro ? 'Ilimitado' : '1 Grátis/dia'}
                     </span>
                 </Link>
 
-                {/* Tool Card - Removedor de Fundo (Placeholder until integrated) */}
+                {/* Tool Card - Removedor de Fundo */}
                 <Link
                     href="/tools/removedor-fundo"
-                    className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group opacity-75 grayscale hover:grayscale-0"
+                    className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
                 >
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                         <span className="text-2xl">🖼️</span>
@@ -53,8 +55,46 @@ export default function ToolsPage() {
                     <p className="text-sm text-gray-600 mb-3">
                         Remova fundos de imagens em lote
                     </p>
-                    <span className="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2 py-1 rounded">
-                        Em manutenção
+                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                        {isPro ? 'Ilimitado' : '5 Grátis/dia'}
+                    </span>
+                </Link>
+
+                {/* Tool Card - Compressor */}
+                <Link
+                    href="/tools/compressor-imagem"
+                    className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
+                >
+                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-200 transition-colors">
+                        <span className="text-2xl">📉</span>
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-2">
+                        Compressor de Imagem
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                        Reduza o tamanho de imagens com qualidade
+                    </p>
+                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                        {isPro ? 'Ilimitado' : '5 Grátis/dia'}
+                    </span>
+                </Link>
+
+                {/* Tool Card - Templates */}
+                <Link
+                    href="/tools/gerador-templates"
+                    className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-300 group"
+                >
+                    <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-200 transition-colors">
+                        <span className="text-2xl">📑</span>
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-2">
+                        Gerador de Templates
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                        Crie templates organizados para produtividade
+                    </p>
+                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                        {isPro ? 'Ilimitado' : '3 Grátis/dia'}
                     </span>
                 </Link>
 
