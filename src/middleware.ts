@@ -54,17 +54,20 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-}
+  const { data: { session } } = await supabase.auth.getSession()
 
-// Dashboard is now public-friendly (Welcome Guest), but we can optionally protect sub-routes if needed later.
-// For now, we allow /dashboard access to everyone.
+  // Protect sensitive routes (Settings, Billing)
+  // Ensure we don't accidentally block tools
+  const isProtectedPath = (
+    request.nextUrl.pathname.startsWith('/settings') ||
+    request.nextUrl.pathname.startsWith('/api/stripe')
+  );
 
-return response
+  if (isProtectedPath && !session) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
 
-// Protect API routes (optional, but good practice if not public)
-// Logic for APIs is often better handled inside the route handler for 401 JSON responses
-
-return response
+  return response
 }
 
 export const config = {
