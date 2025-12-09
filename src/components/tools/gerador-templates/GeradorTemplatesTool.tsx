@@ -72,7 +72,7 @@ export default function GeradorTemplatesTool() {
       try {
         const parsed: LayoutState = JSON.parse(raw)
         setTemaId(parsed.temaId)
-        if (parsed.pages && parsed.pages.length) {
+        if (parsed.pages?.length) {
           setPages(parsed.pages)
           setActivePageId(parsed.activePageId || parsed.pages[0].id)
           const current = parsed.pages.find(p => p.id === (parsed.activePageId || parsed.pages[0].id))

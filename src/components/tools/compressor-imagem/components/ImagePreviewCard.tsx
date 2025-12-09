@@ -43,7 +43,7 @@ const FileInfo: React.FC<{
   );
 };
 
-const WatermarkPreview: React.FC<{ watermarkSettings: WatermarkSettings, containerRef: React.RefObject<HTMLDivElement> }> = ({ watermarkSettings, containerRef }) => {
+const WatermarkPreview: React.FC<{ watermarkSettings: WatermarkSettings, containerRef: React.RefObject<HTMLDivElement | null> }> = ({ watermarkSettings, containerRef }) => {
   const [mosaicUrl, setMosaicUrl] = useState('');
   const { type, text, size, color, opacity, position, mosaic, angle, offsetX, offsetY, imageUrl } = watermarkSettings;
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });

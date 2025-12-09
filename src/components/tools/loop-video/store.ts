@@ -35,10 +35,17 @@ interface AppState {
     isExporting: boolean;
     setIsExporting: (isExporting: boolean) => void;
     exportProgress: number;
+    setExportProgress: (progress: number) => void;
+    exportTime: number;
+    setExportTime: (time: number) => void;
     watermarkText: string;
     setWatermarkText: (text: string) => void;
     showWatermark: boolean;
     setShowWatermark: (show: boolean) => void;
+    quality: number;
+    setQuality: (quality: number) => void;
+    appMode: 'zen' | 'creator';
+    setAppMode: (mode: 'zen' | 'creator') => void;
 
     savePreset: (name: string) => void;
     loadPreset: (name: string) => void;
@@ -81,6 +88,22 @@ export const useStore = create<AppState>()(
             setColor: (color) => set({ color }),
             glow: 1.0,
             setGlow: (glow) => set({ glow }),
+
+            // Export State
+            isExporting: false,
+            setIsExporting: (isExporting) => set({ isExporting }),
+            exportProgress: 0,
+            setExportProgress: (exportProgress) => set({ exportProgress }),
+            exportTime: 0,
+            setExportTime: (exportTime) => set({ exportTime }),
+            watermarkText: '',
+            setWatermarkText: (watermarkText) => set({ watermarkText }),
+            showWatermark: true,
+            setShowWatermark: (showWatermark) => set({ showWatermark }),
+            quality: 1, // High quality
+            setQuality: (quality) => set({ quality }),
+            appMode: 'creator',
+            setAppMode: (appMode) => set({ appMode }),
 
             savePreset: (name) => {
                 const state = get();

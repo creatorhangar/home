@@ -1,0 +1,18 @@
+﻿src/components/tools/gerador-templates/GeradorTemplatesTool.tsx(78,83): error TS18048: 'parsed.pages' is possibly 'undefined'.
+src/components/tools/gerador-templates/widgets.tsx(111,24): error TS2322: Type '{ minAngle: number; background: true; dataKey: string; cornerRadius: number; fill: string; }' is not assignable to type 'IntrinsicAttributes & Omit<PresentationAttributesAdaptChildEvent<any, SVGElement>, "ref"> & InternalRadialBarProps'.
+  Property 'minAngle' does not exist on type 'IntrinsicAttributes & Omit<PresentationAttributesAdaptChildEvent<any, SVGElement>, "ref"> & InternalRadialBarProps'.
+src/components/tools/gerador-templates/widgets.tsx(360,22): error TS2322: Type '{ minAngle: number; background: true; dataKey: string; cornerRadius: number; fill: string; }' is not assignable to type 'IntrinsicAttributes & Omit<PresentationAttributesAdaptChildEvent<any, SVGElement>, "ref"> & InternalRadialBarProps'.
+  Property 'minAngle' does not exist on type 'IntrinsicAttributes & Omit<PresentationAttributesAdaptChildEvent<any, SVGElement>, "ref"> & InternalRadialBarProps'.
+src/components/tools/loop-video/components/canvas/ShaderCanvas.tsx(44,50): error TS2339: Property 'exportTime' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/canvas/VideoExporter.tsx(10,57): error TS2551: Property 'setExportProgress' does not exist on type 'AppState'. Did you mean 'exportProgress'?
+src/components/tools/loop-video/components/canvas/VideoExporter.tsx(11,53): error TS2339: Property 'setExportTime' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/ui/HUD.tsx(21,9): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/loop-video/components/ui/HUD.tsx(21,18): error TS2339: Property 'setQuality' does not exist on type 'AppState'.
+src/components/tools/loop-video/store.ts(50,23): error TS2740: Type '{ currentFractal: string; setFractal: (fractal: string) => unknown; bloomThreshold: number; bloomStrength: number; bloomRadius: number; setBloom: (settings: { threshold?: number | undefined; strength?: number | undefined; radius?: number | undefined; }) => unknown; ... 16 more ...; listPresets: () => string[]; }' is missing the following properties from type 'AppState': isExporting, setIsExporting, exportProgress, watermarkText, and 3 more.
+src/components/tools/loop-video/store.ts(126,32): error TS2339: Property 'quality' does not exist on type 'AppState'.
+src/components/tools/loop-video/store.ts(127,32): error TS2339: Property 'appMode' does not exist on type 'AppState'.
+src/components/tools/removedor-fundo/components/ImageCard.tsx(201,54): error TS2304: Cannot find name 'onProcessImage'.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(896,13): error TS2698: Spread types may only be created from object types.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1322,172): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/components/PreviewModal.tsx(1326,35): error TS2367: This comparison appears to be unintentional because the types '"refine"' and '"crop"' have no overlap.
+src/components/tools/removedor-fundo/workers/grabcutWorker.ts(100,7): error TS2367: This comparison appears to be unintentional because the types '"filter" | "graphcut" | "morph" | "iterative" | undefined' and '"cancel"' have no overlap.

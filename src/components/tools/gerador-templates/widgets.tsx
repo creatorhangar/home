@@ -108,6 +108,8 @@ export function WidgetProgressBar({ titulo = 'Meta', valor_atual = 5, valor_meta
         <div className="text-sm mb-2 text-ui-text">{titulo}</div>
         <ResponsiveContainer width="100%" height={160}>
           <RadialBarChart innerRadius="70%" outerRadius="100%" data={[{ name: 'p', value: pct }]} startAngle={90} endAngle={450}>
+            {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <RadialBar minAngle={15} background dataKey="value" cornerRadius={10} fill="#7A8A73" />
           </RadialBarChart>
         </ResponsiveContainer>
@@ -159,7 +161,7 @@ export function WidgetMoodTracker({ dias = 30, estados = ['Smile', 'SmilePlus', 
       {Array.from({ length: dias }).map((_, i) => {
         const Icon = icons[i % icons.length]
         return (
-        <div key={i} className="w-8 h-8 border border-ui-border rounded-md flex items-center justify-center text-ui-textSecondary">
+          <div key={i} className="w-8 h-8 border border-ui-border rounded-md flex items-center justify-center text-ui-textSecondary">
             <Icon className="w-4 h-4" />
           </div>
         )
@@ -357,6 +359,7 @@ export function WidgetPoupanca({ atual = 500, meta = 1000 }: { atual?: number; m
       <div className="text-sm mb-2 text-ui-text">Poupança</div>
       <ResponsiveContainer width="100%" height={160}>
         <RadialBarChart innerRadius="70%" outerRadius="100%" data={[{ name: 'p', value: pct }]} startAngle={90} endAngle={450}>
+          {/* @ts-ignore */}
           <RadialBar minAngle={15} background dataKey="value" cornerRadius={10} fill="#7A8A73" />
         </RadialBarChart>
       </ResponsiveContainer>
@@ -439,11 +442,11 @@ export function WidgetBookTracker({ livros = [{ titulo: 'Livro A', autor: 'Autor
       {livros.map((l, i) => {
         const pct = Math.min(100, Math.round((l.lidas / Math.max(1, l.paginas)) * 100))
         return (
-        <div key={i} className="border border-ui-border rounded-md p-3 bg-white">
-          <div className="flex items-center gap-2 text-ui-text">
-            <Book className="w-4 h-4 text-ui-textSecondary" />
+          <div key={i} className="border border-ui-border rounded-md p-3 bg-white">
+            <div className="flex items-center gap-2 text-ui-text">
+              <Book className="w-4 h-4 text-ui-textSecondary" />
               <div className="text-sm font-medium">{l.titulo}</div>
-            <div className="text-xs text-ui-textSecondary">— {l.autor}</div>
+              <div className="text-xs text-ui-textSecondary">— {l.autor}</div>
             </div>
             <div className="mt-2">
               <ResponsiveContainer width="100%" height={60}>
@@ -577,7 +580,7 @@ export function WidgetBrainDump({ linhas = 6 }: { linhas?: number }) {
   )
 }
 
- 
+
 
 export function WidgetNoteGraph({ linhas = 16, colunas = 12 }: { linhas?: number; colunas?: number }) {
   return (
@@ -603,9 +606,9 @@ export function WidgetNoteDot({ linhas = 22, colunas = 16 }: { linhas?: number; 
   )
 }
 
- 
 
-export function WidgetCalendarioAnual({ meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'] }: { meses?: string[] }) {
+
+export function WidgetCalendarioAnual({ meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'] }: { meses?: string[] }) {
   return (
     <div className="p-4 grid grid-cols-3 gap-3">
       {meses.map((m) => (
@@ -622,7 +625,7 @@ export function WidgetCalendarioAnual({ meses = ['Jan','Fev','Mar','Abr','Mai','
   )
 }
 
-export function WidgetVisaoTrimestral({ prompts = ['Objetivos','Hábitos','Eventos'] }: { prompts?: string[] }) {
+export function WidgetVisaoTrimestral({ prompts = ['Objetivos', 'Hábitos', 'Eventos'] }: { prompts?: string[] }) {
   return (
     <div className="p-4 grid grid-cols-3 gap-3">
       {prompts.map((p, i) => (
@@ -643,10 +646,10 @@ export function WidgetDatasChave({ itens = [{ titulo: 'Projeto', data: '10/02' }
   return (
     <div className="p-4 space-y-2">
       {itens.map((it, i) => (
-          <div key={i} className="flex items-center gap-3 border border-ui-border rounded-md p-2">
-            <Calendar className="w-4 h-4 text-ui-textSecondary" />
-            <div className="flex-1 text-ui-text text-sm">{it.titulo}</div>
-            <div className="text-ui-textSecondary text-sm">{it.data}</div>
+        <div key={i} className="flex items-center gap-3 border border-ui-border rounded-md p-2">
+          <Calendar className="w-4 h-4 text-ui-textSecondary" />
+          <div className="flex-1 text-ui-text text-sm">{it.titulo}</div>
+          <div className="text-ui-textSecondary text-sm">{it.data}</div>
         </div>
       ))}
     </div>
@@ -716,7 +719,7 @@ export function WidgetNoteCornell({ linhas = 24, spacing = 28 }: { linhas?: numb
   )
 }
 
-export type WidgetEntry = { type: WidgetKind; props: any; style?: { bg?: string; padding?: number; shadow?: string; borderRadius?: string; size?: number; textureLayers?: Array<{ id: string; src: string; name?: string; fill: 'esticar'|'repetir'|'centralizar'; angle: number; posX: number; posY: number; scale: number; opacity?: number; zIndex: number }> } }
+export type WidgetEntry = { type: WidgetKind; props: any; style?: { bg?: string; padding?: number; shadow?: string; borderRadius?: string; size?: number; textureLayers?: Array<{ id: string; src: string; name?: string; fill: 'esticar' | 'repetir' | 'centralizar'; angle: number; posX: number; posY: number; scale: number; opacity?: number; zIndex: number }> } }
 
 export function WidgetRenderer({ entry }: { entry: WidgetEntry }) {
   const style = entry.style || {}
@@ -733,52 +736,52 @@ export function WidgetRenderer({ entry }: { entry: WidgetEntry }) {
           return <div key={l.id} style={{ ...base, ...bg, ...fill, transform }} />
         })}
         <div className="relative z-10">
-      {entry.type === 'texto' ? <WidgetTexto {...entry.props} /> : null}
-      {entry.type === 'controleDeAgua' ? <WidgetControleDeAgua {...entry.props} cols={entry.style?.size === 1 ? 4 : entry.style?.size === 2 ? 8 : 4} /> : null}
-      {entry.type === 'listaDeTarefas' ? <WidgetListaDeTarefas {...entry.props} rows={entry.style?.size === 1 ? 4 : entry.style?.size === 2 ? 8 : 14} /> : null}
-      {entry.type === 'progressBar' ? <WidgetProgressBar {...entry.props} /> : null}
-      {entry.type === 'plannerSemanal' ? <WidgetPlannerSemanal {...entry.props} /> : null}
-      {entry.type === 'plannerMensal' ? <WidgetPlannerMensal {...entry.props} /> : null}
-      {entry.type === 'prioridadesDoDia' ? <WidgetPrioridadesDoDia {...entry.props} /> : null}
-      {entry.type === 'horarioDoMeuDia' ? <WidgetHorarioDoMeuDia {...entry.props} /> : null}
-      {entry.type === 'trackerDeHabitos' ? <WidgetTrackerDeHabitos {...entry.props} /> : null}
-      {entry.type === 'trackerDeSono' ? <WidgetTrackerDeSono {...entry.props} /> : null}
-      {entry.type === 'refeicoes' ? <WidgetRefeicoes {...entry.props} /> : null}
-      {entry.type === 'controleDeGastos' ? <WidgetControleDeGastos {...entry.props} /> : null}
-      {entry.type === 'poupanca' ? <WidgetPoupanca {...entry.props} /> : null}
-      {entry.type === 'contadorRegressivo' ? <WidgetContadorRegressivo {...entry.props} /> : null}
-      {entry.type === 'metas3Meses' ? <WidgetMetas3Meses {...entry.props} /> : null}
-      {entry.type === 'gratitude' ? <WidgetGratitude {...entry.props} /> : null}
-      {entry.type === 'trackerDeExercicios' ? <WidgetTrackerDeExercicios {...entry.props} /> : null}
-      {entry.type === 'bookTracker' ? <WidgetBookTracker {...entry.props} /> : null}
-      {entry.type === 'pomodoroPlanner' ? <WidgetPomodoroPlanner {...entry.props} /> : null}
-      {entry.type === 'ideias' ? <WidgetIdeias {...entry.props} /> : null}
-      {entry.type === 'memoriasDoMes' ? <WidgetMemoriasDoMes {...entry.props} /> : null}
-      {entry.type === 'aniversarios' ? <WidgetAniversarios {...entry.props} /> : null}
-      {entry.type === 'sticker' ? <WidgetSticker {...entry.props} /> : null}
-      {entry.type === 'weeklyFocus' ? <WidgetWeeklyFocus {...entry.props} /> : null}
-      {entry.type === 'brainDump' ? <WidgetBrainDump {...entry.props} /> : null}
-      {entry.type === 'noteLined' ? <WidgetNoteLined {...entry.props} /> : null}
-      {entry.type === 'noteGraph' ? <WidgetNoteGraph {...entry.props} /> : null}
-      {entry.type === 'noteDot' ? <WidgetNoteDot {...entry.props} /> : null}
-      {entry.type === 'noteCornell' ? <WidgetNoteCornell {...entry.props} /> : null}
-      {entry.type === 'calendarioAnual' ? <WidgetCalendarioAnual {...entry.props} /> : null}
-      {entry.type === 'visaoTrimestral' ? <WidgetVisaoTrimestral {...entry.props} /> : null}
-      {entry.type === 'datasChave' ? <WidgetDatasChave {...entry.props} /> : null}
-      {entry.type === 'weeklyTabs' ? <WidgetWeeklyTabs {...entry.props} /> : null}
-      {entry.type === 'moodTracker' ? <WidgetMoodTracker {...entry.props} /> : null}
-      {entry.type === 'divisor' ? <WidgetDivisor {...entry.props} /> : null}
-      {entry.type === 'imagem' ? <WidgetImagem {...entry.props} /> : null}
-      {entry.type === 'listaNumerada' ? <WidgetListaNumerada {...entry.props} /> : null}
-      {entry.type === 'listaComPontos' ? <WidgetListaComPontos {...entry.props} /> : null}
+          {entry.type === 'texto' ? <WidgetTexto {...entry.props} /> : null}
+          {entry.type === 'controleDeAgua' ? <WidgetControleDeAgua {...entry.props} cols={entry.style?.size === 1 ? 4 : entry.style?.size === 2 ? 8 : 4} /> : null}
+          {entry.type === 'listaDeTarefas' ? <WidgetListaDeTarefas {...entry.props} rows={entry.style?.size === 1 ? 4 : entry.style?.size === 2 ? 8 : 14} /> : null}
+          {entry.type === 'progressBar' ? <WidgetProgressBar {...entry.props} /> : null}
+          {entry.type === 'plannerSemanal' ? <WidgetPlannerSemanal {...entry.props} /> : null}
+          {entry.type === 'plannerMensal' ? <WidgetPlannerMensal {...entry.props} /> : null}
+          {entry.type === 'prioridadesDoDia' ? <WidgetPrioridadesDoDia {...entry.props} /> : null}
+          {entry.type === 'horarioDoMeuDia' ? <WidgetHorarioDoMeuDia {...entry.props} /> : null}
+          {entry.type === 'trackerDeHabitos' ? <WidgetTrackerDeHabitos {...entry.props} /> : null}
+          {entry.type === 'trackerDeSono' ? <WidgetTrackerDeSono {...entry.props} /> : null}
+          {entry.type === 'refeicoes' ? <WidgetRefeicoes {...entry.props} /> : null}
+          {entry.type === 'controleDeGastos' ? <WidgetControleDeGastos {...entry.props} /> : null}
+          {entry.type === 'poupanca' ? <WidgetPoupanca {...entry.props} /> : null}
+          {entry.type === 'contadorRegressivo' ? <WidgetContadorRegressivo {...entry.props} /> : null}
+          {entry.type === 'metas3Meses' ? <WidgetMetas3Meses {...entry.props} /> : null}
+          {entry.type === 'gratitude' ? <WidgetGratitude {...entry.props} /> : null}
+          {entry.type === 'trackerDeExercicios' ? <WidgetTrackerDeExercicios {...entry.props} /> : null}
+          {entry.type === 'bookTracker' ? <WidgetBookTracker {...entry.props} /> : null}
+          {entry.type === 'pomodoroPlanner' ? <WidgetPomodoroPlanner {...entry.props} /> : null}
+          {entry.type === 'ideias' ? <WidgetIdeias {...entry.props} /> : null}
+          {entry.type === 'memoriasDoMes' ? <WidgetMemoriasDoMes {...entry.props} /> : null}
+          {entry.type === 'aniversarios' ? <WidgetAniversarios {...entry.props} /> : null}
+          {entry.type === 'sticker' ? <WidgetSticker {...entry.props} /> : null}
+          {entry.type === 'weeklyFocus' ? <WidgetWeeklyFocus {...entry.props} /> : null}
+          {entry.type === 'brainDump' ? <WidgetBrainDump {...entry.props} /> : null}
+          {entry.type === 'noteLined' ? <WidgetNoteLined {...entry.props} /> : null}
+          {entry.type === 'noteGraph' ? <WidgetNoteGraph {...entry.props} /> : null}
+          {entry.type === 'noteDot' ? <WidgetNoteDot {...entry.props} /> : null}
+          {entry.type === 'noteCornell' ? <WidgetNoteCornell {...entry.props} /> : null}
+          {entry.type === 'calendarioAnual' ? <WidgetCalendarioAnual {...entry.props} /> : null}
+          {entry.type === 'visaoTrimestral' ? <WidgetVisaoTrimestral {...entry.props} /> : null}
+          {entry.type === 'datasChave' ? <WidgetDatasChave {...entry.props} /> : null}
+          {entry.type === 'weeklyTabs' ? <WidgetWeeklyTabs {...entry.props} /> : null}
+          {entry.type === 'moodTracker' ? <WidgetMoodTracker {...entry.props} /> : null}
+          {entry.type === 'divisor' ? <WidgetDivisor {...entry.props} /> : null}
+          {entry.type === 'imagem' ? <WidgetImagem {...entry.props} /> : null}
+          {entry.type === 'listaNumerada' ? <WidgetListaNumerada {...entry.props} /> : null}
+          {entry.type === 'listaComPontos' ? <WidgetListaComPontos {...entry.props} /> : null}
         </div>
       </div>
- 
+
     </div>
   )
 }
 
- 
+
 
 export function IconPickerBasic({ value, onChange }: { value?: string; onChange: (name: string) => void }) {
   const icons = [

@@ -28,14 +28,14 @@ const StatusIndicator: React.FC<{ status: ImageStatus; progress?: { stage: strin
           <Spinner />
           <div className="text-xs text-text-primary">
             <p>Processando… {typeof progress?.pct === 'number' ? `${progress.pct}%` : ''}</p>
-            {progress?.stage && <p className="text-[10px] text-text-secondary">{progress.stage}{typeof progress.iter === 'number' ? ` · iteração ${progress.iter+1}` : ''}</p>}
+            {progress?.stage && <p className="text-[10px] text-text-secondary">{progress.stage}{typeof progress.iter === 'number' ? ` · iteração ${progress.iter + 1}` : ''}</p>}
           </div>
         </div>
       );
     case ImageStatus.Done:
       return <CheckCircleIcon className="absolute top-2 right-2 w-6 h-6 text-green-500 bg-white rounded-full" />;
     case ImageStatus.Error:
-       return <XCircleIcon className="absolute top-2 right-2 w-6 h-6 text-red-500 bg-white rounded-full" />;
+      return <XCircleIcon className="absolute top-2 right-2 w-6 h-6 text-red-500 bg-white rounded-full" />;
     default:
       return null;
   }
@@ -49,6 +49,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
   onRevert,
   onOpenGallery,
   globalPreviewBg,
+  onProcessImage,
 }) => {
   const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -58,7 +59,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
     light: 'bg-gray-100',
     checkerboard: 'checkerboard-bg',
   };
-  
+
   // Este efeito desenha a imagem original em um canvas oculto para detecção de cor.
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -85,18 +86,18 @@ const ImageCard: React.FC<ImageCardProps> = ({
       }
     };
   }, [image.originalURL, image.id, onUpdateImage, image.removalInfo]);
-  
+
   const handleAutoDetectColor = useCallback((e: React.MouseEvent) => {
-      e.stopPropagation(); // Impede que o clique abra o modal de edição
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.src = image.originalURL;
-      img.onload = () => {
-          const dominantColor = detectDominantBorderColor(img);
-          if (dominantColor) {
-              onUpdateImage(image.id, { removalInfo: [{ color: { ...dominantColor, a: 255 }, isAuto: true }] });
-          }
-      };
+    e.stopPropagation(); // Impede que o clique abra o modal de edição
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = image.originalURL;
+    img.onload = () => {
+      const dominantColor = detectDominantBorderColor(img);
+      if (dominantColor) {
+        onUpdateImage(image.id, { removalInfo: [{ color: { ...dominantColor, a: 255 }, isAuto: true }] });
+      }
+    };
   }, [image.id, image.originalURL, onUpdateImage]);
 
 
@@ -121,31 +122,31 @@ const ImageCard: React.FC<ImageCardProps> = ({
 
       {/* Indicador de Status */}
       <StatusIndicator status={image.status} progress={image.progress} />
-      
+
       {/* Overlay de Ações (aparece no hover) */}
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-        
+
         {/* Ação Principal: Editar */}
         {(image.status === 'pending' || image.status === 'done') && (
-            <button
-                onClick={() => onPreview(image.id)}
-                className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-md shadow hover:bg-white hover:scale-105 transition-all text-text-primary font-semibold"
-                title={t('imageCard.edit')}
-            >
-                <PencilIcon className="w-4 h-4" />
-                <span>{t('imageCard.edit')}</span>
-            </button>
+          <button
+            onClick={() => onPreview(image.id)}
+            className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-md shadow hover:bg-white hover:scale-105 transition-all text-text-primary font-semibold"
+            title={t('imageCard.edit')}
+          >
+            <PencilIcon className="w-4 h-4" />
+            <span>{t('imageCard.edit')}</span>
+          </button>
         )}
 
         {/* Mensagem de Erro */}
         {image.status === 'error' && (
-           <p className="text-center text-white bg-red-500/80 px-3 py-2 rounded-lg" title={image.error || t('imageCard.error')}>
-             {t('imageCard.error')}
-           </p>
+          <p className="text-center text-white bg-red-500/80 px-3 py-2 rounded-lg" title={image.error || t('imageCard.error')}>
+            {t('imageCard.error')}
+          </p>
         )}
 
       </div>
-      
+
       {/* Overlay de ações secundárias (canto inferior) */}
       <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300 flex items-center gap-1.5">
         {image.status === 'done' && (
@@ -163,7 +164,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
       {image.status !== 'processing' && (
         <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300">
           <div className="flex items-center gap-1 p-1.5 bg-white/80 backdrop-blur-sm rounded-full shadow">
-            {['auto','portrait','product','green'].map((preset) => {
+            {['auto', 'portrait', 'product', 'green'].map((preset) => {
               const isActive = (() => {
                 const co = image.customOptions;
                 if (!co) return false;
@@ -208,24 +209,24 @@ const ImageCard: React.FC<ImageCardProps> = ({
         </div>
       )}
 
-       {/* Overlay de Cor (canto superior) */}
+      {/* Overlay de Cor (canto superior) */}
       {image.status === 'pending' && (
         <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300">
-            <div className="flex items-center gap-2 p-1.5 bg-white/80 backdrop-blur-sm rounded-full shadow">
-                <div 
-                    className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
-                    style={{ backgroundColor: image.removalInfo?.[0]?.color ? `rgba(${image.removalInfo[0].color.r}, ${image.removalInfo[0].color.g}, ${image.removalInfo[0].color.b}, 1)` : '#fff' }}
-                    title={t('imageCard.selectedColor')}
-                />
-                <button
-                    onClick={handleAutoDetectColor}
-                    className="flex items-center pr-1"
-                    title={t('imageCard.autoDetect')}
-                    aria-label={t('imageCard.autoDetect')}
-                >
-                    <SparklesIcon className="w-4 h-4 text-accent-secondary hover:text-accent-primary transition-colors" />
-                </button>
-            </div>
+          <div className="flex items-center gap-2 p-1.5 bg-white/80 backdrop-blur-sm rounded-full shadow">
+            <div
+              className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
+              style={{ backgroundColor: image.removalInfo?.[0]?.color ? `rgba(${image.removalInfo[0].color.r}, ${image.removalInfo[0].color.g}, ${image.removalInfo[0].color.b}, 1)` : '#fff' }}
+              title={t('imageCard.selectedColor')}
+            />
+            <button
+              onClick={handleAutoDetectColor}
+              className="flex items-center pr-1"
+              title={t('imageCard.autoDetect')}
+              aria-label={t('imageCard.autoDetect')}
+            >
+              <SparklesIcon className="w-4 h-4 text-accent-secondary hover:text-accent-primary transition-colors" />
+            </button>
+          </div>
         </div>
       )}
     </div>
