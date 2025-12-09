@@ -346,6 +346,11 @@ export default function CompressorImagemTool() {
         watermarkBitmap = await createImageBitmap(settings.watermark.imageFile);
       }
 
+      const transferables: Transferable[] = [buffer];
+      if (watermarkBitmap) {
+        transferables.push(watermarkBitmap);
+      }
+
       workerRef.current?.postMessage({
         type: 'PROCESS_IMAGE',
         id,
@@ -353,7 +358,7 @@ export default function CompressorImagemTool() {
         fileType: file.type,
         settings,
         watermarkBitmap
-      }, [buffer, watermarkBitmap].filter((x): x is Transferable => !!x));
+      }, transferables);
     });
   };
 
