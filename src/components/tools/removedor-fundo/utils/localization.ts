@@ -1313,18 +1313,21 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [language, setLanguageState] = useState<LanguageCode>(() => {
-        // Get language from localStorage, or detect from browser, or default to 'en'
+    const [language, setLanguageState] = useState<LanguageCode>('pt');
+
+    useEffect(() => {
+        // Safe access to localStorage and navigator on client only
         const savedLang = localStorage.getItem('app_language');
         if (savedLang && languages[savedLang as LanguageCode]) {
-            return savedLang as LanguageCode;
+            setLanguageState(savedLang as LanguageCode);
+            return;
         }
+
         const browserLang = navigator.language.split('-')[0];
         if (languages[browserLang as LanguageCode]) {
-            return browserLang as LanguageCode;
+            setLanguageState(browserLang as LanguageCode);
         }
-        return 'pt'; // Default to Portuguese
-    });
+    }, []);
 
     useEffect(() => {
         // Save language choice to localStorage
@@ -1332,7 +1335,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         // Optional: Set lang attribute on <html> for CSS and accessibility
         document.documentElement.lang = language;
     }, [language]);
-    
+
     const setLanguage = (lang: string) => {
         if (languages[lang as LanguageCode]) {
             setLanguageState(lang as LanguageCode);
@@ -1356,7 +1359,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
                 break;
             }
         }
-        
+
         if (typeof result !== 'string') return key;
 
         // Replace placeholders like {count}

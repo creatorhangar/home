@@ -25,6 +25,7 @@ export default function AppLayout({
     children: React.ReactNode;
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
     const pathname = usePathname();
     const { signOut, user, loading } = useAuth();
 
@@ -40,6 +41,7 @@ export default function AppLayout({
 
     const tools = [
         { name: 'Criar Capa', href: '/tools/criador-capas', icon: ImageIcon },
+        { name: 'Gerador Templates', href: '/tools/gerador-templates', icon: LayoutDashboard },
         { name: 'Loop Video', href: '/tools/loop-video', icon: ZapIcon },
         { name: 'Removedor Fundo', href: '/tools/removedor-fundo', icon: ScissorsIcon },
     ];
@@ -64,19 +66,21 @@ export default function AppLayout({
                 />
             )}
 
-            {/* Sidebar - HIDDEN ON TOOLS */}
-            <aside className={`fixed top-0 left-0 bottom-0 w-72 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static 
-                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-                ${pathname?.startsWith('/tools') ? 'hidden lg:hidden' : ''}
-                `}>
+            {/* Sidebar */}
+            <aside
+                className={`fixed inset-y-0 left-0 bg-white border-r border-gray-200 z-50 transform transition-all duration-300 ease-in-out 
+                    ${sidebarOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0'}
+                    ${collapsed ? 'lg:w-20' : 'lg:w-72'}
+                `}
+            >
                 <div className="h-full flex flex-col">
                     {/* Logo Area */}
-                    <div className="h-16 flex items-center px-6 border-b border-gray-100/50">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-display font-bold text-lg group-hover:scale-105 transition-transform">
+                    <div className={`h-16 flex items-center border-b border-gray-100/50 ${collapsed ? 'justify-center px-0' : 'px-6'}`}>
+                        <Link href="/" className="flex items-center gap-2 group overflow-hidden">
+                            <div className="w-8 h-8 bg-primary rounded-lg flex-shrink-0 flex items-center justify-center text-white font-display font-bold text-lg group-hover:scale-105 transition-transform">
                                 CH
                             </div>
-                            <span className="text-lg font-display font-bold text-gray-900 group-hover:text-primary transition-colors">
+                            <span className={`text-lg font-display font-bold text-gray-900 group-hover:text-primary transition-all duration-300 ${collapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
                                 Creator Hangar
                             </span>
                         </Link>
@@ -89,27 +93,34 @@ export default function AppLayout({
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 p-4 space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200">
+                    <nav className="flex-1 p-3 space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200">
 
                         {/* Main Section */}
                         <div className="space-y-1">
-                            <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                                Menu
-                            </p>
+                            {!collapsed && (
+                                <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 transition-opacity duration-200">
+                                    Menu
+                                </p>
+                            )}
                             {navigation.map((item) => {
                                 const active = isLinkActive(item.href, item.exact);
                                 return (
                                     <Link
                                         key={item.name}
                                         href={item.href}
+                                        title={collapsed ? item.name : ''}
                                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${active
                                             ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/10'
                                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                            }`}
+                                            } ${collapsed ? 'justify-center' : ''}`}
                                     >
-                                        <item.icon className={`w-5 h-5 ${active ? 'text-primary' : 'text-gray-400 group-hover:text-gray-500'}`} />
-                                        {item.name}
-                                        {active && <ChevronRight className="w-4 h-4 ml-auto text-primary/40" />}
+                                        <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-primary' : 'text-gray-400 group-hover:text-gray-500'}`} />
+                                        {!collapsed && (
+                                            <>
+                                                <span className="truncate">{item.name}</span>
+                                                {active && <ChevronRight className="w-4 h-4 ml-auto text-primary/40" />}
+                                            </>
+                                        )}
                                     </Link>
                                 );
                             })}
@@ -117,25 +128,28 @@ export default function AppLayout({
 
                         {/* Quick Tools Section */}
                         <div className="space-y-1">
-                            <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-                                Ferramentas
-                                <Link href="/tools" className="hover:text-primary transition-colors" title="Ver todas">
-                                    <Plus className="w-3 h-3" />
-                                </Link>
-                            </p>
+                            {!collapsed && (
+                                <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center justify-between transition-opacity duration-200">
+                                    Ferramentas
+                                    <Link href="/tools" className="hover:text-primary transition-colors" title="Ver todas">
+                                        <Plus className="w-3 h-3" />
+                                    </Link>
+                                </p>
+                            )}
                             {tools.map((item) => {
                                 const active = isLinkActive(item.href);
                                 return (
                                     <Link
                                         key={item.name}
                                         href={item.href}
+                                        title={collapsed ? item.name : ''}
                                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${active
                                             ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/10'
                                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                            }`}
+                                            } ${collapsed ? 'justify-center' : ''}`}
                                     >
-                                        <item.icon className={`w-5 h-5 ${active ? 'text-primary' : 'text-gray-400'}`} />
-                                        {item.name}
+                                        <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-primary' : 'text-gray-400'}`} />
+                                        {!collapsed && <span className="truncate">{item.name}</span>}
                                     </Link>
                                 );
                             })}
@@ -143,22 +157,25 @@ export default function AppLayout({
 
                         {/* Settings Section */}
                         <div className="space-y-1">
-                            <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                                Conta
-                            </p>
+                            {!collapsed && (
+                                <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 transition-opacity duration-200">
+                                    Conta
+                                </p>
+                            )}
                             {settings.map((item) => {
                                 const active = isLinkActive(item.href);
                                 return (
                                     <Link
                                         key={item.name}
                                         href={item.href}
+                                        title={collapsed ? item.name : ''}
                                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${active
                                             ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/10'
                                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                            }`}
+                                            } ${collapsed ? 'justify-center' : ''}`}
                                     >
-                                        <item.icon className={`w-5 h-5 ${active ? 'text-primary' : 'text-gray-400'}`} />
-                                        {item.name}
+                                        <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-primary' : 'text-gray-400'}`} />
+                                        {!collapsed && <span className="truncate">{item.name}</span>}
                                     </Link>
                                 );
                             })}
@@ -166,40 +183,50 @@ export default function AppLayout({
                     </nav>
 
                     {/* Footer / User Profile */}
-                    <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+                    <div className="p-3 border-t border-gray-100 bg-gray-50/50">
+                        {/* Collapse Button (Desktop Only) */}
+                        <button
+                            onClick={() => setCollapsed(!collapsed)}
+                            className="hidden lg:flex w-full items-center justify-center p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg mb-2 transition-colors"
+                        >
+                            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronRight className="w-4 h-4 rotate-180" />}
+                        </button>
+
                         {!loading && user ? (
-                            <div className="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
-                                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">
+                            <div className={`flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-200 shadow-sm transition-all duration-300 ${collapsed ? 'justify-center' : ''}`}>
+                                <div className="w-9 h-9 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold flex-shrink-0">
                                     {user.email?.charAt(0).toUpperCase()}
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-gray-900 truncate">
-                                        {user.user_metadata?.full_name?.split(' ')[0] || 'Criador'}
-                                    </p>
-                                    <p className="text-xs text-gray-500 truncate">
-                                        {user.email}
-                                    </p>
-                                </div>
-                                <button
-                                    onClick={() => signOut()}
-                                    className="text-gray-400 hover:text-red-500 transition-colors p-1"
-                                    title="Sair"
-                                >
-                                    <LogOut className="w-4 h-4" />
-                                </button>
+                                {!collapsed && (
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-semibold text-gray-900 truncate">
+                                            {user.user_metadata?.full_name?.split(' ')[0] || 'Criador'}
+                                        </p>
+                                        <p className="text-[10px] text-gray-500 truncate">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                )}
+                                {!collapsed && (
+                                    <button
+                                        onClick={() => signOut()}
+                                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                        title="Sair"
+                                    >
+                                        <LogOut className="w-4 h-4" />
+                                    </button>
+                                )}
                             </div>
                         ) : !loading && (
                             <div className="space-y-2">
                                 <Link
                                     href="/login"
-                                    className="flex items-center justify-center w-full px-4 py-2.5 text-white bg-primary hover:bg-primary-light rounded-xl font-medium transition-all duration-200 shadow-lg shadow-primary/20 gap-2"
+                                    title={collapsed ? "Fazer Login" : ""}
+                                    className={`flex items-center justify-center w-full px-4 py-2.5 text-white bg-primary hover:bg-primary-light rounded-xl font-medium transition-all duration-200 shadow-lg shadow-primary/20 gap-2 ${collapsed ? 'px-0' : ''}`}
                                 >
                                     <LogIn className="w-4 h-4" />
-                                    Fazer Login
+                                    {!collapsed && "Entrar"}
                                 </Link>
-                                <p className="text-xs text-center text-gray-500">
-                                    Faça login para salvar seus projetos
-                                </p>
                             </div>
                         )}
                     </div>
@@ -207,9 +234,9 @@ export default function AppLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-gray-50/50 relative">
-                {/* Mobile Header - HIDDEN ON TOOLS */}
-                <header className={`lg:hidden h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 justify-between sticky top-0 z-30 ${pathname?.startsWith('/tools') ? 'hidden' : ''}`}>
+            <main className={`flex-1 flex flex-col min-h-0 overflow-hidden bg-gray-50/50 relative transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-0'}`}>
+                {/* Mobile Header */}
+                <header className="lg:hidden h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 justify-between sticky top-0 z-30">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="text-gray-600 p-2 -ml-2 rounded-lg hover:bg-gray-100 active:scale-95 transition-all"
@@ -228,7 +255,7 @@ export default function AppLayout({
 
                 {/* Content Scroll Area */}
                 <div className={`flex-1 overflow-auto scroll-smooth ${pathname?.startsWith('/tools') ? 'p-0' : 'p-4 sm:p-6 lg:p-8'}`}>
-                    <div className={`w-full ${pathname?.startsWith('/tools') ? '' : 'max-w-7xl mx-auto'}`}>
+                    <div className={`w-full ${pathname?.startsWith('/tools') ? 'h-full' : 'max-w-7xl mx-auto'}`}>
                         {children}
                     </div>
                 </div>
