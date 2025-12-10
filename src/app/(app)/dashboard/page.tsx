@@ -133,7 +133,7 @@ export default function DashboardPage() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Tool Card 1 */}
-                    <Link href="/tools/removedor-fundo" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link href="/tools/removedor-fundo" target="_blank" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
                             🖼️
                         </div>
@@ -145,7 +145,7 @@ export default function DashboardPage() {
                     </Link>
 
                     {/* Tool Card 2 */}
-                    <Link href="/tools/loop-video" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link href="/tools/loop-video" target="_blank" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
                             🌀
                         </div>
@@ -157,7 +157,7 @@ export default function DashboardPage() {
                     </Link>
 
                     {/* Tool Card 3 */}
-                    <Link href="/tools/criador-capas" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link href="/tools/criador-capas" target="_blank" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
                             🎨
                         </div>
@@ -166,7 +166,7 @@ export default function DashboardPage() {
                     </Link>
 
                     {/* Tool Card 4 */}
-                    <Link href="/tools/compressor-imagem" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link href="/tools/compressor-imagem" target="_blank" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
                             📉
                         </div>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                     </Link>
 
                     {/* Tool Card 5 */}
-                    <Link href="/tools/gerador-templates" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link href="/tools/gerador-templates" target="_blank" className="group bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-600 rounded-xl flex items-center justify-center text-white text-xl mb-4 shadow-lg shadow-pink-500/20 group-hover:scale-110 transition-transform">
                             📑
                         </div>

@@ -64,9 +64,11 @@ export default function AppLayout({
                 />
             )}
 
-            {/* Sidebar */}
-            <aside className={`fixed top-0 left-0 bottom-0 w-72 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                }`}>
+            {/* Sidebar - HIDDEN ON TOOLS */}
+            <aside className={`fixed top-0 left-0 bottom-0 w-72 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static 
+                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+                ${pathname?.startsWith('/tools') ? 'hidden lg:hidden' : ''}
+                `}>
                 <div className="h-full flex flex-col">
                     {/* Logo Area */}
                     <div className="h-16 flex items-center px-6 border-b border-gray-100/50">
@@ -206,8 +208,8 @@ export default function AppLayout({
 
             {/* Main Content */}
             <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-gray-50/50 relative">
-                {/* Mobile Header */}
-                <header className="lg:hidden h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 justify-between sticky top-0 z-30">
+                {/* Mobile Header - HIDDEN ON TOOLS */}
+                <header className={`lg:hidden h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 justify-between sticky top-0 z-30 ${pathname?.startsWith('/tools') ? 'hidden' : ''}`}>
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="text-gray-600 p-2 -ml-2 rounded-lg hover:bg-gray-100 active:scale-95 transition-all"
