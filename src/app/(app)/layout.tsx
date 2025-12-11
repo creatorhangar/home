@@ -15,7 +15,8 @@ import {
     ChevronRight,
     LogIn,
     UserCircle,
-    Plus
+    Plus,
+    FileImage
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks/useAuth';
 
@@ -42,6 +43,7 @@ export default function AppLayout({
     const tools = [
         { name: 'Criar Capa', href: '/tools/criador-capas', icon: ImageIcon },
         { name: 'Gerador Templates', href: '/tools/gerador-templates', icon: LayoutDashboard },
+        { name: 'Compressor', href: '/tools/compressor-imagem', icon: FileImage },
         { name: 'Loop Video', href: '/tools/loop-video', icon: ZapIcon },
         { name: 'Removedor Fundo', href: '/tools/removedor-fundo', icon: ScissorsIcon },
     ];
@@ -234,7 +236,7 @@ export default function AppLayout({
             </aside>
 
             {/* Main Content */}
-            <main className={`flex-1 flex flex-col min-h-0 overflow-hidden bg-gray-50/50 relative transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-0'}`}>
+            <main className={`flex-1 flex flex-col min-h-0 overflow-hidden bg-gray-50/50 relative transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-72'}`}>
                 {/* Mobile Header */}
                 <header className="lg:hidden h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 justify-between sticky top-0 z-30">
                     <button
