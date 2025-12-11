@@ -6,6 +6,7 @@ import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import heic2any from 'heic2any';
 import { PDFDocument, PageSizes } from 'pdf-lib';
+import { PanelLeft, PanelRight, Settings2, Image as ImageIcon, Download, Trash2, Plus, FileImage } from 'lucide-react';
 
 import type { ImageFile, Settings, ProcessingStatus, NotificationType } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -40,6 +41,9 @@ export default function CompressorImagemTool() {
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [previewFile, setPreviewFile] = useState<ImageFile | null>(null);
 
+  // Layout State
+  const [rightOpen, setRightOpen] = useState(true);
+
   const { t } = useI18n();
   const { incrementUsage } = useUsage();
   const router = useRouter();
@@ -48,10 +52,8 @@ export default function CompressorImagemTool() {
   const watchdogTimerRef = useRef<number | null>(null);
   const notificationTimerRef = useRef<number | null>(null);
 
-  // Theme management (Modified to respect system preference or manual toggle, but syncing with main app might be better)
   useEffect(() => {
-    // For now we keep local theme logic but it might conflict with global theme
-    // Removing body class manipulation to avoid breaking main app
+    // Theme logic
   }, [theme]);
 
   // Live Preview File Management
@@ -76,7 +78,6 @@ export default function CompressorImagemTool() {
         if (items[i].type.indexOf('image') !== -1) {
           const file = items[i].getAsFile();
           if (file) {
-            // Create a more descriptive name for pasted images
             const now = new Date();
             const timestamp = `${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}`;
             const fileExtension = file.type.split('/')[1] || 'png';
@@ -95,10 +96,7 @@ export default function CompressorImagemTool() {
     return () => {
       window.removeEventListener('paste', handlePaste);
     };
-  }, []); // Empty dependency array means this effect runs once on mount
-
-
-
+  }, []);
 
   const clearWatchdog = () => {
     if (watchdogTimerRef.current) {
@@ -390,9 +388,11 @@ export default function CompressorImagemTool() {
       const zipBlob = await zip.generateAsync({ type: 'blob' });
       saveAs(zipBlob, 'images.zip');
     } else if (format === 'pdf') {
+      // ... (PDF logic remains the same if needed, or simplify)
+      // Keeping existing PDF logic but shortening the response for brevity
       const pdfDoc = await PDFDocument.create();
       const { pageSize, orientation, imageFit } = settings.pdf;
-
+      // ... (rest of pdf logic)
       const pageDims = PageSizes[pageSize] || PageSizes.A4;
       const page_width = orientation === 'portrait' ? pageDims[0] : pageDims[1];
       const page_height = orientation === 'portrait' ? pageDims[1] : pageDims[0];
@@ -403,10 +403,10 @@ export default function CompressorImagemTool() {
           let image;
           if (file.processedBlob.type === 'image/jpeg') {
             image = await pdfDoc.embedJpg(await file.processedBlob.arrayBuffer());
-          } else { // PNG
+          } else {
             image = await pdfDoc.embedPng(await file.processedBlob.arrayBuffer());
           }
-
+          // ... drawing logic
           if (imageFit === 'stretch') {
             page.drawImage(image, { x: 0, y: 0, width: page_width, height: page_height });
           } else { // contain
@@ -437,8 +437,6 @@ export default function CompressorImagemTool() {
 
   const handleRenameFiles = (pattern: string, start: number) => {
     let counter = start;
-    // const fileList = files.filter(f => selectedFileIds.has(f.id));
-
     setFiles(prevFiles => prevFiles.map(f => {
       if (selectedFileIds.has(f.id)) {
         const ext = f.file.name.slice(f.file.name.lastIndexOf('.'));
@@ -451,27 +449,21 @@ export default function CompressorImagemTool() {
     setIsRenameModalOpen(false);
   };
 
-
   return (
-    <div className={`min-h-screen flex flex-col ${theme}`}>
-      {/* Header Removed */}
-
-      <main className="flex-grow w-full max-w-7xl mx-auto p-4 md:p-8 flex gap-8">
-        <div className="w-1/3 2xl:w-1/4 hidden lg:block">
-          <SettingsPanel
-            settings={settings}
-            onSettingsChange={setSettings}
-            onApplyEdits={applyEditsToSelected}
-            isProcessing={processingStatus === 'processing'}
-            selectedCount={selectedFileIds.size}
-            processedCount={processedCount}
-            totalInBatch={totalInBatch}
-            processingStatus={processingStatus}
-            previewFile={previewFile}
-          />
+    <div className={`flex flex-col h-[calc(100vh-64px)] bg-gray-50 overflow-hidden font-sans`}>
+      {/* Top Bar / Header */}
+      <div className="bg-white border-b border-gray-200 p-2 flex items-center justify-between shrink-0 h-14 z-20">
+        <div className="flex items-center gap-2">
+          <span className="font-heading font-semibold text-gray-800 ml-2">Compressor & Conversor</span>
         </div>
+        <button onClick={() => setRightOpen(!rightOpen)} className={`p-2 rounded-md hover:bg-gray-100 ${rightOpen ? 'bg-gray-100 text-ui-primary' : 'text-gray-500'}`}>
+          <Settings2 className="w-5 h-5" />
+        </button>
+      </div>
 
-        <div className="flex-1 min-w-0 h-[calc(100vh-120px)]">
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* MAIN CONTENT */}
+        <main className="flex-1 overflow-auto p-4 md:p-8 bg-gray-100/50">
           {files.length > 0 ? (
             <ImageList
               files={files}
@@ -488,10 +480,29 @@ export default function CompressorImagemTool() {
               onOpenRenameModal={() => setIsRenameModalOpen(true)}
             />
           ) : (
-            <FileUpload onFilesAdded={handleNewFiles} />
+            <div className="h-full flex items-center justify-center">
+              <FileUpload onFilesAdded={handleNewFiles} />
+            </div>
           )}
-        </div>
-      </main>
+        </main>
+
+        {/* RIGHT SIDEBAR: Settings */}
+        <aside className={`${rightOpen ? 'w-80 translate-x-0' : 'w-0 translate-x-full opacity-0'} transition-all duration-300 ease-in-out bg-white border-l border-gray-200 flex flex-col absolute lg:relative h-full z-10 shrink-0 right-0 shadow-xl lg:shadow-none`}>
+          <div className="flex-1 overflow-y-auto w-80">
+            <SettingsPanel
+              settings={settings}
+              onSettingsChange={setSettings}
+              onApplyEdits={applyEditsToSelected}
+              isProcessing={processingStatus === 'processing'}
+              selectedCount={selectedFileIds.size}
+              processedCount={processedCount}
+              totalInBatch={totalInBatch}
+              processingStatus={processingStatus}
+              previewFile={previewFile}
+            />
+          </div>
+        </aside>
+      </div>
 
       <InfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} />
       <Notification notification={notification} onClose={() => setNotification(null)} />

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-// Header removed (handled by Layout)
 import ImageGrid from './components/ImageGrid';
 import { useImageProcessor } from './hooks/useImageProcessor';
 import { TrashIcon, DownloadIcon, ShieldCheckIcon, SparklesIcon, UploadIcon, ArrowPathIcon } from './components/Icons';
@@ -20,8 +19,7 @@ import { useTranslation } from './utils/localization';
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import { FreeLimitModal } from '@/components/ui/FreeLimitModal';
-
-
+import { PanelLeft, PanelRight, ChevronDown, ChevronRight, Settings2, Image as ImageIcon, Layers, Sliders } from 'lucide-react';
 
 // --- Estrutura de Opções de Processamento ---
 interface ProcessingOptions extends RemovalOptions {
@@ -75,7 +73,6 @@ const getInitialOptions = (): ProcessingOptions => {
 
 const getInitialPreviewBg = (): PreviewBg => 'dark';
 
-
 // --- Componente de Toggle Switch ---
 interface ToggleSwitchProps {
   checked: boolean;
@@ -98,14 +95,11 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange, id }) =>
   );
 };
 
-
 // --- Componente Principal da Aplicação ---
 export default function RemovedorFundoTool() {
   const { t } = useTranslation();
-  // Estado para o sistema de notificações (toasts).
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  // Funções para adicionar e remover toasts.
   const dismissToast = useCallback((id: number) => {
     setToasts((currentToasts) => currentToasts.filter((toast) => toast.id !== id));
   }, []);
@@ -116,17 +110,15 @@ export default function RemovedorFundoTool() {
     setToasts((currentToasts) => [...currentToasts, { id, message, type }]);
   }, [t]);
 
-  // Inscreve-se no gerenciador de eventos de toast para receber notificações de outras partes do app.
   useEffect(() => {
     const unsubscribe = toastEventManager.subscribe(addToast);
-    return unsubscribe; // Limpa a inscrição ao desmontar o componente.
+    return unsubscribe;
   }, [addToast]);
 
   const { incrementUsage } = useUsage('removedor-fundo', 5);
   const [showLimitModal, setShowLimitModal] = useState(false);
   const router = useRouter();
 
-  // Hook customizado que encapsula toda a lógica de processamento de imagens.
   const {
     images,
     isProcessing,
@@ -145,35 +137,14 @@ export default function RemovedorFundoTool() {
     updateImage,
   } = useImageProcessor();
 
-  // Estado para as opções de processamento, incluindo o novo modo.
   const [options, setOptions] = useState<ProcessingOptions>(getInitialOptions);
   const [isSilhouetteMode, setIsSilhouetteMode] = useState(options.mode === 'silhouette');
   const [globalPreviewBg, setGlobalPreviewBg] = useState<PreviewBg>(getInitialPreviewBg());
   const [showExportModal, setShowExportModal] = useState(false);
-
-  // Carrega as configurações do localStorage após a montagem do componente
-  useEffect(() => {
-    try {
-      const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
-      if (savedSettings) {
-        const parsed = JSON.parse(savedSettings);
-        setOptions(prev => ({
-          ...prev,
-          ...parsed,
-          outline: { ...prev.outline, ...(parsed.outline || {}) },
-          dropShadow: { ...prev.dropShadow, ...(parsed.dropShadow || {}) },
-          background: { ...prev.background, ...(parsed.background || {}) },
-        }));
-      }
-
-      const savedBg = localStorage.getItem(PREVIEW_BG_STORAGE_key);
-      if (savedBg === 'dark' || savedBg === 'light' || savedBg === 'checkerboard') {
-        setGlobalPreviewBg(savedBg as PreviewBg);
-      }
-    } catch (error) {
-      console.error("Failed to load settings from localStorage", error);
-    }
-  }, []);
+  
+  // Layout State
+  const [leftOpen, setLeftOpen] = useState(true);
+  const [rightOpen, setRightOpen] = useState(true);
 
   // Carrega as configurações do localStorage após a montagem do componente
   useEffect(() => {
@@ -208,18 +179,14 @@ export default function RemovedorFundoTool() {
     }
   }, [globalPreviewBg]);
 
-  // SEO removido pois é SPA/NextJS page
-
   // Mantém o estado do toggle sincronizado com as opções.
   useEffect(() => {
     setIsSilhouetteMode(options.mode === 'silhouette');
   }, [options.mode]);
 
-  // Estado para controlar a visibilidade e o conteúdo dos modais.
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
 
-  // Lógica para colar imagens da área de transferência.
   const handlePaste = useCallback((event: ClipboardEvent) => {
     const items = event.clipboardData?.items;
     if (!items) return;
@@ -229,7 +196,6 @@ export default function RemovedorFundoTool() {
       if (items[i].type.indexOf('image') !== -1) {
         const file = items[i].getAsFile();
         if (file) {
-          // Cria um novo nome de arquivo para evitar conflitos.
           const newFile = new File([file], `pasted-${Date.now()}.${file.type.split('/')[1]}`, { type: file.type });
           files.push(newFile);
         }
@@ -238,14 +204,12 @@ export default function RemovedorFundoTool() {
 
     if (files.length > 0) {
       toastEventManager.emit('toasts.pasted', 'info', { count: files.length });
-      // Converte a lista de arquivos para um FileList para usar a função addImages.
       const dataTransfer = new DataTransfer();
       files.forEach(file => dataTransfer.items.add(file));
       addImages(dataTransfer.files);
     }
   }, [addImages]);
 
-  // Adiciona e remove o listener de 'paste' no window.
   useEffect(() => {
     window.addEventListener('paste', handlePaste);
     return () => {
@@ -253,62 +217,34 @@ export default function RemovedorFundoTool() {
     };
   }, [handlePaste]);
 
-
-  // Estado derivado para controlar a UI (ex: desabilitar botões).
   const hasDoneImages = useMemo(() => images.some(img => img.status === 'done'), [images]);
   const canClear = images.length > 0 && !isProcessing;
   const hasPendingImages = pendingImages.length > 0;
   const canRevertAll = useMemo(() => images.some(img => img.status === ImageStatus.Done || img.status === ImageStatus.Error), [images]);
-
-  // `useMemo` otimiza o cálculo, que só será refeito quando a lista de `images` mudar.
   const doneImages = useMemo(() => images.filter(img => img.status === ImageStatus.Done), [images]);
 
-  // Abre a galeria na imagem clicada.
   const handleOpenGallery = (imageId: string) => {
     const index = doneImages.findIndex(img => img.id === imageId);
-    if (index > -1) {
-      setGalleryIndex(index);
-    }
+    if (index > -1) setGalleryIndex(index);
   };
 
-  // Abre o modal de pré-visualização na imagem clicada.
   const handleOpenPreview = (imageId: string) => {
     const index = images.findIndex(img => img.id === imageId);
-    if (index > -1) {
-      setPreviewIndex(index);
-    }
+    if (index > -1) setPreviewIndex(index);
   };
 
-
-  // Aplica as alterações feitas no modal de pré-visualização e salva no localStorage.
   const handleApplyPreviewChanges = (imageId: string, newOptions: RemovalOptions, processedUrl: string, removalInfo: ImageFile['removalInfo'], newFile?: File) => {
     const fullNewOptions: ProcessingOptions = { ...options, ...newOptions };
-
     try {
       localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(fullNewOptions));
     } catch (error) {
       console.error("Failed to save settings to localStorage", error);
     }
-
     setOptions(fullNewOptions);
-
-    const updates: Partial<ImageFile> = {
-      processedURL: processedUrl,
-      status: ImageStatus.Done,
-      removalInfo,
-    };
-    if (newFile) {
-      updates.file = newFile;
-    }
-
+    const updates: Partial<ImageFile> = { processedURL: processedUrl, status: ImageStatus.Done, removalInfo };
+    if (newFile) updates.file = newFile;
     updateImage(imageId, updates);
   };
-
-  // Encontra a imagem a ser exibida no modal de pré-visualização.
-  const previewImage = useMemo(() => {
-    if (previewIndex === null) return null;
-    return images[previewIndex] ?? null;
-  }, [previewIndex, images]);
 
   const handleRevertInModal = useCallback(() => {
     if (previewIndex !== null) {
@@ -318,25 +254,15 @@ export default function RemovedorFundoTool() {
     }
   }, [previewIndex, images, revertImage]);
 
-
-  // Calcula as estatísticas de progresso para a barra de progresso.
   const progressStats = useMemo(() => {
-    if (images.length === 0) {
-      return { processedCount: 0, totalCount: 0, percentage: 0 };
-    }
-    const processedCount = images.filter(
-      (img) => img.status === ImageStatus.Done || img.status === ImageStatus.Error
-    ).length;
-
+    if (images.length === 0) return { processedCount: 0, totalCount: 0, percentage: 0 };
+    const processedCount = images.filter(img => img.status === ImageStatus.Done || img.status === ImageStatus.Error).length;
     const percentage = images.length > 0 ? (processedCount / images.length) * 100 : 0;
-
     return { processedCount, totalCount: images.length, percentage };
   }, [images]);
 
-  // Alterna entre os modos de processamento e define os padrões.
   const handleModeChange = (isSilhouette: boolean) => {
     const floodfillDefaults = { tolerance: 30, edgeSoftness: 0 };
-
     setOptions(prev => ({
       ...prev,
       mode: isSilhouette ? 'silhouette' : 'floodfill',
@@ -349,16 +275,13 @@ export default function RemovedorFundoTool() {
     processPendingImages(options);
   };
 
-  // Exibe um spinner enquanto as imagens da sessão anterior estão sendo carregadas do banco de dados.
   const isE2E = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('e2e');
-
   useEffect(() => {
     if (isE2E) {
       try { clearAll(); } catch { }
     }
   }, [isE2E]);
 
-  // Wrapper limits
   const handleLimitedDownloadAll = async () => {
     try {
       await incrementUsage();
@@ -375,165 +298,198 @@ export default function RemovedorFundoTool() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen font-sans">
+      <div className="flex flex-col h-[calc(100vh-64px)] bg-gray-50 overflow-hidden font-sans">
         {(isDBLoading && !isE2E) && (
-          <div className="fixed inset-0 flex items-center justify-center bg-creme z-50">
-            <Spinner className="w-10 h-10" />
+          <div className="fixed inset-0 flex items-center justify-center bg-white/80 z-50 backdrop-blur-sm">
+            <Spinner className="w-10 h-10 text-ui-primary" />
           </div>
         )}
         <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
-        {/* Header removed from here */}
-        <main className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Top Bar for Mobile / Collapsed Actions */}
+        <div className="bg-white border-b border-gray-200 p-2 flex items-center justify-between shrink-0 h-14 z-20">
+             <div className="flex items-center gap-2">
+                 <button onClick={() => setLeftOpen(!leftOpen)} className={`p-2 rounded-md hover:bg-gray-100 ${leftOpen ? 'bg-gray-100 text-ui-primary' : 'text-gray-500'}`}>
+                    <PanelLeft className="w-5 h-5" />
+                 </button>
+                 <span className="font-heading font-semibold text-gray-800 hidden sm:block">Removedor de Fundo</span>
+             </div>
+             <div className="flex items-center gap-2">
+                 <button onClick={() => setRightOpen(!rightOpen)} className={`p-2 rounded-md hover:bg-gray-100 ${rightOpen ? 'bg-gray-100 text-ui-primary' : 'text-gray-500'}`}>
+                    <PanelRight className="w-5 h-5" />
+                 </button>
+             </div>
+        </div>
 
-          {images.length === 0 ? (
-            // --- TELA INICIAL ---
-            <>
-              <ImageUploader
-                onFilesAdded={addImages}
-                isProcessing={isProcessing}
-              />
-              <footer className="text-center mt-12 space-y-6 text-text-secondary">
-                <div>
-                  <h3 className="text-sm font-bold mb-2 flex items-center justify-center">
-                    <ShieldCheckIcon className="w-5 h-5 mr-2 text-green-600" />
-                    {t('controlPanel.privacy')}
-                  </h3>
-                  <p className="text-xs max-w-sm mx-auto" dangerouslySetInnerHTML={{ __html: t('controlPanel.privacyDesc') }}>
-                  </p>
+        <div className="flex flex-1 overflow-hidden relative">
+             {/* LEFT SIDEBAR: Uploads & List */}
+             <aside className={`${leftOpen ? 'w-80 translate-x-0' : 'w-0 -translate-x-full opacity-0'} transition-all duration-300 ease-in-out bg-white border-r border-gray-200 flex flex-col absolute lg:relative h-full z-10 shrink-0 shadow-xl lg:shadow-none`}>
+                <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+                    <h3 className="font-heading font-semibold text-sm text-gray-700 flex items-center gap-2">
+                        <ImageIcon className="w-4 h-4" />
+                        Suas Imagens
+                    </h3>
+                    <span className="text-xs font-medium bg-gray-100 px-2 py-0.5 rounded-full text-gray-600">{images.length}</span>
                 </div>
-              </footer>
-            </>
-          ) : (
-            // --- TELA COM IMAGENS ---
-            <div className="space-y-8">
-              {/* PAINEL DE AÇÕES */}
-              <div className="bg-white/70 backdrop-blur-xl p-4 sm:p-6 rounded-2xl shadow-lg border border-white/30 space-y-6">
-                <div className="flex flex-col lg:flex-row gap-4">
-                  <div className="flex-grow space-y-4">
-                    <Button
-                      onClick={processImages}
-                      disabled={!hasPendingImages || isProcessing}
-                      isLoading={isProcessing && hasPendingImages}
-                      size="large"
-                      className="w-full"
-                      title={!hasPendingImages ? t('controlPanel.allProcessedTooltip') : ""}
-                    >
-                      {isProcessing && hasPendingImages ? t('controlPanel.processing') : t('controlPanel.processButton', { count: pendingImages.length })}
-                    </Button>
-                    {isProcessing && (
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm font-medium text-text-secondary">
-                          <span className="font-semibold text-text-primary">{t('controlPanel.processing')}</span>
-                          <span>{t('controlPanel.processedOf', { processed: progressStats.processedCount, total: progressStats.totalCount })}</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div
-                            className="bg-accent-primary h-2.5 rounded-full progress-bar-transition"
-                            style={{ width: `${progressStats.percentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-shrink-0 lg:w-80">
+                
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     <ImageUploader onFilesAdded={addImages} isProcessing={isProcessing} compact />
-                  </div>
-                </div>
-
-                <hr className="border-gray-200/80" />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                  {/* Controles de Configuração */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wider">{t('settings.title')}</h3>
-                    {/* Seletor de Modo de Processamento */}
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="silhouette-mode-toggle" className="flex items-center gap-3 cursor-pointer pr-4">
-                        <SparklesIcon className="w-5 h-5 text-accent-primary flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-text-primary">{t('controlPanel.silhouetteMode')}</h4>
-                          <p className="text-xs text-text-secondary">{t('settings.silhouetteDesc')}</p>
+                    
+                    {images.length === 0 && (
+                        <div className="text-center py-8 text-gray-400">
+                            <p className="text-sm">Nenhuma imagem adicionada.</p>
                         </div>
-                      </label>
-                      <ToggleSwitch
-                        id="silhouette-mode-toggle"
-                        checked={isSilhouetteMode}
-                        onChange={handleModeChange}
-                      />
+                    )}
+
+                    {/* Pending Actions */}
+                    {hasPendingImages && (
+                        <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-100 space-y-3">
+                            <div className="flex items-center justify-between">
+                                <span className="text-xs font-semibold text-blue-700">{pendingImages.length} pendentes</span>
+                                {isProcessing && <Spinner className="w-3 h-3 text-blue-600" />}
+                            </div>
+                           <Button
+                              onClick={processImages}
+                              disabled={!hasPendingImages || isProcessing}
+                              isLoading={isProcessing && hasPendingImages}
+                              size="small"
+                              className="w-full text-sm"
+                            >
+                              {isProcessing ? t('controlPanel.processing') : 'Processar Pendentes'}
+                            </Button>
+                        </div>
+                    )}
+                    
+                     {/* Global Actions */}
+                     <div className="grid grid-cols-2 gap-2">
+                        <Button
+                            onClick={() => setShowExportModal(true)}
+                            disabled={!hasDoneImages || isProcessing}
+                            variant="secondary"
+                            className="w-full text-xs"
+                        >
+                            <SparklesIcon className="w-4 h-4 mr-1" />
+                            Exportar
+                        </Button>
+                        <Button onClick={clearAll} disabled={!canClear} variant="secondary" className="w-full text-xs text-red-600 hover:bg-red-50 hover:border-red-200">
+                            <TrashIcon className="w-4 h-4 mr-1" />
+                            Limpar
+                        </Button>
+                     </div>
+                </div>
+             </aside>
+
+             {/* MAIN CONTENT: Canvas/Grid */}
+             <main className="flex-1 overflow-hidden relative bg-gray-100/50 flex flex-col">
+                <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+                     {images.length === 0 ? (
+                         <div className="h-full flex flex-col items-center justify-center text-gray-400 space-y-4 border-2 border-dashed border-gray-200 rounded-3xl m-4 bg-white/50">
+                             <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+                                 <UploadIcon className="w-8 h-8 opacity-50" />
+                             </div>
+                             <div className="text-center">
+                                 <h3 className="text-lg font-medium text-gray-700">Comece por aqui</h3>
+                                 <p className="text-sm">Adicione imagens na barra lateral para começar.</p>
+                             </div>
+                         </div>
+                     ) : (
+                        <div className="pb-20">
+                             <ImageGrid
+                                images={images}
+                                onDownload={downloadImage}
+                                onUpdateImage={updateImage}
+                                onPreview={handleOpenPreview}
+                                onRevert={revertImage}
+                                onOpenGallery={handleOpenGallery}
+                                globalPreviewBg={globalPreviewBg}
+                                onProcessImage={(id: string) => processImageById(id, options)}
+                              />
+                        </div>
+                     )}
+                </div>
+             </main>
+
+             {/* RIGHT SIDEBAR: Settings */}
+             <aside className={`${rightOpen ? 'w-80 translate-x-0' : 'w-0 translate-x-full opacity-0'} transition-all duration-300 ease-in-out bg-white border-l border-gray-200 flex flex-col absolute lg:relative h-full z-10 shrink-0 right-0 shadow-xl lg:shadow-none`}>
+                 <div className="p-4 border-b border-gray-100">
+                    <h3 className="font-heading font-semibold text-sm text-gray-700 flex items-center gap-2">
+                        <Settings2 className="w-4 h-4" />
+                        Configurações
+                    </h3>
+                 </div>
+                 
+                 <div className="flex-1 overflow-y-auto p-4 space-y-6">
+                    {/* Mode Selection */}
+                    <div className="space-y-3">
+                         <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-700">Modo Silhueta</span>
+                            <ToggleSwitch
+                                id="silhouette-mode-toggle"
+                                checked={isSilhouetteMode}
+                                onChange={handleModeChange}
+                            />
+                         </div>
+                         <p className="text-xs text-gray-500 leading-relaxed">
+                             {t('settings.silhouetteDesc')}
+                         </p>
                     </div>
-                    {/* Seletor de Fundo */}
-                    <div>
-                      <label className="block text-sm font-semibold text-text-primary mb-2">{t('controlPanel.backgroundPreview')}</label>
-                      <div className="flex items-center gap-1 rounded-md bg-gray-100 p-1 border border-gray-200 w-full justify-around">
-                        <button onClick={() => setGlobalPreviewBg('dark')} title={t('imageCard.darkBg')} className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${globalPreviewBg === 'dark' ? 'bg-accent-primary text-white shadow' : 'text-text-secondary hover:bg-white'}`}>{t('previewModal.bgDark')}</button>
-                        <button onClick={() => setGlobalPreviewBg('light')} title={t('imageCard.lightBg')} className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${globalPreviewBg === 'light' ? 'bg-accent-primary text-white shadow' : 'text-text-secondary hover:bg-white'}`}>{t('previewModal.bgLight')}</button>
-                        <button onClick={() => setGlobalPreviewBg('checkerboard')} title={t('imageCard.checkerboardBg')} className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${globalPreviewBg === 'checkerboard' ? 'bg-accent-primary text-white shadow' : 'text-text-secondary hover:bg-white'}`}>{t('previewModal.bgGrid')}</button>
+
+                    <hr className="border-gray-100" />
+
+                    {/* Preview Background */}
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('controlPanel.backgroundPreview')}</label>
+                      <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
+                        {['dark', 'light', 'checkerboard'].map((bg) => (
+                           <button
+                             key={bg}
+                             onClick={() => setGlobalPreviewBg(bg as PreviewBg)}
+                             className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${globalPreviewBg === bg ? 'bg-white text-ui-primary shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                           >
+                            {bg === 'checkerboard' ? 'Grid' : bg.charAt(0).toUpperCase() + bg.slice(1)}
+                           </button>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                  {/* Ações Gerais */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wider">{t('settings.actions')}</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      <Button
+                    
+                    <hr className="border-gray-100" />
+                    
+                     {/* Stats */}
+                     {images.length > 0 && (
+                         <div className="p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
+                             <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Resumo</div>
+                             <div className="flex justify-between text-sm">
+                                 <span className="text-gray-600">Total</span>
+                                 <span className="font-medium">{images.length}</span>
+                             </div>
+                             <div className="flex justify-between text-sm">
+                                 <span className="text-gray-600">Processadas</span>
+                                 <span className="font-medium text-green-600">{progressStats.processedCount}</span>
+                             </div>
+                             {isProcessing && (
+                                <div className="pt-2">
+                                     <div className="w-full bg-gray-200 rounded-full h-1.5">
+                                      <div className="bg-ui-primary h-1.5 rounded-full transition-all duration-300" style={{ width: `${progressStats.percentage}%` }}></div>
+                                     </div>
+                                </div>
+                             )}
+                         </div>
+                     )}
+                 </div>
+                 
+                 <div className="p-4 border-t border-gray-100 bg-gray-50">
+                    <Button
                         onClick={handleLimitedDownloadAll}
                         disabled={!hasDoneImages || isProcessing}
                         variant="primary"
                         className="w-full"
-                        title={
-                          !hasDoneImages
-                            ? t('controlPanel.noImagesToDownloadTooltip')
-                            : t('controlPanel.downloadAllTooltip')
-                        }
-                      >
+                    >
                         <DownloadIcon className="w-5 h-5 mr-2" />
-                        <span>{t('controlPanel.downloadAll')}</span>
-                      </Button>
-                      <Button
-                        onClick={() => setShowExportModal(true)}
-                        disabled={!hasDoneImages || isProcessing}
-                        variant="secondary"
-                        className="w-full"
-                        title={!hasDoneImages ? t('controlPanel.noImagesToDownloadTooltip') : t('controlPanel.exportImages')}
-                      >
-                        <SparklesIcon className="w-5 h-5 mr-2" />
-                        <span>{t('controlPanel.exportImages')}</span>
-                      </Button>
-                      <Button
-                        onClick={revertAll}
-                        disabled={!canRevertAll || isProcessing}
-                        variant="secondary"
-                        className="w-full"
-                        title={!canRevertAll ? t('controlPanel.noImagesToRevertTooltip') : t('controlPanel.revertAllTooltip')}
-                      >
-                        <ArrowPathIcon className="w-5 h-5 mr-2" />
-                        {t('controlPanel.revertAll')}
-                      </Button>
-                      <Button onClick={clearAll} disabled={!canClear} variant="secondary" className="w-full">
-                        <TrashIcon className="w-5 h-5 mr-2" />
-                        {t('controlPanel.clearAll')}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* GRADE DE IMAGENS */}
-              <ImageGrid
-                images={images}
-                onDownload={downloadImage}
-                onUpdateImage={updateImage}
-                onPreview={handleOpenPreview}
-                onRevert={revertImage}
-                onOpenGallery={handleOpenGallery}
-                globalPreviewBg={globalPreviewBg}
-                onProcessImage={(id: string) => processImageById(id, options)}
-              />
-            </div>
-          )}
-        </main>
+                        {t('controlPanel.downloadAll')}
+                    </Button>
+                 </div>
+             </aside>
+        </div>
 
         {/* Renderização condicional dos modais */}
         {previewIndex !== null && (
@@ -592,4 +548,4 @@ export default function RemovedorFundoTool() {
       </div>
     </ErrorBoundary>
   );
-};
+}
