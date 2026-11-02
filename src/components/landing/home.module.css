@@ -29,6 +29,8 @@
 
     --sans: var(--font-instrument-sans), "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
     --display: var(--font-roboto-flex), "Roboto Flex", var(--sans);
+    --display-alt: var(--font-archivo), "Archivo", var(--sans);
+    --text: var(--font-montserrat), "Montserrat", var(--sans);
     --serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
 
     background: var(--bg);
@@ -356,6 +358,22 @@ a.row {
     overflow-wrap: anywhere;
 }
 
+/* Teste: Archivo pesado (perfil "archivo" da lupa) e caixa por app. */
+.name[data-font="archivo"] {
+    font-family: var(--display-alt);
+    font-weight: 800;
+    font-variation-settings: "wght" 800, "wdth" 100;
+    letter-spacing: -0.015em;
+}
+
+.name[data-case="upper"] {
+    text-transform: uppercase;
+}
+
+.name[data-case="lower"] {
+    text-transform: lowercase;
+}
+
 .glyphs {
     display: inline;
 }
@@ -380,18 +398,15 @@ a.row {
 
 .desc {
     margin: 12px 0 0;
+    font-family: var(--text);
     font-size: 15px;
     font-weight: 500;
+    font-variation-settings: "wght" 500;
     line-height: 1.5;
     letter-spacing: normal;
-    /* Instrument Sans variável: o hover estreita (eixo wdth) — o contrário
-       da lupa que alarga o título. */
-    font-stretch: 100%;
+    text-transform: lowercase;
     color: var(--fg-2);
-    transition:
-        color var(--t-out) var(--ease) 200ms,
-        font-stretch var(--t-out) var(--ease) 120ms,
-        letter-spacing var(--t-out) var(--ease) 120ms;
+    transition: color var(--t-out) var(--ease) 200ms;
 }
 
 .cta {
@@ -555,12 +570,7 @@ a.row {
 .row[data-hot] .desc,
 .row:focus-visible .desc {
     color: var(--fg);
-    font-stretch: 92%;
-    letter-spacing: -0.006em;
-    transition:
-        color 160ms var(--ease),
-        font-stretch var(--t-in) var(--ease),
-        letter-spacing var(--t-in) var(--ease);
+    transition: color 160ms var(--ease);
 }
 
 .row[data-hot] .arrow,

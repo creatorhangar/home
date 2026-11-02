@@ -3,10 +3,22 @@
 import { useEffect, useRef } from "react";
 import { APPS, type CatalogApp } from "@/config/apps";
 import s from "./home.module.css";
-import { attachTitleLens } from "./titleLens";
+import { attachLens, LENS } from "./titleLens";
 
 /** Tiras horizontais de cor, por faixa. */
 const STRIPS = 24;
+
+/**
+ * TESTE VISUAL de tipografia dos nomes (só CSS; os textos de apps.ts não
+ * mudam): fonte e caixa por app, para comparar lado a lado.
+ */
+const NAME_TEST: Record<string, { font: "flex" | "archivo"; case: "upper" | "lower" | "as-is" }> = {
+    burnsh: { font: "archivo", case: "upper" },
+    swoovi: { font: "flex", case: "lower" },
+    copyretouch: { font: "flex", case: "upper" },
+    gifcuts: { font: "archivo", case: "lower" },
+    cutfleet: { font: "archivo", case: "as-is" },
+};
 
 /** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
 const FLASH_MS = 140;
@@ -102,9 +114,13 @@ export function ToolsList() {
             last = null;
         };
 
-        const lenses = rows.map((row) => {
+        const lenses = rows.flatMap((row) => {
             const title = row.querySelector<HTMLElement>("h2");
-            return title ? attachTitleLens(title) : () => {};
+            const desc = row.querySelector<HTMLElement>("p");
+            return [
+                title ? attachLens(title, LENS[title.dataset.font ?? "flex"]) : () => {},
+                desc ? attachLens(desc, LENS.desc) : () => {},
+            ];
         });
 
         const cleanups = rows.map((row) => {
@@ -175,18 +191,16 @@ function AppRow({ app }: { app: CatalogApp }) {
             <div className={s.content}>
                 <Preview app={app} />
                 <div className={s.text}>
-                    <h2 className={s.name}>
-                        <span className="sr-only">{app.name}</span>
-                        {/* Letras separadas só para a lupa (eixos variáveis). */}
-                        <span className={s.glyphs} aria-hidden="true">
-                            {Array.from(app.name).map((ch, k) => (
-                                <span key={k} data-ch="">
-                                    {ch}
-                                </span>
-                            ))}
-                        </span>
+                    <h2
+                        className={s.name}
+                        data-font={NAME_TEST[app.id]?.font ?? "flex"}
+                        data-case={NAME_TEST[app.id]?.case ?? "as-is"}
+                    >
+                        <Letters text={app.name} />
                     </h2>
-                    <p className={s.desc}>{app.description}</p>
+                    <p className={s.desc}>
+                        <Letters text={app.description} />
+                    </p>
                     <span
                         className={`${s.cta} ${s.ctaInline} ${disabled ? s.ctaDisabled : ""}`}
                         {...ctaA11y}
@@ -220,6 +234,25 @@ function AppRow({ app }: { app: CatalogApp }) {
 
     // Destino ainda não confirmado: faixa visível, CTA desabilitado.
     return <div {...rowProps}>{body}</div>;
+}
+
+/**
+ * Texto acessível inteiro + letras separadas (ocultas de leitores de tela)
+ * para a lupa variar os eixos letra a letra.
+ */
+function Letters({ text }: { text: string }) {
+    return (
+        <>
+            <span className="sr-only">{text}</span>
+            <span className={s.glyphs} aria-hidden="true">
+                {Array.from(text).map((ch, k) => (
+                    <span key={k} data-ch="">
+                        {ch}
+                    </span>
+                ))}
+            </span>
+        </>
+    );
 }
 
 /** Camada decorativa: 24 tiras de cor que juntas preenchem a faixa. */
