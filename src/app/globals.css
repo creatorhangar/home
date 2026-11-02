@@ -1,33 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Cinzel:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 
-/*
- * Fontes da home (Dirtyline Studio). Os arquivos ficam em
- * public/fonts/licensed/, fora do git: a licença baixada é pessoal/desktop
- * e não cobre uso web. Sem os arquivos, a home cai no fallback do sistema.
- */
-@font-face {
-  font-family: "Neue Metana";
-  src: url("/fonts/licensed/NeueMetana-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+/* Cores da home registradas: a troca de tema anima entre valores (450 ms). */
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #111111;
 }
 
-@font-face {
-  font-family: "DX Brutalist";
-  src: url("/fonts/licensed/DxBrutalist-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+@property --fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2ebdd;
 }
 
-@font-face {
-  font-family: "DX Grafik";
-  src: url("/fonts/licensed/DxGrafik-SemiBold.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
+@property --fg-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #bdb7ad;
+}
+
+@property --rule {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #343434;
+}
+
+@property --ph {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1b1b1b;
 }
 
 @tailwind base;

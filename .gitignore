@@ -42,9 +42,6 @@ next-env.d.ts
 
 .vercel
 
-# Fontes Dirtyline (Neue Metana, DX Brutalist, DX Grafik): licença atual é
-# pessoal/desktop, sem uso web. Ficam só locais até haver licença webfont.
-/public/fonts/licensed/
 
 # Screenshots e gravações de entrega (locais)
 /entregas/

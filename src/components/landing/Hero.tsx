@@ -6,9 +6,11 @@ import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { Tesseract } from "./Tesseract";
 import { Footer } from "./Footer";
+import { toggleTheme, useTheme, type Theme } from "./theme";
 import s from "./home.module.css";
 
-const PANEL_BG = "#111111";
+/** Fundo do canvas por tema (= --bg da página). */
+const PANEL_BG = { dark: "#111111", light: "#f4f0e8" } as const;
 
 /**
  * Raio da esfera que envolve o cubo em qualquer pose:
@@ -114,11 +116,55 @@ function useWide() {
     );
 }
 
+/**
+ * Fundo do canvas acompanha o tema na mesma duração da página (~450 ms),
+ * sem flash: no primeiro quadro assume o tema atual direto.
+ */
+function ThemeBackground({ theme }: { theme: Theme }) {
+    // Só monta no cliente (dentro do Canvas): lê o tema já aplicado no <html>.
+    const [initial] = useState(() =>
+        document.documentElement.dataset.theme === "light" ? PANEL_BG.light : PANEL_BG.dark,
+    );
+    const color = useRef<THREE.Color>(null);
+    const target = useRef(new THREE.Color(initial));
+    const from = useRef(new THREE.Color(initial));
+    const start = useRef(-1);
+
+    useLayoutEffect(() => {
+        const c = color.current;
+        const next = new THREE.Color(PANEL_BG[theme]);
+        if (!c || c.equals(next)) return;
+        from.current.copy(c);
+        target.current.copy(next);
+        start.current = performance.now();
+    }, [theme]);
+
+    useFrame(() => {
+        const c = color.current;
+        if (start.current < 0 || !c) return;
+        const t = Math.min(1, (performance.now() - start.current) / 450);
+        // mesma curva da página: cubic-bezier(0.22, 1, 0.36, 1) ≈ easeOutQuint
+        const k = 1 - Math.pow(1 - t, 5);
+        c.copy(from.current).lerp(target.current, k);
+        if (t === 1) start.current = -1;
+    });
+
+    return <color ref={color} attach="background" args={[initial]} />;
+}
+
 /** Painel de marca: nome no alto, cubo abaixo, links discretos na base. */
 export function Hero() {
     const [ready, setReady] = useState(false);
     const reduced = usePrefersReducedMotion();
     const wide = useWide();
+    const theme = useTheme();
+    const pulseRef = useRef<(() => void) | null>(null);
+
+    // Teclado: mesmo efeito do clique no cubo (RGB + tema), uma vez.
+    const activateFromKeyboard = () => {
+        pulseRef.current?.();
+        toggleTheme();
+    };
 
     return (
         <aside className={s.panel}>
@@ -131,9 +177,10 @@ export function Hero() {
                 </span>
             </h1>
 
-            <div className={s.stage} data-ready={ready} aria-hidden="true">
+            <div className={s.stage} data-ready={ready}>
                 <Suspense fallback={null}>
                     <Canvas
+                        aria-hidden="true"
                         dpr={[1, 2]}
                         gl={{
                             antialias: true,
@@ -143,7 +190,7 @@ export function Hero() {
                         camera={{ position: [0, 0, 8], fov: 40 }}
                         onCreated={() => setReady(true)}
                     >
-                        <color attach="background" args={[PANEL_BG]} />
+                        <ThemeBackground theme={theme} />
                         <FitCamera wide={wide} />
 
                         <ambientLight intensity={0.5} />
@@ -152,12 +199,20 @@ export function Hero() {
                         <pointLight position={[0, 10, 0]} intensity={1} color="#ffffff" />
 
                         <Drift wide={wide} still={reduced}>
-                            <Tesseract still={reduced} />
+                            <Tesseract still={reduced} pulseRef={pulseRef} onActivate={toggleTheme} />
                         </Drift>
 
                         <Environment preset="city" />
                     </Canvas>
                 </Suspense>
+                {/* Acesso por teclado ao cubo. Não intercepta o mouse
+                    (pointer-events: none): o clique vai para o próprio cubo. */}
+                <button
+                    type="button"
+                    className={s.cubeToggle}
+                    onClick={activateFromKeyboard}
+                    aria-label={theme === "light" ? "Alternar para o tema escuro" : "Alternar para o tema claro"}
+                />
             </div>
 
             <Footer className={s.foot} />

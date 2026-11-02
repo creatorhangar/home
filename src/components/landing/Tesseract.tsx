@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MeshTransmissionMaterial, Float } from "@react-three/drei";
 import { EffectComposer, Bloom, ChromaticAberration } from "@react-three/postprocessing";
@@ -21,9 +21,13 @@ interface TesseractProps {
     onAurora?: (active: boolean) => void;
     /** prefers-reduced-motion: congela rotação, flutuação e respiração. */
     still?: boolean;
+    /** Recebe a função do pulso RGB, para o pai acionar pelo teclado. */
+    pulseRef?: React.MutableRefObject<(() => void) | null>;
+    /** Chamado uma vez por clique no cubo, depois do pulso. */
+    onActivate?: () => void;
 }
 
-export function Tesseract({ onAurora, still = false }: TesseractProps) {
+export function Tesseract({ onAurora, still = false, pulseRef, onActivate }: TesseractProps) {
     const groupRef = useRef<THREE.Group>(null);
     const outerRef = useRef<THREE.Mesh>(null);
     const innerRef = useRef<THREE.Mesh>(null);
@@ -33,9 +37,8 @@ export function Tesseract({ onAurora, still = false }: TesseractProps) {
     const [clickCount, setClickCount] = useState(0);
     const [glitching, setGlitching] = useState(false);
 
-    // Interaction: Tech Pulse
-    const handleClick = (e: any) => {
-        e.stopPropagation();
+    // Interaction: Tech Pulse (RGB) — mouse ou teclado.
+    const runPulse = () => {
         const newCount = clickCount + 1;
         setClickCount(newCount);
 
@@ -53,6 +56,15 @@ export function Tesseract({ onAurora, still = false }: TesseractProps) {
             if (onAurora) onAurora(true);
             setTimeout(() => { if (onAurora) onAurora(false); }, 3000);
         }
+    };
+    useEffect(() => {
+        if (pulseRef) pulseRef.current = runPulse;
+    });
+
+    const handleClick = (e: { stopPropagation: () => void }) => {
+        e.stopPropagation();
+        runPulse();
+        onActivate?.();
     };
 
     useFrame((state, delta) => {

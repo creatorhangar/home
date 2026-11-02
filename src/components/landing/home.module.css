@@ -11,25 +11,24 @@
  */
 
 .page {
+    /* Tema escuro (padrão). Cores registradas com @property em globals.css:
+       a troca de tema interpola todas em 450 ms, sem flash nem inversão. */
     --bg: #111111;
     --fg: #f2ebdd;
     --fg-2: #bdb7ad;
-    --fg-hot: #ebe4d7;
     --rule: #343434;
-    --scrim: rgba(17, 13, 12, 0.7);
+    --ph: #1b1b1b;
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --t-theme: 450ms;
     --t-in: 320ms;
     --t-in-stagger: 60ms;
     --t-out: 1000ms;
     --t-out-stagger: 300ms;
     --t-arrow: 220ms;
 
-    /* Texto corrido: Neue Metana Regular (a mais leve disponível). */
-    --sans: "Neue Metana", "Helvetica Neue", Arial, sans-serif;
-    /* Nomes dos apps. Alternativa a testar: "DX Grafik" (peso 600). */
-    --display: "DX Brutalist", var(--sans);
-    --display-weight: 500;
+    --sans: var(--font-instrument-sans), "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+    --display: var(--font-roboto-flex), "Roboto Flex", var(--sans);
     --serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
 
     background: var(--bg);
@@ -40,6 +39,20 @@
     font-family: var(--sans);
     font-weight: 400;
     overflow-x: clip;
+    transition:
+        --bg var(--t-theme) var(--ease),
+        --fg var(--t-theme) var(--ease),
+        --fg-2 var(--t-theme) var(--ease),
+        --rule var(--t-theme) var(--ease),
+        --ph var(--t-theme) var(--ease);
+}
+
+:global(html[data-theme="light"]) .page {
+    --bg: #f4f0e8;
+    --fg: #25231f;
+    --fg-2: #514c44;
+    --rule: #d8d0c4;
+    --ph: #e9e3d9;
 }
 
 /* ------------------------------------------------------------------ */
@@ -295,7 +308,7 @@ a.row {
     width: 72px;
     height: 72px;
     overflow: hidden;
-    background: #1b1b1b;
+    background: var(--ph);
     outline: 1px solid var(--rule);
     outline-offset: -1px;
 }
@@ -315,8 +328,7 @@ a.row {
     object-fit: cover;
 }
 
-/* Bloco nome + descrição: centrado na faixa, largura do próprio texto
-   (a proteção escura acompanha o texto, não a coluna inteira). */
+/* Bloco nome + descrição: centrado na faixa. */
 .text {
     position: relative;
     z-index: 3;
@@ -325,45 +337,55 @@ a.row {
     max-width: 100%;
 }
 
+/*
+ * Nome: Roboto Flex variável. Repouso wght 450 / wdth 100; a lupa
+ * (titleLens.ts) varia os eixos por letra. Altura fixa pela line-height
+ * e sem quebra: a expansão só cresce para a direita, dentro da coluna,
+ * sem deslocar descrição, preview, CTA ou faixas vizinhas.
+ */
 .name {
     display: block;
     margin: 0;
     font-family: var(--display);
-    font-weight: var(--display-weight);
+    font-weight: 450;
+    font-variation-settings: "wght" 450, "wdth" 100;
     font-size: 30px;
-    line-height: 1.12;
-    letter-spacing: -0.025em;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
     color: var(--fg);
     overflow-wrap: anywhere;
+}
+
+.glyphs {
+    display: inline;
+}
+
+.glyphs > span {
+    display: inline;
 }
 
 @media (min-width: 1024px) {
     .name {
         font-size: 38px;
+        white-space: nowrap;
         overflow-wrap: normal;
     }
 }
 
 @media (min-width: 1440px) {
     .name {
-        font-size: 46px;
+        font-size: 44px;
     }
 }
 
 .desc {
     margin: 12px 0 0;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 500;
     line-height: 1.5;
     letter-spacing: normal;
     color: var(--fg-2);
     transition: color var(--t-out) var(--ease) 200ms;
-}
-
-@media (min-width: 1024px) {
-    .desc {
-        font-size: 17px;
-    }
 }
 
 .cta {
@@ -372,9 +394,10 @@ a.row {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 14px;
-    font-size: 15px;
-    font-weight: 400;
+    min-height: 44px;
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1;
     color: var(--fg);
     white-space: nowrap;
@@ -404,9 +427,8 @@ a.row {
     }
 }
 
-/* Esmaece só o texto (não a proteção escura do ::before). */
 .ctaDisabled {
-    color: rgba(242, 235, 221, 0.5);
+    color: color-mix(in srgb, var(--fg) 52%, transparent);
 }
 
 .arrow {
@@ -414,97 +436,88 @@ a.row {
     transition: transform var(--t-arrow) var(--ease);
 }
 
-/* Proteção escura sob o texto: aparece antes das tiras e some depois. */
-.text::before,
-.ctaEnd::before {
-    content: "";
+/* Acesso por teclado ao cubo: cobre o palco, mas não recebe o mouse. */
+.cubeToggle {
     position: absolute;
-    inset: -18px -28px;
-    z-index: -1;
-    border-radius: 28px;
-    background: var(--scrim);
-    filter: blur(14px);
-    opacity: 0;
+    inset: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
     pointer-events: none;
-    transition: opacity 900ms var(--ease) 420ms;
+    border-radius: 12px;
 }
 
-.ctaEnd::before {
-    inset: -16px -22px;
+.cubeToggle:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: -6px;
 }
 
 /* ------------------------------------------------------------------ */
-/* Campo térmico em tiras                                              */
+/* Faixas de cor em tiras                                              */
 /* ------------------------------------------------------------------ */
 
 /*
- * Um único campo de degradê (frio azul-terroso → quente areia), fatiado
- * em 24 tiras. Todas usam o mesmo tamanho de fundo (altura = faixa
- * inteira) e cada uma desloca o fundo pelo próprio índice, então juntas
- * formam uma imagem contínua. Cada tira abre/fecha em torno do próprio
- * centro com clip-path (sem achatar o degradê).
+ * Cada app tem uma família de cor (--c). As 24 tiras são cores limpas da
+ * mesma família, misturadas com o fundo do tema: mais intensas no centro,
+ * mais próximas do fundo nas bordas. As proporções (--a) garantem contraste
+ * ≥ 5:1 do texto principal em qualquer tira, nos dois temas — sem placas
+ * ou sombras atrás das palavras.
  */
 .row {
-    --hx: 62%;
-    --hy: 55%;
-    --cx: 24%;
-    --cy: 40%;
-    --field:
-        radial-gradient(
-            ellipse 30% 125% at var(--hx) var(--hy),
-            #c8b99b 0%,
-            #a89980 10%,
-            #a1804d 21%,
-            #845144 34%,
-            #583033 49%,
-            rgba(40, 29, 25, 0.85) 64%,
-            rgba(40, 29, 25, 0) 80%
-        ),
-        radial-gradient(
-            ellipse 20% 95% at var(--cx) var(--cy),
-            #845144 0%,
-            #583033 30%,
-            rgba(40, 29, 25, 0.7) 55%,
-            rgba(40, 29, 25, 0) 78%
-        ),
-        linear-gradient(
-            90deg,
-            #131b22 0%,
-            #1c2a34 18%,
-            #2c404c 36%,
-            #3f5560 50%,
-            #2c404c 66%,
-            #1c2a34 84%,
-            #141c23 100%
-        );
+    --c: #ad705a;
+    --a: 68%;
+    --a-drop: 26%;
 }
 
-.row[data-field="1"] {
-    --hx: 44%;
-    --hy: 40%;
-    --cx: 82%;
-    --cy: 65%;
+.row[data-app="burnsh"] {
+    --c: #ad705a;
+    --a: 68%;
 }
 
-.row[data-field="2"] {
-    --hx: 74%;
-    --hy: 62%;
-    --cx: 36%;
-    --cy: 30%;
+.row[data-app="swoovi"] {
+    --c: #66858c;
+    --a: 68%;
 }
 
-.row[data-field="3"] {
-    --hx: 54%;
-    --hy: 35%;
-    --cx: 18%;
-    --cy: 72%;
+.row[data-app="copyretouch"] {
+    --c: #85876b;
+    --a: 65%;
 }
 
-.row[data-field="4"] {
-    --hx: 80%;
-    --hy: 48%;
-    --cx: 50%;
-    --cy: 60%;
+.row[data-app="gifcuts"] {
+    --c: #9b6979;
+    --a: 72%;
+}
+
+.row[data-app="cutfleet"] {
+    --c: #b19861;
+    --a: 54%;
+}
+
+:global(html[data-theme="light"]) .row {
+    --a-drop: 30%;
+}
+
+:global(html[data-theme="light"]) .row[data-app="burnsh"] {
+    --a: 76%;
+}
+
+:global(html[data-theme="light"]) .row[data-app="swoovi"] {
+    --a: 77%;
+}
+
+:global(html[data-theme="light"]) .row[data-app="copyretouch"] {
+    --a: 80%;
+}
+
+:global(html[data-theme="light"]) .row[data-app="gifcuts"] {
+    --a: 71%;
+}
+
+:global(html[data-theme="light"]) .row[data-app="cutfleet"] {
+    --a: 88%;
 }
 
 .thermal {
@@ -516,23 +529,16 @@ a.row {
 }
 
 .strip {
-    --gx: 0%;
     position: absolute;
     left: 0;
     right: 0;
     top: calc(var(--k) * 100% / 24);
     height: calc(100% / 24);
     display: block;
-    background-image: var(--field);
-    background-repeat: no-repeat;
-    /* largura > 100% permite o deslocamento discreto do campo */
-    background-size: 108% 2400%;
-    background-position: var(--gx) calc(var(--k) * 100% / 23);
+    background: color-mix(in srgb, var(--c) calc(var(--a) - var(--e) * var(--a-drop)), var(--bg));
     clip-path: inset(50% 0 50% 0);
     /* Saída: bordas primeiro, centro por último (até +300 ms). */
-    transition:
-        clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger)),
-        background-position calc(var(--t-out) + var(--t-out-stagger)) var(--ease);
+    transition: clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger));
     will-change: clip-path;
 }
 
@@ -540,26 +546,15 @@ a.row {
    :focus-visible via teclado). */
 .row[data-hot] .strip,
 .row:focus-visible .strip {
-    --gx: 100%;
     /* leve sobreposição evita fendas de subpixel entre tiras */
     clip-path: inset(-0.5px 0 -0.5px 0);
     /* Entrada: centro primeiro, bordas até +60 ms. */
-    transition:
-        clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger)),
-        background-position 1400ms var(--ease);
-}
-
-.row[data-hot] .text::before,
-.row[data-hot] .ctaEnd::before,
-.row:focus-visible .text::before,
-.row:focus-visible .ctaEnd::before {
-    opacity: 1;
-    transition: opacity 160ms var(--ease);
+    transition: clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger));
 }
 
 .row[data-hot] .desc,
 .row:focus-visible .desc {
-    color: var(--fg-hot);
+    color: var(--fg);
     transition: color 160ms var(--ease);
 }
 
@@ -573,6 +568,9 @@ a.row {
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
+    .page {
+        transition: none;
+    }
     .word,
     .item {
         animation: none;
@@ -585,21 +583,10 @@ a.row {
     .strip,
     .row[data-hot] .strip,
     .row:focus-visible .strip,
-    .text::before,
-    .ctaEnd::before,
-    .row[data-hot] .text::before,
-    .row[data-hot] .ctaEnd::before,
     .desc,
     .row[data-hot] .desc,
     .arrow {
         transition: none;
-    }
-    .row[data-hot] .strip,
-    .row:focus-visible .strip {
-        --gx: 50%;
-    }
-    .strip {
-        --gx: 50%;
     }
     .row[data-hot] .arrow,
     .row:focus-visible .arrow {

@@ -8,21 +8,20 @@
 const LINKS: { label: string; href: string }[] = [];
 
 export function Footer({ className }: { className?: string }) {
+    // Sem links, não há rodapé (nem espaço reservado).
+    if (LINKS.length === 0) return null;
     return (
         <footer className={className}>
-            {LINKS.length > 0 && (
-                <nav aria-label="Links legais e contato">
-                    {LINKS.map((l, i) => (
-                        <span key={l.href}>
-                            {i > 0 && " · "}
-                            <a href={l.href} style={{ color: "inherit" }}>
-                                {l.label}
-                            </a>
-                        </span>
-                    ))}
-                </nav>
-            )}
-            <p style={{ margin: 0 }}>© {new Date().getFullYear()} Creator Hangar</p>
+            <nav aria-label="Links legais e contato">
+                {LINKS.map((l, i) => (
+                    <span key={l.href}>
+                        {i > 0 && " · "}
+                        <a href={l.href} style={{ color: "inherit" }}>
+                            {l.label}
+                        </a>
+                    </span>
+                ))}
+            </nav>
         </footer>
     );
 }

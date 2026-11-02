@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import { APPS, type CatalogApp } from "@/config/apps";
 import s from "./home.module.css";
+import { attachTitleLens } from "./titleLens";
 
-/** Tiras horizontais do campo térmico, por faixa. */
+/** Tiras horizontais de cor, por faixa. */
 const STRIPS = 24;
 
 /** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
@@ -101,6 +102,11 @@ export function ToolsList() {
             last = null;
         };
 
+        const lenses = rows.map((row) => {
+            const title = row.querySelector<HTMLElement>("h2");
+            return title ? attachTitleLens(title) : () => {};
+        });
+
         const cleanups = rows.map((row) => {
             const enter = (e: PointerEvent) => {
                 if (!isMouse(e)) return;
@@ -123,6 +129,7 @@ export function ToolsList() {
         document.documentElement.addEventListener("pointerleave", onWindowLeave);
         return () => {
             cleanups.forEach((c) => c());
+            lenses.forEach((c) => c());
             window.removeEventListener("pointermove", onMove);
             document.documentElement.removeEventListener("pointerleave", onWindowLeave);
             timers.forEach((t) => window.clearTimeout(t));
@@ -137,7 +144,7 @@ export function ToolsList() {
                     className={s.item}
                     style={{ "--i": i } as React.CSSProperties}
                 >
-                    <AppRow app={app} index={i} />
+                    <AppRow app={app} />
                 </li>
             ))}
         </ul>
@@ -148,7 +155,7 @@ function reducedMotion() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function AppRow({ app, index }: { app: CatalogApp; index: number }) {
+function AppRow({ app }: { app: CatalogApp }) {
     const disabled = !app.href;
     const newTab = app.href ? <span className="sr-only"> (abre em nova aba)</span> : null;
     const ctaA11y = disabled ? { "aria-disabled": true as const, title: "Em breve" } : {};
@@ -168,7 +175,17 @@ function AppRow({ app, index }: { app: CatalogApp; index: number }) {
             <div className={s.content}>
                 <Preview app={app} />
                 <div className={s.text}>
-                    <h2 className={s.name}>{app.name}</h2>
+                    <h2 className={s.name}>
+                        <span className="sr-only">{app.name}</span>
+                        {/* Letras separadas só para a lupa (eixos variáveis). */}
+                        <span className={s.glyphs} aria-hidden="true">
+                            {Array.from(app.name).map((ch, k) => (
+                                <span key={k} data-ch="">
+                                    {ch}
+                                </span>
+                            ))}
+                        </span>
+                    </h2>
                     <p className={s.desc}>{app.description}</p>
                     <span
                         className={`${s.cta} ${s.ctaInline} ${disabled ? s.ctaDisabled : ""}`}
@@ -190,7 +207,7 @@ function AppRow({ app, index }: { app: CatalogApp; index: number }) {
     const rowProps = {
         className: s.row,
         "data-row": "",
-        "data-field": index % 5,
+        "data-app": app.id,
     };
 
     if (app.href) {
@@ -205,7 +222,7 @@ function AppRow({ app, index }: { app: CatalogApp; index: number }) {
     return <div {...rowProps}>{body}</div>;
 }
 
-/** Camada decorativa: 24 tiras que juntas formam um único campo térmico. */
+/** Camada decorativa: 24 tiras de cor que juntas preenchem a faixa. */
 function Thermal() {
     return (
         <span className={s.thermal} aria-hidden="true">
