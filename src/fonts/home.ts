@@ -15,9 +15,10 @@ export const robotoFlex = Roboto_Flex({
     display: "swap",
 });
 
+/** Variável: wght (400–700) e wdth (75–100) — a descrição estreita no hover. */
 export const instrumentSans = Instrument_Sans({
     subsets: ["latin"],
-    weight: ["400", "500"],
+    axes: ["wdth"],
     variable: "--font-instrument-sans",
     display: "swap",
 });

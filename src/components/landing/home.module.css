@@ -13,11 +13,11 @@
 .page {
     /* Tema escuro (padrão). Cores registradas com @property em globals.css:
        a troca de tema interpola todas em 450 ms, sem flash nem inversão. */
-    --bg: #111111;
+    --bg: #080808;
     --fg: #f2ebdd;
     --fg-2: #bdb7ad;
-    --rule: #343434;
-    --ph: #1b1b1b;
+    --rule: #262626;
+    --ph: #141414;
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --t-theme: 450ms;
@@ -384,8 +384,14 @@ a.row {
     font-weight: 500;
     line-height: 1.5;
     letter-spacing: normal;
+    /* Instrument Sans variável: o hover estreita (eixo wdth) — o contrário
+       da lupa que alarga o título. */
+    font-stretch: 100%;
     color: var(--fg-2);
-    transition: color var(--t-out) var(--ease) 200ms;
+    transition:
+        color var(--t-out) var(--ease) 200ms,
+        font-stretch var(--t-out) var(--ease) 120ms,
+        letter-spacing var(--t-out) var(--ease) 120ms;
 }
 
 .cta {
@@ -459,16 +465,14 @@ a.row {
 /* ------------------------------------------------------------------ */
 
 /*
- * Cada app tem uma família de cor (--c). As 24 tiras são cores limpas da
- * mesma família, misturadas com o fundo do tema: mais intensas no centro,
- * mais próximas do fundo nas bordas. As proporções (--a) garantem contraste
- * ≥ 5:1 do texto principal em qualquer tira, nos dois temas — sem placas
- * ou sombras atrás das palavras.
+ * Cada app tem uma cor chapada (--c misturada ao fundo do tema em --a).
+ * As 24 tiras usam a mesma cor: as linhas só aparecem durante a abertura
+ * e o fechamento. As proporções (--a) garantem contraste ≥ 5:1 do texto
+ * principal nos dois temas — sem placas ou sombras atrás das palavras.
  */
 .row {
     --c: #ad705a;
     --a: 68%;
-    --a-drop: 26%;
 }
 
 .row[data-app="burnsh"] {
@@ -494,10 +498,6 @@ a.row {
 .row[data-app="cutfleet"] {
     --c: #b19861;
     --a: 54%;
-}
-
-:global(html[data-theme="light"]) .row {
-    --a-drop: 30%;
 }
 
 :global(html[data-theme="light"]) .row[data-app="burnsh"] {
@@ -535,7 +535,7 @@ a.row {
     top: calc(var(--k) * 100% / 24);
     height: calc(100% / 24);
     display: block;
-    background: color-mix(in srgb, var(--c) calc(var(--a) - var(--e) * var(--a-drop)), var(--bg));
+    background: color-mix(in srgb, var(--c) var(--a), var(--bg));
     clip-path: inset(50% 0 50% 0);
     /* Saída: bordas primeiro, centro por último (até +300 ms). */
     transition: clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger));
@@ -555,7 +555,12 @@ a.row {
 .row[data-hot] .desc,
 .row:focus-visible .desc {
     color: var(--fg);
-    transition: color 160ms var(--ease);
+    font-stretch: 92%;
+    letter-spacing: -0.006em;
+    transition:
+        color 160ms var(--ease),
+        font-stretch var(--t-in) var(--ease),
+        letter-spacing var(--t-in) var(--ease);
 }
 
 .row[data-hot] .arrow,

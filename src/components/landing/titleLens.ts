@@ -6,9 +6,9 @@
  */
 
 const REST = { wght: 450, wdth: 100 };
-const PEAK = { wght: 750, wdth: 120 };
-const RADIUS = 90; // px, nos dois eixos
-const TAU = 90; // ms — amortecimento exponencial (sem quique); ~450 ms até o repouso
+const PEAK = { wght: 800, wdth: 151 }; // wdth 151 = máximo da Roboto Flex
+const RADIUS = 105; // px, nos dois eixos
+const TAU = 75; // ms — amortecimento exponencial (sem quique); ~450 ms até o repouso
 const EPS = 0.002;
 
 interface Title {

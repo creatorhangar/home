@@ -10,7 +10,7 @@ import { toggleTheme, useTheme, type Theme } from "./theme";
 import s from "./home.module.css";
 
 /** Fundo do canvas por tema (= --bg da página). */
-const PANEL_BG = { dark: "#111111", light: "#f4f0e8" } as const;
+const PANEL_BG = { dark: "#080808", light: "#f4f0e8" } as const;
 
 /**
  * Raio da esfera que envolve o cubo em qualquer pose:

@@ -5,7 +5,7 @@
 @property --bg {
   syntax: "<color>";
   inherits: true;
-  initial-value: #111111;
+  initial-value: #080808;
 }
 
 @property --fg {
@@ -23,13 +23,13 @@
 @property --rule {
   syntax: "<color>";
   inherits: true;
-  initial-value: #343434;
+  initial-value: #262626;
 }
 
 @property --ph {
   syntax: "<color>";
   inherits: true;
-  initial-value: #1b1b1b;
+  initial-value: #141414;
 }
 
 @tailwind base;
