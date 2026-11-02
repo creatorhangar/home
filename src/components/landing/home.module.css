@@ -1,29 +1,35 @@
 /*
  * Home — catálogo de apps.
  *
- * Ritmo de movimento: uma única curva (--ease) para tudo; durações em
- * progressão harmônica (220 → 280 → 650 → 1100 ms). Entradas rápidas e
- * decididas, saídas longas e calmas — o "tempo próprio" de cada faixa.
+ * Ritmo de movimento: uma única curva (--ease). Entradas curtas
+ * (320 ms), saídas longas (1000 ms por tira + até 300 ms de escalonamento):
+ * cada faixa tem seu próprio tempo e deixa rastro.
  *
- * Hover das faixas: conceito do tutorial "3D Earth" de Olivier Larose
- * (camada colorida que abre pelo centro com clip-path). Código próprio —
- * o repositório de referência não declara licença, nada foi copiado.
+ * Hover das faixas: organização inspirada no tutorial "3D Earth" de
+ * Olivier Larose (camada que abre pelo centro). O campo térmico em tiras
+ * é uma adaptação própria. Código próprio — nada foi copiado.
  */
 
 .page {
     --bg: #111111;
     --fg: #f2ebdd;
-    --fg-2: #b8b4ac;
+    --fg-2: #bdb7ad;
+    --fg-hot: #ebe4d7;
     --rule: #343434;
-    --hot: #ef432e;
-    --on-hot: #111111;
+    --scrim: rgba(17, 13, 12, 0.7);
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --t-in: 280ms;
-    --t-out: 650ms;
+    --t-in: 320ms;
+    --t-in-stagger: 60ms;
+    --t-out: 1000ms;
+    --t-out-stagger: 300ms;
     --t-arrow: 220ms;
 
-    --sans: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    /* Texto corrido: Neue Metana Regular (a mais leve disponível). */
+    --sans: "Neue Metana", "Helvetica Neue", Arial, sans-serif;
+    /* Nomes dos apps. Alternativa a testar: "DX Grafik" (peso 600). */
+    --display: "DX Brutalist", var(--sans);
+    --display-weight: 500;
     --serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
 
     background: var(--bg);
@@ -32,6 +38,7 @@
     min-height: 100dvh;
     padding: 24px;
     font-family: var(--sans);
+    font-weight: 400;
     overflow-x: clip;
 }
 
@@ -79,6 +86,9 @@
 }
 
 .brand {
+    position: relative;
+    /* acima do canvas do cubo, que pode se estender ao redor */
+    z-index: 2;
     margin: 0;
     font-family: var(--serif);
     font-weight: 400;
@@ -95,13 +105,17 @@
     }
 }
 
-/* Cada palavra sobe de dentro da própria linha (máscara). */
+/*
+ * Cada palavra sobe de dentro da própria linha (máscara).
+ * A caixa da máscara cobre ascendentes, descendentes ("g" de Hangar) e o
+ * avanço do itálico; margens negativas devolvem o espaçamento original.
+ * No fim da entrada a palavra está inteira dentro da caixa: nada é cortado.
+ */
 .line {
     display: block;
     overflow: hidden;
-    /* espaço para descendentes/itálico não serem cortados pela máscara */
-    padding: 0 0.08em 0.06em 0;
-    margin-bottom: -0.06em;
+    padding: 0.12em 0.14em 0.3em 0;
+    margin: -0.12em 0 -0.3em;
 }
 
 .word {
@@ -115,12 +129,13 @@
 
 .italic {
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
 }
 
+/* Parte abaixo de toda a caixa (linha + folga das descendentes). */
 @keyframes wordIn {
     from {
-        transform: translateY(105%);
+        transform: translateY(1.45em);
     }
     to {
         transform: none;
@@ -128,7 +143,11 @@
 }
 
 .stage {
+    /* área extra do canvas nas laterais: o cubo pode passar da borda
+       interna do painel sem ser cortado pelo próprio canvas */
+    --overhang: 0px;
     position: relative;
+    z-index: 1;
     flex: none;
     width: 120px;
     height: 120px;
@@ -146,6 +165,9 @@
 
 @media (min-width: 1024px) {
     .stage {
+        /* < gap da grade (24 px) e < padding da página: não alcança o
+           catálogo nem gera rolagem horizontal */
+        --overhang: 20px;
         width: 100%;
         height: auto;
         flex: 1 1 auto;
@@ -157,16 +179,20 @@
     display: block;
 }
 
-/* O bloom do cubo clareia o fundo do canvas em 1–2 níveis; a máscara
-   dissolve a borda retangular para o painel ficar contínuo. A elipse
-   toca os lados mais próximos — a esfera que contém o cubo cabe nela. */
+/* O wrapper do R3F recebe width/height inline; o !important amplia a
+   área real de desenho. A máscara dissolve a borda retangular. */
 .stage > div {
-    -webkit-mask-image: radial-gradient(closest-side, #000 86%, transparent 100%);
-    mask-image: radial-gradient(closest-side, #000 86%, transparent 100%);
+    width: calc(100% + 2 * var(--overhang)) !important;
+    height: 100% !important;
+    margin-left: calc(-1 * var(--overhang));
+    -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
 }
 
 .foot {
     display: none;
+    position: relative;
+    z-index: 2;
     flex: none;
     font-size: 13px;
     line-height: 1.4;
@@ -236,29 +262,36 @@ a.row {
     cursor: pointer;
 }
 
-/* Conteúdo — idêntico na camada base e na duplicata escura. */
+.row:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: -1px;
+}
+
 .content {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: 72px minmax(0, 1fr);
-    column-gap: 16px;
+    column-gap: 28px;
     align-items: center;
-    min-height: 120px;
-    padding: 20px 0;
+    min-height: 128px;
+    padding: 24px 16px 24px 0;
 }
 
 @media (min-width: 1024px) {
     .content {
         grid-template-columns: 112px minmax(0, 1fr) auto;
-        column-gap: 24px;
-        min-height: 160px;
-        padding: 24px;
+        column-gap: 30px;
+        min-height: 168px;
+        padding: 28px 40px 28px 28px;
     }
 }
 
 .preview {
-    /* acima da camada colorida: o hover nunca cobre a mídia */
+    /* acima do campo térmico: o hover nunca cobre a mídia */
     position: relative;
     z-index: 3;
+    display: block;
     width: 72px;
     height: 72px;
     overflow: hidden;
@@ -282,61 +315,66 @@ a.row {
     object-fit: cover;
 }
 
-/* Quadrado reservado na duplicata: só ocupa espaço. */
-.previewSpacer {
-    width: 72px;
-    height: 72px;
-}
-
-@media (min-width: 1024px) {
-    .previewSpacer {
-        width: 112px;
-        height: 112px;
-    }
-}
-
+/* Bloco nome + descrição: centrado na faixa, largura do próprio texto
+   (a proteção escura acompanha o texto, não a coluna inteira). */
 .text {
+    position: relative;
+    z-index: 3;
+    justify-self: start;
     min-width: 0;
+    max-width: 100%;
 }
 
 .name {
+    display: block;
     margin: 0;
-    font-family: var(--sans);
-    font-weight: 700;
+    font-family: var(--display);
+    font-weight: var(--display-weight);
+    font-size: 30px;
+    line-height: 1.12;
     letter-spacing: -0.025em;
-    line-height: 1;
     color: var(--fg);
-    font-size: clamp(28px, 7.4vw, 36px);
     overflow-wrap: anywhere;
 }
 
 @media (min-width: 1024px) {
     .name {
-        font-size: clamp(40px, calc(2.2vw + 18px), 56px);
+        font-size: 38px;
         overflow-wrap: normal;
     }
 }
 
+@media (min-width: 1440px) {
+    .name {
+        font-size: 46px;
+    }
+}
+
 .desc {
-    margin: 10px 0 0;
+    margin: 12px 0 0;
     font-size: 16px;
-    line-height: 1.4;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
     color: var(--fg-2);
+    transition: color var(--t-out) var(--ease) 200ms;
 }
 
 @media (min-width: 1024px) {
     .desc {
-        font-size: clamp(16px, 1.1vw, 18px);
+        font-size: 17px;
     }
 }
 
 .cta {
+    position: relative;
+    z-index: 3;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     margin-top: 14px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1;
     color: var(--fg);
     white-space: nowrap;
@@ -345,7 +383,6 @@ a.row {
 @media (min-width: 1024px) {
     .cta {
         margin-top: 0;
-        font-size: 18px;
     }
 }
 
@@ -367,8 +404,9 @@ a.row {
     }
 }
 
+/* Esmaece só o texto (não a proteção escura do ::before). */
 .ctaDisabled {
-    opacity: 0.4;
+    color: rgba(242, 235, 221, 0.5);
 }
 
 .arrow {
@@ -376,55 +414,156 @@ a.row {
     transition: transform var(--t-arrow) var(--ease);
 }
 
+/* Proteção escura sob o texto: aparece antes das tiras e some depois. */
+.text::before,
+.ctaEnd::before {
+    content: "";
+    position: absolute;
+    inset: -18px -28px;
+    z-index: -1;
+    border-radius: 28px;
+    background: var(--scrim);
+    filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 900ms var(--ease) 420ms;
+}
+
+.ctaEnd::before {
+    inset: -16px -22px;
+}
+
 /* ------------------------------------------------------------------ */
-/* Camada colorida (abre do centro)                                    */
+/* Campo térmico em tiras                                              */
 /* ------------------------------------------------------------------ */
 
-.overlay {
+/*
+ * Um único campo de degradê (frio azul-terroso → quente areia), fatiado
+ * em 24 tiras. Todas usam o mesmo tamanho de fundo (altura = faixa
+ * inteira) e cada uma desloca o fundo pelo próprio índice, então juntas
+ * formam uma imagem contínua. Cada tira abre/fecha em torno do próprio
+ * centro com clip-path (sem achatar o degradê).
+ */
+.row {
+    --hx: 62%;
+    --hy: 55%;
+    --cx: 24%;
+    --cy: 40%;
+    --field:
+        radial-gradient(
+            ellipse 30% 125% at var(--hx) var(--hy),
+            #c8b99b 0%,
+            #a89980 10%,
+            #a1804d 21%,
+            #845144 34%,
+            #583033 49%,
+            rgba(40, 29, 25, 0.85) 64%,
+            rgba(40, 29, 25, 0) 80%
+        ),
+        radial-gradient(
+            ellipse 20% 95% at var(--cx) var(--cy),
+            #845144 0%,
+            #583033 30%,
+            rgba(40, 29, 25, 0.7) 55%,
+            rgba(40, 29, 25, 0) 78%
+        ),
+        linear-gradient(
+            90deg,
+            #131b22 0%,
+            #1c2a34 18%,
+            #2c404c 36%,
+            #3f5560 50%,
+            #2c404c 66%,
+            #1c2a34 84%,
+            #141c23 100%
+        );
+}
+
+.row[data-field="1"] {
+    --hx: 44%;
+    --hy: 40%;
+    --cx: 82%;
+    --cy: 65%;
+}
+
+.row[data-field="2"] {
+    --hx: 74%;
+    --hy: 62%;
+    --cx: 36%;
+    --cy: 30%;
+}
+
+.row[data-field="3"] {
+    --hx: 54%;
+    --hy: 35%;
+    --cx: 18%;
+    --cy: 72%;
+}
+
+.row[data-field="4"] {
+    --hx: 80%;
+    --hy: 48%;
+    --cx: 50%;
+    --cy: 60%;
+}
+
+.thermal {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 1;
+    display: block;
     pointer-events: none;
-    background: var(--hot);
+}
+
+.strip {
+    --gx: 0%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--k) * 100% / 24);
+    height: calc(100% / 24);
+    display: block;
+    background-image: var(--field);
+    background-repeat: no-repeat;
+    /* largura > 100% permite o deslocamento discreto do campo */
+    background-size: 108% 2400%;
+    background-position: var(--gx) calc(var(--k) * 100% / 23);
     clip-path: inset(50% 0 50% 0);
-    /* Saída: lenta. O valor de transição vale para o estado DE DESTINO,
-       então cada faixa usa 280 ms ao abrir e 650 ms ao fechar, sempre
-       partindo do progresso atual — sem timers nem filas. */
-    transition: clip-path var(--t-out) var(--ease);
+    /* Saída: bordas primeiro, centro por último (até +300 ms). */
+    transition:
+        clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger)),
+        background-position calc(var(--t-out) + var(--t-out-stagger)) var(--ease);
     will-change: clip-path;
 }
 
-.overlay * {
-    pointer-events: none;
+/* Estado ativo — cada faixa decide sozinha (data-hot via ponteiro,
+   :focus-visible via teclado). */
+.row[data-hot] .strip,
+.row:focus-visible .strip {
+    --gx: 100%;
+    /* leve sobreposição evita fendas de subpixel entre tiras */
+    clip-path: inset(-0.5px 0 -0.5px 0);
+    /* Entrada: centro primeiro, bordas até +60 ms. */
+    transition:
+        clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger)),
+        background-position 1400ms var(--ease);
 }
 
-.overlay .name,
-.overlay .desc,
-.overlay .cta {
-    color: var(--on-hot);
+.row[data-hot] .text::before,
+.row[data-hot] .ctaEnd::before,
+.row:focus-visible .text::before,
+.row:focus-visible .ctaEnd::before {
+    opacity: 1;
+    transition: opacity 160ms var(--ease);
 }
 
-/* Desabilitado sobre o vermelho: escuro, mas legível (não “lavado”). */
-.overlay .ctaDisabled {
-    opacity: 0.6;
+.row[data-hot] .desc,
+.row:focus-visible .desc {
+    color: var(--fg-hot);
+    transition: color 160ms var(--ease);
 }
 
-/* Estado ativo — cada faixa decide sozinha via :hover / :focus-visible. */
-@media (hover: hover) and (pointer: fine) {
-    .row:hover .overlay {
-        clip-path: inset(0% 0 0% 0);
-        transition-duration: var(--t-in);
-    }
-    .row:hover .arrow {
-        transform: translate(4px, -4px);
-    }
-}
-
-.row:focus-visible .overlay {
-    clip-path: inset(0% 0 0% 0);
-    transition-duration: var(--t-in);
-}
-
+.row[data-hot] .arrow,
 .row:focus-visible .arrow {
     transform: translate(4px, -4px);
 }
@@ -443,13 +582,26 @@ a.row {
         transform: none;
         transition: none;
     }
-    .row .overlay,
-    .row:hover .overlay,
-    .row:focus-visible .overlay,
-    .row .arrow {
+    .strip,
+    .row[data-hot] .strip,
+    .row:focus-visible .strip,
+    .text::before,
+    .ctaEnd::before,
+    .row[data-hot] .text::before,
+    .row[data-hot] .ctaEnd::before,
+    .desc,
+    .row[data-hot] .desc,
+    .arrow {
         transition: none;
     }
-    .row:hover .arrow,
+    .row[data-hot] .strip,
+    .row:focus-visible .strip {
+        --gx: 50%;
+    }
+    .strip {
+        --gx: 50%;
+    }
+    .row[data-hot] .arrow,
     .row:focus-visible .arrow {
         transform: none;
     }
