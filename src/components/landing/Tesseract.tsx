@@ -19,9 +19,11 @@ const THEME = {
 
 interface TesseractProps {
     onAurora?: (active: boolean) => void;
+    /** prefers-reduced-motion: congela rotação, flutuação e respiração. */
+    still?: boolean;
 }
 
-export function Tesseract({ onAurora }: TesseractProps) {
+export function Tesseract({ onAurora, still = false }: TesseractProps) {
     const groupRef = useRef<THREE.Group>(null);
     const outerRef = useRef<THREE.Mesh>(null);
     const innerRef = useRef<THREE.Mesh>(null);
@@ -40,7 +42,7 @@ export function Tesseract({ onAurora }: TesseractProps) {
         setGlitching(true);
         setTimeout(() => setGlitching(false), 200);
 
-        if (groupRef.current) {
+        if (groupRef.current && !still) {
             const tl = gsap.timeline();
             tl.to(groupRef.current.scale, { x: 0.9, y: 0.9, z: 0.9, duration: 0.1, ease: "power2.in" })
                 .to(groupRef.current.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.2, ease: "power4.out" })
@@ -54,6 +56,7 @@ export function Tesseract({ onAurora }: TesseractProps) {
     };
 
     useFrame((state, delta) => {
+        if (still) return;
         if (groupRef.current && outerRef.current && innerRef.current) {
             const rotationSpeed = hovered ? 0.5 : 0.2;
             groupRef.current.rotation.y += delta * rotationSpeed * 0.5;
@@ -68,7 +71,12 @@ export function Tesseract({ onAurora }: TesseractProps) {
 
     return (
         <group position={[0, 0, 0]}>
-            <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5} floatingRange={[-0.2, 0.2]}>
+            <Float
+                speed={still ? 0 : 2}
+                rotationIntensity={still ? 0 : 0.2}
+                floatIntensity={still ? 0 : 0.5}
+                floatingRange={[-0.2, 0.2]}
+            >
                 <group ref={groupRef}>
                     {/* Outer Glass Shell */}
                     <mesh
@@ -111,29 +119,6 @@ export function Tesseract({ onAurora }: TesseractProps) {
                         />
                     </mesh>
 
-                    {/* Outer Wireframe - More Visible */}
-                    <mesh scale={[1.15, 1.15, 1.15]}>
-                        <boxGeometry args={[1.8, 1.8, 1.8]} />
-                        <meshBasicMaterial
-                            wireframe
-                            color={glitching ? "#00FFFF" : THEME.accent}
-                            transparent
-                            opacity={0.6}
-                            toneMapped={false}
-                        />
-                    </mesh>
-
-                    {/* Inner Wireframe */}
-                    <mesh scale={[0.6, 0.6, 0.6]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-                        <boxGeometry args={[1.2, 1.2, 1.2]} />
-                        <meshBasicMaterial
-                            wireframe
-                            color={THEME.accent}
-                            transparent
-                            opacity={0.8}
-                            toneMapped={false}
-                        />
-                    </mesh>
                 </group>
             </Float>
 

@@ -1,92 +1,175 @@
 "use client";
 
-import { TOOLS } from "@/config/tools";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useRef } from "react";
+import { APPS, type CatalogApp } from "@/config/apps";
+import s from "./home.module.css";
 
-interface ToolsListProps {
-    onHoverColor: (color: string | null) => void;
+/**
+ * Catálogo: exatamente uma faixa por app.
+ *
+ * Cada faixa é independente: o estado ativo vem do próprio :hover /
+ * :focus-visible (CSS), não de um índice compartilhado. Assim, ao
+ * atravessar várias faixas rapidamente, as anteriores seguem recolhendo
+ * enquanto as próximas abrem, e uma reentrada retoma do ponto atual.
+ */
+export function ToolsList() {
+    return (
+        <ul className={s.catalog} aria-label="Apps">
+            {APPS.map((app, i) => (
+                <li
+                    key={app.id}
+                    className={s.item}
+                    style={{ "--i": i } as React.CSSProperties}
+                >
+                    <AppRow app={app} />
+                </li>
+            ))}
+        </ul>
+    );
 }
 
-export function ToolsList({ onHoverColor }: ToolsListProps) {
-    const [activeIndex, setActiveIndex] = useState(0);
+function AppRow({ app }: { app: CatalogApp }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveIndex((prev) => prev + 1);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
+    // Vídeo só toca enquanto a faixa está sob hover ou foco.
+    const play = () => {
+        const v = videoRef.current;
+        if (!v) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        v.play().catch(() => {});
+    };
+    const pause = () => {
+        videoRef.current?.pause();
+    };
 
-    const currentToolIndex = activeIndex % TOOLS.length;
-    const currentTool = TOOLS[currentToolIndex];
+    const media = {
+        onPointerEnter: (e: React.PointerEvent) => {
+            if (e.pointerType === "mouse") play();
+        },
+        onPointerLeave: pause,
+        onFocus: play,
+        onBlur: pause,
+    };
 
-    useEffect(() => {
-        onHoverColor(currentTool.color);
-    }, [currentToolIndex, onHoverColor]);
+    const body = (
+        <>
+            <RowContent app={app} videoRef={videoRef} />
+            <div className={s.overlay} aria-hidden="true">
+                <RowContent app={app} duplicate />
+            </div>
+        </>
+    );
 
-    const visibleRange = [-2, -1, 0, 1, 2];
+    if (app.href) {
+        return (
+            <a
+                className={s.row}
+                href={app.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...media}
+            >
+                {body}
+            </a>
+        );
+    }
+
+    // Destino ainda não confirmado: faixa visível, CTA desabilitado.
+    return (
+        <div className={s.row} {...media}>
+            {body}
+        </div>
+    );
+}
+
+function RowContent({
+    app,
+    duplicate = false,
+    videoRef,
+}: {
+    app: CatalogApp;
+    duplicate?: boolean;
+    videoRef?: React.RefObject<HTMLVideoElement | null>;
+}) {
+    const disabled = !app.href;
+    const cta = (
+        <>
+            {app.cta}
+            <span className={s.arrow} aria-hidden="true">
+                ↗
+            </span>
+        </>
+    );
+    // Rótulo acessível do CTA só existe na camada base.
+    const ctaA11y = duplicate
+        ? {}
+        : disabled
+          ? { "aria-disabled": true as const, title: "Em breve" }
+          : {};
+
+    const NameTag = duplicate ? "span" : "h2";
+    const newTab =
+        !duplicate && app.href ? <span className="sr-only"> (abre em nova aba)</span> : null;
 
     return (
-        <div className="flex flex-col items-start gap-4 w-full relative h-[400px] justify-center overflow-hidden">
-            {/* Gradientes mais suaves */}
-            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
+        <div className={s.content}>
+            {duplicate ? (
+                <div className={s.previewSpacer} />
+            ) : (
+                <Preview app={app} videoRef={videoRef} />
+            )}
 
-            <div className="relative w-full flex flex-col items-start pl-8"> {/* Adicionado padding left */}
-                {visibleRange.map((offset) => {
-                    const virtualIndex = activeIndex + offset;
-                    const realIndex = ((virtualIndex % TOOLS.length) + TOOLS.length) % TOOLS.length;
-                    const tool = TOOLS[realIndex];
-                    const isActive = offset === 0;
-
-                    return (
-                        <div
-                            key={virtualIndex}
-                            className="w-full flex items-center h-[70px] transition-all duration-700 ease-in-out" // Transição mais lenta e suave
-                            style={{
-                                opacity: isActive ? 1 : 0.2, // Menos opacidade nos inativos
-                                transform: `translateX(${isActive ? '0px' : '0px'})`, // Removido movimento lateral agressivo
-                            }}
-                        >
-                            <Link
-                                href={tool.path}
-                                className="w-full"
-                                onMouseEnter={() => setActiveIndex(virtualIndex)}
-                            >
-                                <h3
-                                    className="font-display tracking-tight cursor-pointer whitespace-nowrap transition-all duration-700"
-                                    style={{
-                                        fontSize: isActive ? '3.5rem' : '1.8rem', // Diferença de tamanho reduzida
-                                        color: '#ffffff',
-                                        fontWeight: isActive ? 500 : 300,
-                                        // Glow MUITO reduzido e elegante
-                                        textShadow: isActive
-                                            ? `0 0 20px ${tool.color}40` // 40 = 25% opacity
-                                            : 'none',
-                                    }}
-                                >
-                                    {tool.name}
-                                </h3>
-                            </Link>
-                        </div>
-                    );
-                })}
+            <div className={s.text}>
+                <NameTag className={s.name} style={{ display: "block" }}>
+                    {app.name}
+                </NameTag>
+                <p className={s.desc}>{app.description}</p>
+                <span
+                    className={`${s.cta} ${s.ctaInline} ${disabled ? s.ctaDisabled : ""}`}
+                    {...ctaA11y}
+                >
+                    {cta}
+                    {newTab}
+                </span>
             </div>
 
-            {/* Indicadores Minimalistas */}
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
-                {TOOLS.map((tool, index) => (
-                    <div
-                        key={index}
-                        className="w-1 rounded-full transition-all duration-500"
-                        style={{
-                            height: index === currentToolIndex ? 16 : 4,
-                            backgroundColor: index === currentToolIndex ? tool.color : '#ffffff10',
-                        }}
-                    />
-                ))}
-            </div>
+            <span
+                className={`${s.cta} ${s.ctaEnd} ${disabled ? s.ctaDisabled : ""}`}
+                {...ctaA11y}
+            >
+                {cta}
+                {newTab}
+            </span>
         </div>
+    );
+}
+
+function Preview({
+    app,
+    videoRef,
+}: {
+    app: CatalogApp;
+    videoRef?: React.RefObject<HTMLVideoElement | null>;
+}) {
+    const p = app.preview;
+    return (
+        <span className={s.preview} style={{ display: "block" }}>
+            {p?.type === "image" && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
+            )}
+            {p?.type === "video" && (
+                <video
+                    ref={videoRef}
+                    src={p.src}
+                    poster={p.poster}
+                    muted
+                    playsInline
+                    loop
+                    preload="metadata"
+                    aria-hidden="true"
+                />
+            )}
+        </span>
     );
 }

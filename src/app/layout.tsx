@@ -30,7 +30,8 @@ export default function RootLayout({
       </head>
       <body className={`${instrumentSerif.variable} antialiased`}>
         {children}
-        <EnvDebug />
+        {/* Diagnóstico interno: fora da interface pública, só com flag explícita. */}
+        {process.env.NEXT_PUBLIC_SHOW_ENV_DEBUG === "true" && <EnvDebug />}
       </body>
     </html>
   );
