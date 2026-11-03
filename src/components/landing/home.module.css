@@ -22,10 +22,10 @@
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --t-theme: 450ms;
-    /* Entrada fluida: cada tira cresce em 850 ms, centro → bordas em
-       +360 ms (~1,2 s até ficar sólida), curva suave nos dois extremos. */
-    --t-in: 850ms;
-    --t-in-stagger: 360ms;
+    /* Entrada fluida: cada tira cresce em 600 ms, centro → bordas em
+       +220 ms (~0,8 s até ficar sólida; = MIN_HOLD_MS em ToolsList). */
+    --t-in: 600ms;
+    --t-in-stagger: 220ms;
     --ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);
     --t-out: 1000ms;
     --t-out-stagger: 300ms;

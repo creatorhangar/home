@@ -13,7 +13,14 @@ const STRIPS = 24;
 const NAME_FONT = "archivo" as const;
 
 /** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
-const FLASH_MS = 380; // com a abertura lenta, o rastro precisa de tempo para aparecer
+const FLASH_MS = 120;
+
+/**
+ * Uma faixa tocada (hover ou passagem rápida) abre por completo antes de
+ * fechar: a cor sempre chega a aparecer e depois some com o rastro.
+ * = tempo até ficar sólida (--t-in + --t-in-stagger no CSS).
+ */
+const MIN_HOLD_MS = 820;
 
 const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => {
     // 0 no centro da faixa, 1 nas bordas: ordena entrada e saída.
@@ -52,8 +59,22 @@ export function ToolsList() {
         }
         let last: { x: number; y: number } | null = null;
 
+        const hotSince = new Map<HTMLElement, number>();
+        const holdTimers = new Map<HTMLElement, number>();
+
         const sync = (row: HTMLElement) => {
-            const hot = hovered.has(row) || (flashUntil.get(row) ?? 0) > performance.now();
+            const now = performance.now();
+            const wants = hovered.has(row) || (flashUntil.get(row) ?? 0) > now;
+            const since = hotSince.get(row);
+            const held = since !== undefined && now < since + MIN_HOLD_MS;
+            const hot = wants || held;
+            if (hot && since === undefined) hotSince.set(row, now);
+            if (!hot) hotSince.delete(row);
+            // Saiu antes de abrir por completo: fecha quando terminar de abrir.
+            window.clearTimeout(holdTimers.get(row));
+            if (held && !wants && since !== undefined) {
+                holdTimers.set(row, window.setTimeout(() => sync(row), since + MIN_HOLD_MS - now + 4));
+            }
             if (hot) row.setAttribute("data-hot", "");
             else row.removeAttribute("data-hot");
             // minúsculas → maiúsculas (gooey); teclado também conta
@@ -153,6 +174,7 @@ export function ToolsList() {
             window.removeEventListener("pointermove", onMove);
             document.documentElement.removeEventListener("pointerleave", onWindowLeave);
             timers.forEach((t) => window.clearTimeout(t));
+            holdTimers.forEach((t) => window.clearTimeout(t));
             gooeys.forEach((g) => g.dispose());
         };
     }, []);
