@@ -22,9 +22,8 @@
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --t-theme: 450ms;
-    --t-in: 380ms;
-    /* dominó: cada tira começa 20 ms depois da anterior (~0,85 s até cobrir) */
-    --t-domino: 20ms;
+    --t-in: 320ms;
+    --t-in-stagger: 60ms;
     --t-out: 1000ms;
     --t-out-stagger: 300ms;
     --t-arrow: 220ms;
@@ -245,11 +244,9 @@
     margin: 0;
     padding: 0;
     min-width: 0;
-    border-bottom: 1px solid var(--rule);
 }
 
 .item {
-    border-top: 1px solid var(--rule);
     animation: rowIn 900ms var(--ease) both;
     animation-delay: calc(240ms + var(--i, 0) * 70ms);
 }
@@ -369,12 +366,30 @@ a.row {
     letter-spacing: -0.015em;
 }
 
-.name[data-case="upper"] {
-    text-transform: uppercase;
+/* Morph gooey: minúsculas em fluxo (definem a caixa), maiúsculas por cima. */
+.morph {
+    position: relative;
+    display: inline-block;
 }
 
-.name[data-case="lower"] {
-    text-transform: lowercase;
+.layerUp {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.layerLo > span,
+.layerUp > span {
+    line-height: 0;
+}
+
+.defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 .glyphs {
@@ -568,12 +583,8 @@ a.row {
 .row:focus-visible .strip {
     /* leve sobreposição evita fendas de subpixel entre tiras */
     clip-path: inset(-0.5px 0 -0.5px 0);
-    /* Entrada em dominó, a partir da borda por onde o mouse entrou. */
-    transition: clip-path var(--t-in) var(--ease) calc(var(--k) * var(--t-domino));
-}
-
-.row[data-hot][data-dir="up"] .strip {
-    transition-delay: calc((23 - var(--k)) * var(--t-domino));
+    /* Entrada: centro primeiro, bordas até +60 ms. */
+    transition: clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger));
 }
 
 .row[data-hot] .desc,
@@ -606,7 +617,6 @@ a.row {
     }
     .strip,
     .row[data-hot] .strip,
-    .row[data-hot][data-dir="up"] .strip,
     .row:focus-visible .strip,
     .desc,
     .row[data-hot] .desc,
