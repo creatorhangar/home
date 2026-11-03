@@ -12,16 +12,24 @@ const STRIPS = 24;
  * TESTE VISUAL de tipografia dos nomes (só CSS; os textos de apps.ts não
  * mudam): fonte e caixa por app, para comparar lado a lado.
  */
-const NAME_TEST: Record<string, { font: "flex" | "archivo"; case: "upper" | "lower" | "as-is" }> = {
+type NameCase = "upper" | "lower" | "half" | "as-is";
+const NAME_TEST: Record<string, { font: "flex" | "archivo"; case: NameCase }> = {
     burnsh: { font: "archivo", case: "upper" },
-    swoovi: { font: "flex", case: "lower" },
-    copyretouch: { font: "flex", case: "upper" },
+    swoovi: { font: "archivo", case: "half" },
+    copyretouch: { font: "archivo", case: "half" },
     gifcuts: { font: "archivo", case: "lower" },
-    cutfleet: { font: "archivo", case: "as-is" },
+    cutfleet: { font: "archivo", case: "half" },
 };
 
+/** "half": primeira metade em maiúsculas, segunda em minúsculas (só visual). */
+function visualCase(text: string, mode: NameCase) {
+    if (mode !== "half") return text;
+    const cut = Math.ceil(text.length / 2);
+    return text.slice(0, cut).toUpperCase() + text.slice(cut).toLowerCase();
+}
+
 /** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
-const FLASH_MS = 140;
+const FLASH_MS = 450; // tempo para o dominó começar e deixar rastro
 
 const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => {
     // 0 no centro da faixa, 1 nas bordas: ordena entrada e saída.
@@ -66,8 +74,9 @@ export function ToolsList() {
             }
         };
 
-        const flash = (row: HTMLElement) => {
+        const flash = (row: HTMLElement, dir: "up" | "down") => {
             if (hovered.has(row)) return;
+            row.dataset.dir = dir;
             flashUntil.set(row, performance.now() + FLASH_MS);
             window.clearTimeout(timers.get(row));
             timers.set(row, window.setTimeout(() => sync(row), FLASH_MS + 4));
@@ -93,9 +102,10 @@ export function ToolsList() {
             const yB = from.y + (to.y - from.y) * t1;
             const yMin = Math.min(yA, yB);
             const yMax = Math.max(yA, yB);
+            const dir = to.y < from.y ? "up" : "down";
             for (const row of rows) {
                 const r = row.getBoundingClientRect();
-                if (r.bottom > yMin && r.top < yMax) flash(row);
+                if (r.bottom > yMin && r.top < yMax) flash(row, dir);
             }
         };
 
@@ -126,6 +136,9 @@ export function ToolsList() {
         const cleanups = rows.map((row) => {
             const enter = (e: PointerEvent) => {
                 if (!isMouse(e)) return;
+                // Dominó parte da borda por onde o mouse entrou.
+                const r = row.getBoundingClientRect();
+                row.dataset.dir = e.clientY > r.top + r.height / 2 ? "up" : "down";
                 hovered.add(row);
                 sync(row);
             };
@@ -196,7 +209,10 @@ function AppRow({ app }: { app: CatalogApp }) {
                         data-font={NAME_TEST[app.id]?.font ?? "flex"}
                         data-case={NAME_TEST[app.id]?.case ?? "as-is"}
                     >
-                        <Letters text={app.name} />
+                        <Letters
+                            text={app.name}
+                            visual={visualCase(app.name, NAME_TEST[app.id]?.case ?? "as-is")}
+                        />
                     </h2>
                     <p className={s.desc}>
                         <Letters text={app.description} />
@@ -240,12 +256,12 @@ function AppRow({ app }: { app: CatalogApp }) {
  * Texto acessível inteiro + letras separadas (ocultas de leitores de tela)
  * para a lupa variar os eixos letra a letra.
  */
-function Letters({ text }: { text: string }) {
+function Letters({ text, visual = text }: { text: string; visual?: string }) {
     return (
         <>
             <span className="sr-only">{text}</span>
             <span className={s.glyphs} aria-hidden="true">
-                {Array.from(text).map((ch, k) => (
+                {Array.from(visual).map((ch, k) => (
                     <span key={k} data-ch="">
                         {ch}
                     </span>

@@ -15,18 +15,24 @@ export interface LensProfile {
     track?: [number, number];
     /** Raio de influência em px. */
     radius: number;
+    /** Tamanho da letra no pico (multiplicador de em); 1 = não muda. */
+    size?: number;
+    /** Expoente da queda: > 1 concentra o efeito no centro (mais contraste). */
+    curve?: number;
+    /** Empurra a cor da letra para --lens-ink no pico (compensa traço fino). */
+    ink?: boolean;
 }
 
 export const LENS: Record<string, LensProfile> = {
-    // Título em Roboto Flex: alarga e encorpa.
-    flex: { rest: { wght: 450, wdth: 100 }, peak: { wght: 800, wdth: 151 }, radius: 105 },
-    // Título em Archivo pesado: já está perto do peso máximo, então sobretudo alarga.
-    archivo: { rest: { wght: 800, wdth: 100 }, peak: { wght: 900, wdth: 125 }, radius: 105 },
-    // Descrição em Montserrat (sem eixo de largura): afina e aperta.
-    desc: { rest: { wght: 500 }, peak: { wght: 200 }, track: [0, -0.06], radius: 60 },
+    // Título em Roboto Flex: alarga, encorpa e cresce.
+    flex: { rest: { wght: 450, wdth: 100 }, peak: { wght: 900, wdth: 151 }, radius: 130, size: 1.32, curve: 1.6 },
+    // Título em Archivo pesado: alarga ao máximo e cresce a partir da linha de base.
+    archivo: { rest: { wght: 800, wdth: 100 }, peak: { wght: 900, wdth: 125 }, radius: 130, size: 1.38, curve: 1.6 },
+    // Descrição em Montserrat (sem eixo de largura): afina e aperta, sem perder brilho.
+    desc: { rest: { wght: 500 }, peak: { wght: 300 }, track: [0, -0.05], radius: 60, ink: true },
 };
 
-const TAU = 75; // ms — amortecimento exponencial (sem quique); ~400 ms até o repouso
+const TAU = 65; // ms — amortecimento exponencial (sem quique); ~400 ms até o repouso
 const EPS = 0.002;
 
 interface Lens {
@@ -45,11 +51,15 @@ function apply(l: HTMLElement, p: LensProfile, f: number) {
         .map((axis) => `"${axis}" ${(p.rest[axis] + (p.peak[axis] - p.rest[axis]) * f).toFixed(1)}`)
         .join(", ");
     if (p.track) l.style.letterSpacing = `${(p.track[0] + (p.track[1] - p.track[0]) * f).toFixed(4)}em`;
+    if (p.size) l.style.fontSize = `${(1 + (p.size - 1) * f).toFixed(4)}em`;
+    if (p.ink) l.style.color = `color-mix(in srgb, var(--lens-ink) ${(f * 100).toFixed(1)}%, currentColor)`;
 }
 
 function clear(l: HTMLElement) {
     l.style.fontVariationSettings = "";
     l.style.letterSpacing = "";
+    l.style.fontSize = "";
+    l.style.color = "";
 }
 
 function frame(t: number) {
@@ -67,7 +77,8 @@ function frame(t: number) {
                 const dx = r.left + r.width / 2 - pointer.x;
                 const dy = r.top + r.height / 2 - pointer.y;
                 const s = Math.max(0, 1 - Math.hypot(dx, dy) / profile.radius);
-                targets[i] = s * s * (3 - 2 * s); // smoothstep: queda suave
+                const smooth = s * s * (3 - 2 * s); // smoothstep: queda suave
+                targets[i] = profile.curve ? Math.pow(smooth, profile.curve) : smooth;
             }
         }
         let moving = false;

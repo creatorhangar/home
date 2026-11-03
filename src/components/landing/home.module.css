@@ -18,11 +18,13 @@
     --fg-2: #bdb7ad;
     --rule: #262626;
     --ph: #141414;
+    --lens-ink: #ffffff;
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --t-theme: 450ms;
-    --t-in: 320ms;
-    --t-in-stagger: 60ms;
+    --t-in: 380ms;
+    /* dominó: cada tira começa 20 ms depois da anterior (~0,85 s até cobrir) */
+    --t-domino: 20ms;
     --t-out: 1000ms;
     --t-out-stagger: 300ms;
     --t-arrow: 220ms;
@@ -55,6 +57,7 @@
     --fg-2: #514c44;
     --rule: #d8d0c4;
     --ph: #e9e3d9;
+    --lens-ink: #000000;
 }
 
 /* ------------------------------------------------------------------ */
@@ -378,8 +381,10 @@ a.row {
     display: inline;
 }
 
+/* line-height 0: a letra pode crescer na lupa sem alterar a altura da linha. */
 .glyphs > span {
     display: inline;
+    line-height: 0;
 }
 
 @media (min-width: 1024px) {
@@ -563,8 +568,12 @@ a.row {
 .row:focus-visible .strip {
     /* leve sobreposição evita fendas de subpixel entre tiras */
     clip-path: inset(-0.5px 0 -0.5px 0);
-    /* Entrada: centro primeiro, bordas até +60 ms. */
-    transition: clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger));
+    /* Entrada em dominó, a partir da borda por onde o mouse entrou. */
+    transition: clip-path var(--t-in) var(--ease) calc(var(--k) * var(--t-domino));
+}
+
+.row[data-hot][data-dir="up"] .strip {
+    transition-delay: calc((23 - var(--k)) * var(--t-domino));
 }
 
 .row[data-hot] .desc,
@@ -597,6 +606,7 @@ a.row {
     }
     .strip,
     .row[data-hot] .strip,
+    .row[data-hot][data-dir="up"] .strip,
     .row:focus-visible .strip,
     .desc,
     .row[data-hot] .desc,
