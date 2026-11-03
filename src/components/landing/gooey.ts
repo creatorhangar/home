@@ -8,9 +8,10 @@
  */
 
 export const GOOEY_FILTER_ID = "ch-gooey";
-const DURATION = 650; // ms
+const DURATION = 1400; // ms — lento o bastante para ver as letras se fundirem
 
-const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+// seno: aceleração e freada suaves, sem trecho brusco no meio
+const easeInOut = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 
 function layerStyle(el: HTMLElement, f: number) {
     if (f <= 0) {
@@ -24,7 +25,8 @@ function layerStyle(el: HTMLElement, f: number) {
         return;
     }
     el.style.opacity = `${Math.pow(f, 0.4)}`;
-    el.style.filter = `blur(${Math.min(8 / f - 8, 40).toFixed(2)}px)`;
+    // blur limitado: a camada que sai vira uma "gota" visível, não some de vez
+    el.style.filter = `blur(${Math.min(6 / f - 6, 14).toFixed(2)}px)`;
 }
 
 export interface Gooey {
