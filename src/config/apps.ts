@@ -26,23 +26,23 @@ export const APPS: CatalogApp[] = [
     {
         id: "burnsh",
         name: "Burnsh",
-        description: "Efeitos e texturas para suas imagens.",
-        cta: "Abrir",
+        description: "Effects and textures for your images.",
+        cta: "Open",
         href: "https://www.burnsh.com/",
         preview: null,
     },
     {
         id: "swoovi",
         name: "Swoovi",
-        description: "Transforme fotos em vídeos.",
-        cta: "Abrir",
+        description: "Turn photos into videos.",
+        cta: "Open",
         href: "https://swoovi.app/",
         preview: null,
     },
     {
         id: "copyretouch",
         name: "CopyRetouch",
-        description: "Copie, edite e salve suas imagens.",
+        description: "Copy, edit and save your images.",
         cta: "Download",
         href: null, // pendente: URL de download não encontrada no repositório
         preview: null,
@@ -50,16 +50,16 @@ export const APPS: CatalogApp[] = [
     {
         id: "gifcuts",
         name: "GifCuts",
-        description: "Crie e edite seus GIFs.",
-        cta: "Abrir",
+        description: "Create and edit your GIFs.",
+        cta: "Open",
         href: null, // pendente: destino não encontrado no repositório
         preview: null,
     },
     {
         id: "cutfleet",
         name: "CutFleet",
-        description: "Remova fundos em lote e separe elementos.",
-        cta: "Abrir",
+        description: "Batch-remove backgrounds and split elements.",
+        cta: "Open",
         href: null, // pendente: destino não encontrado no repositório
         preview: null,
     },

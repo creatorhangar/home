@@ -6,7 +6,7 @@ import s from "@/components/landing/home.module.css";
 
 export default function Home() {
   return (
-    <div className={`${s.page} ${robotoFlex.variable} ${instrumentSans.variable} ${archivo.variable} ${montserrat.variable}`}>
+    <div lang="en" className={`${s.page} ${robotoFlex.variable} ${instrumentSans.variable} ${archivo.variable} ${montserrat.variable}`}>
       <div className={s.layout}>
         <Hero />
         <main>

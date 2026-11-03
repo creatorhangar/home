@@ -17,7 +17,7 @@ const NAME_FONT = "archivo" as const;
 const KICK_MS = 240;
 
 /** O nome só faz o morph quando o mouse para na faixa (não em passagens). */
-const MORPH_DWELL_MS = 220;
+const MORPH_DWELL_MS = 70;
 
 const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => ({ "--k": k }) as React.CSSProperties);
 
@@ -197,8 +197,8 @@ function reducedMotion() {
 
 function AppRow({ app }: { app: CatalogApp }) {
     const disabled = !app.href;
-    const newTab = app.href ? <span className="sr-only"> (abre em nova aba)</span> : null;
-    const ctaA11y = disabled ? { "aria-disabled": true as const, title: "Em breve" } : {};
+    const newTab = app.href ? <span className="sr-only"> (opens in a new tab)</span> : null;
+    const ctaA11y = disabled ? { "aria-disabled": true as const, title: "Coming soon" } : {};
     const cta = (
         <>
             {app.cta}

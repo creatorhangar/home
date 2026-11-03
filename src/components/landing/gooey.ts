@@ -8,7 +8,7 @@
  */
 
 export const GOOEY_FILTER_ID = "ch-gooey";
-const DURATION = 1400; // ms — lento o bastante para ver as letras se fundirem
+const DURATION = 650; // ms — acompanha o crescimento da lupa (~300–600 ms)
 
 // seno: aceleração e freada suaves, sem trecho brusco no meio
 const easeInOut = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;

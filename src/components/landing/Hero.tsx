@@ -211,7 +211,7 @@ export function Hero() {
                     type="button"
                     className={s.cubeToggle}
                     onClick={activateFromKeyboard}
-                    aria-label={theme === "light" ? "Alternar para o tema escuro" : "Alternar para o tema claro"}
+                    aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
                 />
             </div>
 
