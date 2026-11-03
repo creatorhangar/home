@@ -13,7 +13,7 @@ const STRIPS = 24;
 const NAME_FONT = "archivo" as const;
 
 /** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
-const FLASH_MS = 140;
+const FLASH_MS = 380; // com a abertura lenta, o rastro precisa de tempo para aparecer
 
 const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => {
     // 0 no centro da faixa, 1 nas bordas: ordena entrada e saída.

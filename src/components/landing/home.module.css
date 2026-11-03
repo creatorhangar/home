@@ -22,8 +22,11 @@
 
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --t-theme: 450ms;
-    --t-in: 320ms;
-    --t-in-stagger: 60ms;
+    /* Entrada fluida: cada tira cresce em 850 ms, centro → bordas em
+       +360 ms (~1,2 s até ficar sólida), curva suave nos dois extremos. */
+    --t-in: 850ms;
+    --t-in-stagger: 360ms;
+    --ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);
     --t-out: 1000ms;
     --t-out-stagger: 300ms;
     --t-arrow: 220ms;
@@ -572,9 +575,12 @@ a.row {
     display: block;
     background: color-mix(in srgb, var(--c) var(--a), var(--bg));
     clip-path: inset(50% 0 50% 0);
+    opacity: 0.35;
     /* Saída: bordas primeiro, centro por último (até +300 ms). */
-    transition: clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger));
-    will-change: clip-path;
+    transition:
+        clip-path var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger)),
+        opacity var(--t-out) var(--ease) calc((1 - var(--e)) * var(--t-out-stagger));
+    will-change: clip-path, opacity;
 }
 
 /* Estado ativo — cada faixa decide sozinha (data-hot via ponteiro,
@@ -583,8 +589,12 @@ a.row {
 .row:focus-visible .strip {
     /* leve sobreposição evita fendas de subpixel entre tiras */
     clip-path: inset(-0.5px 0 -0.5px 0);
-    /* Entrada: centro primeiro, bordas até +60 ms. */
-    transition: clip-path var(--t-in) var(--ease) calc(var(--e) * var(--t-in-stagger));
+    /* a cor ganha intensidade enquanto a linha cresce */
+    opacity: 1;
+    /* Entrada: centro primeiro, bordas depois — onda contínua. */
+    transition:
+        clip-path var(--t-in) var(--ease-in-out) calc(var(--e) * var(--t-in-stagger)),
+        opacity var(--t-in) var(--ease-in-out) calc(var(--e) * var(--t-in-stagger));
 }
 
 .row[data-hot] .desc,
