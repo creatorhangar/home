@@ -17,6 +17,8 @@ const DECAY_MS = 1700; // 1 → 0 sem estímulo (rastro longo)
 const EDGE_LAG = 0.45; // quanto de carga as tiras das bordas esperam para começar
 
 interface RowHeat {
+    row: HTMLElement;
+    m: number;
     strips: HTMLElement[];
     edge: number[];
     e: number;
@@ -40,6 +42,8 @@ export function createHeat(rows: HTMLElement[]): Heat {
         const strips = Array.from(row.querySelectorAll<HTMLElement>("[data-strip]"));
         const n = strips.length;
         state.set(row, {
+            row,
+            m: -1,
             strips,
             edge: strips.map((_, k) => Math.abs(k - (n - 1) / 2) / ((n - 1) / 2)),
             e: 0,
@@ -53,6 +57,12 @@ export function createHeat(rows: HTMLElement[]): Heat {
     let last = 0;
 
     const draw = (h: RowHeat) => {
+        // Cor → contraste: depois de aberta, a faixa assenta em branco/preto do tema.
+        const m = smooth(Math.min(1, Math.max(0, (h.e - 0.5) / 0.5)));
+        if (Math.abs(m - h.m) >= 0.002) {
+            h.m = m;
+            h.row.style.setProperty("--m", m.toFixed(3));
+        }
         for (let k = 0; k < h.strips.length; k++) {
             const thr = h.edge[k] * EDGE_LAG;
             const f = smooth(Math.min(1, Math.max(0, (h.e - thr) / (1 - EDGE_LAG))));

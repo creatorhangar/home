@@ -6,6 +6,7 @@ import s from "./home.module.css";
 import { attachLens, LENS } from "./titleLens";
 import { attachGooey, GOOEY_FILTER_ID, type Gooey } from "./gooey";
 import { createHeat } from "./stripHeat";
+import { Demo } from "./demos";
 
 /** Tiras horizontais de cor, por faixa. */
 const STRIPS = 24;
@@ -271,7 +272,7 @@ function Chars({ text }: { text: string }) {
     return (
         <>
             {Array.from(text).map((ch, k) => (
-                <span key={k} data-ch="">
+                <span key={k} data-ch="" style={{ "--j": k } as React.CSSProperties}>
                     {ch}
                 </span>
             ))}
@@ -324,6 +325,8 @@ function Preview({ app }: { app: CatalogApp }) {
                     aria-hidden="true"
                 />
             )}
+            {/* sem mídia real: demonstração animada em SVG (landing/demos) */}
+            {!p && <Demo id={app.id} />}
         </span>
     );
 }

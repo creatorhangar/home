@@ -28,6 +28,8 @@ export const LENS: Record<string, LensProfile> = {
     flex: { rest: { wght: 450, wdth: 100 }, peak: { wght: 900, wdth: 151 }, radius: 130, size: 1.32, curve: 1.6 },
     // Título em Archivo pesado: alarga ao máximo e cresce a partir da linha de base.
     archivo: { rest: { wght: 800, wdth: 100 }, peak: { wght: 900, wdth: 125 }, radius: 130, size: 1.38, curve: 1.6 },
+    // Nome vertical da lateral: mesmo perfil do título, raio maior.
+    side: { rest: { wght: 800, wdth: 100 }, peak: { wght: 900, wdth: 125 }, radius: 170, size: 1.3, curve: 1.5 },
     // Descrição em Montserrat (sem eixo de largura): afina e aperta, sem perder brilho.
     desc: { rest: { wght: 500 }, peak: { wght: 300 }, track: [0, -0.05], radius: 60, ink: true },
 };

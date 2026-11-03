@@ -2,7 +2,8 @@
  * Catálogo de apps exibido na home.
  *
  * `href: null` = destino ainda não confirmado → CTA desabilitado.
- * `preview: null` = sem material real → placeholder neutro no quadrado.
+ * `preview: null` = sem material real → demonstração animada em SVG
+ * (src/components/landing/demos). Swoovi: o espaço aguarda a exportação do autor.
  *
  * Quando os assets chegarem, coloque-os em /public/apps/ e preencha `preview`, ex.:
  *   preview: { type: "video", src: "/apps/swoovi.mp4", poster: "/apps/swoovi.jpg" }

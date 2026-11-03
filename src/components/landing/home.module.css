@@ -100,6 +100,91 @@
     }
 }
 
+/* Nome da marca: uma palavra por linha. Desktop: vertical, lê de baixo
+   para cima, ocupando a lateral; clicar troca o tema. */
+.side {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: var(--fg);
+    font-family: var(--display-alt);
+    font-weight: 800;
+    font-variation-settings: "wght" 800, "wdth" 100;
+    font-size: clamp(44px, 12vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    white-space: nowrap;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.side:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: 4px;
+}
+
+.sideLine {
+    display: block;
+    padding: 0.03em 0.06em;
+    /* hover: o preenchimento sobe pela palavra e inverte texto/fundo */
+    background: linear-gradient(var(--fg), var(--fg)) no-repeat 0 100% / 100% 0%;
+    transition:
+        background-size 650ms cubic-bezier(0.22, 1, 0.36, 1),
+        color 350ms cubic-bezier(0.22, 1, 0.36, 1) 80ms;
+}
+
+.sideLine:hover {
+    background-size: 100% 100%;
+    color: var(--bg);
+}
+
+/* Sobe e desce bem devagar, cada palavra no seu ritmo. */
+@keyframes sideDrift {
+    from {
+        transform: translateY(calc(var(--amp) * -1));
+    }
+    to {
+        transform: translateY(var(--amp));
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .sideLine {
+        --amp: 0.14em;
+        animation: sideDrift 9s ease-in-out infinite alternate;
+    }
+    .sideLine:nth-child(2) {
+        --amp: 0.11em;
+        animation-duration: 12s;
+        animation-delay: -5s;
+        animation-direction: alternate-reverse;
+    }
+}
+
+.sideText > span > span {
+    display: inline;
+    line-height: 0;
+}
+
+@media (min-width: 1024px) {
+    .panel {
+        --side: calc((100dvh - 48px - 72px) / 6.6);
+    }
+
+    .side {
+        flex: 1 1 auto;
+        min-height: 0;
+        align-self: center;
+        text-align: center;
+        font-size: var(--side);
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+    }
+}
+
 .brand {
     position: relative;
     /* acima do canvas do cubo, que pode se estender ao redor */
@@ -284,39 +369,44 @@ a.row {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    column-gap: 28px;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
     align-items: center;
-    min-height: 128px;
-    padding: 24px 16px 24px 0;
+    padding: 24px 16px 28px 0;
 }
 
 @media (min-width: 1024px) {
     .content {
-        grid-template-columns: 112px minmax(0, 1fr) auto;
-        column-gap: 30px;
-        min-height: 168px;
-        padding: 28px 40px 28px 28px;
+        grid-template-columns: 300px minmax(0, 1fr) auto;
+        column-gap: 48px;
+        row-gap: 0;
+        min-height: 212px;
+        padding: 20px 40px 20px 28px;
     }
 }
 
+/*
+ * Área da demonstração: sem caixa e sem proporção 1:1. Ocupa a coluna
+ * (300 × 170 no desktop); no celular desce para baixo do texto, na largura
+ * disponível. Fica acima do campo térmico: o hover nunca a cobre.
+ */
 .preview {
-    /* acima do campo térmico: o hover nunca cobre a mídia */
     position: relative;
     z-index: 3;
     display: block;
-    width: 72px;
-    height: 72px;
-    overflow: hidden;
-    background: var(--ph);
-    outline: 1px solid var(--rule);
-    outline-offset: -1px;
+    order: 2;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 300 / 170;
 }
 
 @media (min-width: 1024px) {
     .preview {
-        width: 112px;
-        height: 112px;
+        order: 0;
+        width: 300px;
+        max-width: none;
+        height: 170px;
+        aspect-ratio: auto;
     }
 }
 
@@ -332,9 +422,16 @@ a.row {
 .text {
     position: relative;
     z-index: 3;
+    order: 1;
     justify-self: start;
     min-width: 0;
     max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .text {
+        order: 0;
+    }
 }
 
 /*
@@ -427,6 +524,36 @@ a.row {
     transition: color var(--t-out) var(--ease) 200ms;
 }
 
+/* Teste (desktop): no hover o nome ocupa quase toda a altura e boa parte
+   da largura; a descrição se desfaz letra a letra e volta ao sair. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .name {
+        transform-origin: 0 50%;
+        transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+    }
+    .row[data-hot] .name,
+    .row:focus-visible .name {
+        transform: translateY(18px) scale(2.3);
+    }
+    .desc .glyphs > span {
+        display: inline-block;
+        white-space: pre;
+        line-height: 0;
+        transition:
+            opacity 380ms var(--ease) calc(var(--j) * 6ms),
+            transform 520ms var(--ease) calc(var(--j) * 6ms),
+            filter 380ms var(--ease) calc(var(--j) * 6ms);
+    }
+    .row[data-hot] .desc .glyphs > span,
+    .row:focus-visible .desc .glyphs > span {
+        opacity: 0;
+        transform: translateY(-10px);
+        filter: blur(3px);
+        transition-delay: calc(var(--j) * 9ms);
+    }
+}
+
 .cta {
     position: relative;
     z-index: 3;
@@ -506,6 +633,10 @@ a.row {
 .row {
     --c: #ad705a;
     --a: 68%;
+    /* --m (0–1) vem de stripHeat.ts: 0 = faixa colorida, 1 = faixa sólida
+       na cor do tema (branco no escuro, preto no claro) e texto invertido. */
+    --m: 0;
+    --tx: color-mix(in srgb, var(--fg) calc((1 - var(--m)) * 100%), var(--bg));
 }
 
 .row[data-app="burnsh"] {
@@ -566,12 +697,22 @@ a.row {
     left: 0;
     right: 0;
     top: calc(var(--k) * 100% / 24);
-    height: calc(100% / 24);
+    /* 1px de sobreposição: com alturas fracionárias (ex.: 212/24 px) as
+       bordas suavizadas das tiras vizinhas deixavam frestas de fundo. */
+    height: calc(100% / 24 + 1px);
     display: block;
-    background: color-mix(in srgb, var(--c) var(--a), var(--bg));
+    background: color-mix(
+        in srgb,
+        color-mix(in srgb, var(--c) var(--a), var(--bg)) calc((1 - var(--m)) * 100%),
+        var(--fg)
+    );
     /* Abertura/fechamento controlados pela carga da faixa (stripHeat.ts). */
     clip-path: inset(50% 0 50% 0);
     opacity: 0.35;
+}
+
+.strip:last-child {
+    height: calc(100% / 24);
 }
 
 /* Estado ativo — cada faixa decide sozinha (data-hot via ponteiro,
@@ -579,13 +720,23 @@ a.row {
 
 .row[data-hot] .desc,
 .row:focus-visible .desc {
-    color: var(--fg);
+    color: var(--tx);
     transition: color 160ms var(--ease);
 }
 
 .row[data-hot] .arrow,
 .row:focus-visible .arrow {
     transform: translate(4px, -4px);
+}
+
+.row .name,
+.row .cta:not(.ctaDisabled) {
+    color: var(--tx);
+}
+
+.row[data-hot],
+.row:focus-visible {
+    --lens-ink: var(--bg);
 }
 
 /* ------------------------------------------------------------------ */
