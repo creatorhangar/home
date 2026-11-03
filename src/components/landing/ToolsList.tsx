@@ -5,6 +5,7 @@ import { APPS, type CatalogApp } from "@/config/apps";
 import s from "./home.module.css";
 import { attachLens, LENS } from "./titleLens";
 import { attachGooey, GOOEY_FILTER_ID, type Gooey } from "./gooey";
+import { createHeat } from "./stripHeat";
 
 /** Tiras horizontais de cor, por faixa. */
 const STRIPS = 24;
@@ -12,35 +13,24 @@ const STRIPS = 24;
 /** Fonte dos nomes (perfil da lupa). */
 const NAME_FONT = "archivo" as const;
 
-/** Quanto tempo uma faixa "pulada" numa passagem rápida fica acesa. */
-const FLASH_MS = 120;
+/** Impulso de uma faixa atravessada rapidamente (carga parcial, ~0,4). */
+const KICK_MS = 240;
 
-/**
- * Uma faixa tocada (hover ou passagem rápida) abre por completo antes de
- * fechar: a cor sempre chega a aparecer e depois some com o rastro.
- * = tempo até ficar sólida (--t-in + --t-in-stagger no CSS).
- */
-const MIN_HOLD_MS = 820;
+/** O nome só faz o morph quando o mouse para na faixa (não em passagens). */
+const MORPH_DWELL_MS = 220;
 
-const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => {
-    // 0 no centro da faixa, 1 nas bordas: ordena entrada e saída.
-    const edge = Math.abs(k - (STRIPS - 1) / 2) / ((STRIPS - 1) / 2);
-    return {
-        "--k": k,
-        "--e": edge.toFixed(3),
-    } as React.CSSProperties;
-});
+const STRIP_STYLES = Array.from({ length: STRIPS }, (_, k) => ({ "--k": k }) as React.CSSProperties);
 
 /**
  * Catálogo: exatamente uma faixa por app.
  *
- * Cada faixa tem estado próprio (data-hot), escrito direto no DOM, sem
- * índice compartilhado. A transição CSS parte sempre do estado visual
- * atual: reentrada retoma, saída antiga não fecha a faixa sob o mouse.
+ * Cada faixa tem estado próprio, sem índice compartilhado. A cor segue
+ * uma "carga" (stripHeat.ts): sobe com o mouse na faixa, um toque rápido
+ * dá impulso parcial e decai devagar — o rastro vira um dominó em degraus.
  *
  * Numa passagem rápida o navegador pode não amostrar o ponteiro dentro de
  * uma faixa; o segmento entre dois pointermove é checado e as faixas
- * atravessadas acendem por FLASH_MS, deixando o rastro.
+ * atravessadas recebem o impulso.
  */
 export function ToolsList() {
     const listRef = useRef<HTMLUListElement>(null);
@@ -50,8 +40,6 @@ export function ToolsList() {
         if (!list) return;
         const rows = Array.from(list.querySelectorAll<HTMLElement>("[data-row]"));
         const hovered = new Set<HTMLElement>();
-        const flashUntil = new Map<HTMLElement, number>();
-        const timers = new Map<HTMLElement, number>();
         const gooeys = new Map<HTMLElement, Gooey>();
         for (const row of rows) {
             const morph = row.querySelector<HTMLElement>("[data-morph]");
@@ -59,26 +47,17 @@ export function ToolsList() {
         }
         let last: { x: number; y: number } | null = null;
 
-        const hotSince = new Map<HTMLElement, number>();
-        const holdTimers = new Map<HTMLElement, number>();
+        const heat = createHeat(rows);
+        const dwellTimers = new Map<HTMLElement, number>();
+        const dwelling = new Set<HTMLElement>();
 
         const sync = (row: HTMLElement) => {
-            const now = performance.now();
-            const wants = hovered.has(row) || (flashUntil.get(row) ?? 0) > now;
-            const since = hotSince.get(row);
-            const held = since !== undefined && now < since + MIN_HOLD_MS;
-            const hot = wants || held;
-            if (hot && since === undefined) hotSince.set(row, now);
-            if (!hot) hotSince.delete(row);
-            // Saiu antes de abrir por completo: fecha quando terminar de abrir.
-            window.clearTimeout(holdTimers.get(row));
-            if (held && !wants && since !== undefined) {
-                holdTimers.set(row, window.setTimeout(() => sync(row), since + MIN_HOLD_MS - now + 4));
-            }
-            if (hot) row.setAttribute("data-hot", "");
+            const want = hovered.has(row) || row.matches(":focus-visible");
+            heat.setWant(row, want);
+            if (want) row.setAttribute("data-hot", "");
             else row.removeAttribute("data-hot");
-            // minúsculas → maiúsculas (gooey); teclado também conta
-            gooeys.get(row)?.set(hot || row.matches(":focus-visible"));
+            // minúsculas → maiúsculas (gooey): só com o mouse parado ou teclado
+            gooeys.get(row)?.set((hovered.has(row) && dwelling.has(row)) || row.matches(":focus-visible"));
             const video = row.querySelector("video");
             if (video) {
                 if (hovered.has(row) && !reducedMotion()) video.play().catch(() => {});
@@ -87,11 +66,7 @@ export function ToolsList() {
         };
 
         const flash = (row: HTMLElement) => {
-            if (hovered.has(row)) return;
-            flashUntil.set(row, performance.now() + FLASH_MS);
-            window.clearTimeout(timers.get(row));
-            timers.set(row, window.setTimeout(() => sync(row), FLASH_MS + 4));
-            sync(row);
+            if (!hovered.has(row)) heat.kick(row, KICK_MS);
         };
 
         // Faixas que o segmento from→to cruzou (só o trecho dentro da lista).
@@ -147,9 +122,19 @@ export function ToolsList() {
             const enter = (e: PointerEvent) => {
                 if (!isMouse(e)) return;
                 hovered.add(row);
+                window.clearTimeout(dwellTimers.get(row));
+                dwellTimers.set(
+                    row,
+                    window.setTimeout(() => {
+                        dwelling.add(row);
+                        sync(row);
+                    }, MORPH_DWELL_MS),
+                );
                 sync(row);
             };
             const leave = () => {
+                window.clearTimeout(dwellTimers.get(row));
+                dwelling.delete(row);
                 if (!hovered.delete(row)) return;
                 sync(row);
             };
@@ -173,8 +158,8 @@ export function ToolsList() {
             lenses.forEach((c) => c());
             window.removeEventListener("pointermove", onMove);
             document.documentElement.removeEventListener("pointerleave", onWindowLeave);
-            timers.forEach((t) => window.clearTimeout(t));
-            holdTimers.forEach((t) => window.clearTimeout(t));
+            dwellTimers.forEach((t) => window.clearTimeout(t));
+            heat.dispose();
             gooeys.forEach((g) => g.dispose());
         };
     }, []);
@@ -314,7 +299,7 @@ function Thermal() {
     return (
         <span className={s.thermal} aria-hidden="true">
             {STRIP_STYLES.map((style, k) => (
-                <span key={k} className={s.strip} style={style} />
+                <span key={k} className={s.strip} style={style} data-strip="" />
             ))}
         </span>
     );
